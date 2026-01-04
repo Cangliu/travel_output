@@ -15,10 +15,10 @@ jobs:
           html_content=$(jq -r '.html' <<< "${{ github.event.client_payload }}")
           echo "$html_content" > index.html
 
-      - name: Commit and push
+      - name: Force commit and push
         run: |
           git config user.name "AgentOne Bot"
           git config user.email "agentone@users.noreply.github.com"
           git add index.html
-          git commit -m "Deploy by AgentOne"
-          git push
+          git commit -m "Deploy by AgentOne" || echo "No changes to commit, but we're still pushing."
+          git push --force-with-lease
