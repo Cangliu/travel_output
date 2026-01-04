@@ -6,15 +6,20 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # 👈 关键！显式授权写权限
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: false  # 👈 关键！不保存默认凭证
 
       - name: Write HTML to file
         run: |
           echo "${{ github.event.client_payload.html }}" > index.html
 
-      - name: Commit and push with token
+      - name: Commit and push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -22,7 +27,7 @@ jobs:
           git config user.email "agentone@users.noreply.github.com"
           git add index.html
           git commit -m "Deploy by AgentOne" || echo "No changes to commit."
-          
-          # 使用带有 Token 的远程 URL
+
+          # 重新设置带 Token 的远程 URL
           git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/Cangliu/travel_output.git
           git push
