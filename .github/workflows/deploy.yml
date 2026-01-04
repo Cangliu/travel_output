@@ -10,10 +10,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Extract HTML from client_payload
+      - name: Write HTML to file
         run: |
-          html_content=$(jq -r '.html' <<< "${{ github.event.client_payload }}")
-          echo "$html_content" > index.html
+          echo "${{ github.event.client_payload.html }}" > index.html
 
       - name: Force commit and push
         run: |
