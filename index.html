@@ -1,134 +1,328 @@
 <!DOCTYPE html>
-<html lang=zh-CN>
+<html lang=zh>
 <head>
     <meta charset=UTF-8>
     <meta name=viewport content=width=device-width, initial-scale=1.0>
-    <title>三体介绍</title>
+    <title>中国朝代时间轴</title>
     <style>
         body {
-            font-family: 'Microsoft YaHei', Arial, sans-serif;
-            line-height: 1.6;
+            font-family: 'SimSun', serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             margin: 0;
-            padding: 0;
-            background-color: #0a0a1a;
-            color: #e0e0ff;
+            padding: 20px;
+            color: #333;
         }
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
-        }
-        header {
-            text-align: center;
-            padding: 40px 0;
-            background: linear-gradient(135deg, #1a1a3a, #0a0a1a);
-            border-bottom: 2px solid #4a4a8a;
         }
         h1 {
-            font-size: 3em;
-            color: #6a8cff;
-            margin: 0;
-            text-shadow: 0 0 10px rgba(106, 140, 255, 0.5);
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
-        .subtitle {
-            font-size: 1.2em;
-            color: #a0a0d0;
-            margin-top: 10px;
+        .timeline {
+            position: relative;
+            padding: 20px 0;
         }
-        .content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-top: 30px;
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #e74c3c, #3498db);
+            left: 50%;
+            margin-left: -2px;
+            border-radius: 2px;
         }
-        @media (max-width: 768px) {
-            .content {
-                grid-template-columns: 1fr;
-            }
-        }
-        .section {
-            background: rgba(26, 26, 58, 0.7);
-            padding: 25px;
+        .era {
+            position: relative;
+            margin-bottom: 30px;
+            width: 50%;
+            padding: 20px;
+            box-sizing: border-box;
+            background: rgba(255, 255, 255, 0.8);
             border-radius: 10px;
-            border: 1px solid #3a3a6a;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
         }
-        h2 {
-            color: #8a9cff;
-            border-bottom: 1px solid #4a4a8a;
-            padding-bottom: 10px;
+        .era:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+        .era.left {
+            left: 0;
+            float: left;
+            clear: left;
+            margin-right: 50%;
+        }
+        .era.right {
+            left: 50%;
+            float: right;
+            clear: right;
+            margin-left: 50%;
+        }
+        .era h2 {
             margin-top: 0;
+            color: #2980b9;
+            font-size: 1.5em;
         }
-        .book-list {
-            list-style: none;
+        .era .period {
+            font-style: italic;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+        .era .events {
+            list-style-type: none;
             padding: 0;
         }
-        .book-list li {
-            margin: 15px 0;
-            padding: 10px;
-            background: rgba(40, 40, 70, 0.5);
-            border-radius: 5px;
+        .era .events li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
         }
-        .author-info {
-            display: flex;
-            align-items: center;
-            margin-top: 20px;
+        .era .events li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #e74c3c;
+            font-weight: bold;
         }
-        .author-text {
-            margin-left: 15px;
-        }
-        footer {
+        .symbol {
+            font-size: 2em;
             text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-            border-top: 1px solid #3a3a6a;
-            color: #8080b0;
+            margin: 10px 0;
+            color: #e74c3c;
+        }
+        @media (max-width: 768px) {
+            .era {
+                width: 100%;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                float: none;
+                padding-left: 40px;
+            }
+            .timeline::before {
+                left: 20px;
+            }
+        }
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            color: #7f8c8d;
+            font-size: 0.9em;
         }
     </style>
 </head>
 <body>
     <div class=container>
-        <header>
-            <h1>三体</h1>
-            <div class=subtitle>中国科幻文学的里程碑之作</div>
-        </header>
-        
-        <div class=content>
-            <div class=section>
-                <h2>作品简介</h2>
-                <p>《三体》是刘慈欣创作的长篇科幻小说系列，被誉为中国科幻文学的里程碑之作，引领中国科幻走向世界舞台。</p>
-                <p>该系列由《三体》、《三体2:黑暗森林》、《三体3:死神永生》三部曲组成，讲述了地球人类文明和三体文明的信息交流、生死搏杀及两个文明在宇宙中的兴衰历程。</p>
-                
-                <h3>系列构成</h3>
-                <ul class=book-list>
-                    <li><strong>《三体》</strong> - 2006年5月首次连载，讲述了文革时期科学家叶文洁向宇宙发出信号，引来了三体文明的故事。</li>
-                    <li><strong>《三体2:黑暗森林》</strong> - 2008年5月首次出版，提出了著名的黑暗森林法则，描述了人类为应对三体危机而制定的面壁计划。</li>
-                    <li><strong>《三体3:死神永生》</strong> - 2010年11月出版，讲述了地球人类为拯救全人类的危机，联合其他两个文明一起向三体星发起进攻的宏大故事。</li>
+        <h1>中国朝代时间轴</h1>
+        <div class=timeline>
+            <div class=era left>
+                <div class=symbol>☀️</div>
+                <h2>夏朝</h2>
+                <div class=period>约公元前2070年 - 公元前1600年</div>
+                <ul class=events>
+                    <li>中国历史上第一个世袭制朝代</li>
+                    <li>大禹治水，建立夏朝</li>
+                    <li>二里头文化可能与夏朝有关</li>
                 </ul>
             </div>
             
-            <div class=section>
-                <h2>作者介绍</h2>
-                <div class=author-info>
-                    <div class=author-text>
-                        <p><strong>刘慈欣</strong>，中国著名科幻作家，凭借《三体》荣获2015年第73届世界科幻大会雨果奖，成为亚洲首位获此殊荣的作家。</p>
-                        <p>刘慈欣出生于1963年6月，山西阳泉人，本科学历，高级工程师。他结合自身作为电力系统高级工程师的专业背景，将天体物理学、计算机科学等学科知识融入作品中。</p>
-                        <p>《三体》系列最初于2006年5月在《科幻世界》杂志连载，2011年三部曲全部完成。作品灵感源于文化大革命历史事件与费米悖论的结合思考。</p>
-                    </div>
-                </div>
-                
-                <h3>主要成就</h3>
-                <ul>
-                    <li>2015年凭借《三体》获得第73届雨果奖最佳长篇小说奖</li>
-                    <li>成为中国科幻文学走向世界的标志性人物</li>
-                    <li>作品被翻译成多种语言，在全球范围内广受好评</li>
-                    <li>2022年12月5日，重庆出版社推出三部曲十六周年全新升级版</li>
+            <div class=era right>
+                <div class=symbol>🌙</div>
+                <h2>商朝</h2>
+                <div class=period>约公元前1600年 - 公元前1046年</div>
+                <ul class=events>
+                    <li>甲骨文的出现，中国最早的文字系统</li>
+                    <li>青铜器制作达到高峰</li>
+                    <li>盘庚迁殷，商朝中期重要事件</li>
+                </ul>
+            </div>
+            
+            <div class=era left>
+                <div class=symbol>⚔️</div>
+                <h2>周朝</h2>
+                <div class=period>公元前1046年 - 公元前256年</div>
+                <ul class=events>
+                    <li>分为西周和东周两个时期</li>
+                    <li>东周又分为春秋和战国时期</li>
+                    <li>百家争鸣，思想文化繁荣</li>
+                    <li>分封制和宗法制的确立</li>
+                </ul>
+            </div>
+            
+            <div class=era right>
+                <div class=symbol>🐉</div>
+                <h2>秦朝</h2>
+                <div class=period>公元前221年 - 公元前206年</div>
+                <ul class=events>
+                    <li>中国历史上第一个统一的中央集权制国家</li>
+                    <li>秦始皇统一六国，建立皇帝制度</li>
+                    <li>统一文字、度量衡、货币</li>
+                    <li>修建万里长城和兵马俑</li>
+                </ul>
+            </div>
+            
+            <div class=era left>
+                <div class=symbol>🌾</div>
+                <h2>汉朝</h2>
+                <div class=period>公元前202年 - 公元220年</div>
+                <ul class=events>
+                    <li>分为西汉和东汉两个时期</li>
+                    <li>汉武帝时期达到鼎盛，开辟丝绸之路</li>
+                    <li>儒家思想成为官方意识形态</li>
+                    <li>造纸术的发明</li>
+                </ul>
+            </div>
+            
+            <div class=era right>
+                <div class=symbol>⚔️</div>
+                <h2>三国</h2>
+                <div class=period>公元220年 - 公元280年</div>
+                <ul class=events>
+                    <li>魏、蜀、吴三国鼎立</li>
+                    <li>赤壁之战奠定三国格局</li>
+                    <li>诸葛亮、曹操等历史人物活跃</li>
+                </ul>
+            </div>
+            
+            <div class=era left>
+                <div class=symbol>🏯</div>
+                <h2>晋朝</h2>
+                <div class=period>公元265年 - 公元420年</div>
+                <ul class=events>
+                    <li>分为西晋和东晋</li>
+                    <li>西晋短暂统一中国</li>
+                    <li>东晋南迁，北方进入五胡十六国时期</li>
+                </ul>
+            </div>
+            
+            <div class=era right>
+                <div class=symbol>🐎</div>
+                <h2>南北朝</h2>
+                <div class=period>公元420年 - 公元589年</div>
+                <ul class=events>
+                    <li>南朝包括宋、齐、梁、陈</li>
+                    <li>北朝包括北魏、东魏、西魏、北齐、北周</li>
+                    <li>佛教广泛传播</li>
+                    <li>民族大融合时期</li>
+                </ul>
+            </div>
+            
+            <div class=era left>
+                <div class=symbol>🏯</div>
+                <h2>隋朝</h2>
+                <div class=period>公元581年 - 公元618年</div>
+                <ul class=events>
+                    <li>隋文帝统一中国</li>
+                    <li>开凿大运河</li>
+                    <li>创立科举制度</li>
+                    <li>短暂但影响深远的朝代</li>
+                </ul>
+            </div>
+            
+            <div class=era right>
+                <div class=symbol>🌸</div>
+                <h2>唐朝</h2>
+                <div class=period>公元618年 - 公元907年</div>
+                <ul class=events>
+                    <li>中国封建社会的鼎盛时期</li>
+                    <li>贞观之治、开元盛世</li>
+                    <li>诗歌、艺术、科技高度发展</li>
+                    <li>长安成为国际大都市</li>
+                </ul>
+            </div>
+            
+            <div class=era left>
+                <div class=symbol>⚔️</div>
+                <h2>五代十国</h2>
+                <div class=period>公元907年 - 公元960年</div>
+                <ul class=events>
+                    <li>中原地区先后出现五个朝代</li>
+                    <li>南方和山西出现十个割据政权</li>
+                    <li>政治分裂，战乱频繁</li>
+                </ul>
+            </div>
+            
+            <div class=era right>
+                <div class=symbol>🏯</div>
+                <h2>宋朝</h2>
+                <div class=period>公元960年 - 公元1279年</div>
+                <ul class=events>
+                    <li>分为北宋和南宋</li>
+                    <li>经济、科技、文化高度发达</li>
+                    <li>活字印刷、指南针、火药广泛应用</li>
+                    <li>与辽、金、西夏、蒙古长期对峙</li>
+                </ul>
+            </div>
+            
+            <div class=era left>
+                <div class=symbol>🐎</div>
+                <h2>元朝</h2>
+                <div class=period>公元1271年 - 公元1368年</div>
+                <ul class=events>
+                    <li>蒙古族建立的统一王朝</li>
+                    <li>成吉思汗的孙子忽必烈建立</li>
+                    <li>疆域空前辽阔</li>
+                    <li>行省制度的确立</li>
+                </ul>
+            </div>
+            
+            <div class=era right>
+                <div class=symbol>🏯</div>
+                <h2>明朝</h2>
+                <div class=period>公元1368年 - 公元1644年</div>
+                <ul class=events>
+                    <li>朱元璋建立，推翻元朝统治</li>
+                    <li>郑和下西洋</li>
+                    <li>修筑明长城</li>
+                    <li>资本主义萌芽出现</li>
+                </ul>
+            </div>
+            
+            <div class=era left>
+                <div class=symbol>🐉</div>
+                <h2>清朝</h2>
+                <div class=period>公元1644年 - 公元1912年</div>
+                <ul class=events>
+                    <li>满族建立的最后一个封建王朝</li>
+                    <li>康乾盛世</li>
+                    <li>鸦片战争后逐渐沦为半殖民地半封建社会</li>
+                    <li>辛亥革命推翻清朝统治</li>
+                </ul>
+            </div>
+            
+            <div class=era right>
+                <div class=symbol>🇨🇳</div>
+                <h2>中华民国</h2>
+                <div class=period>公元1912年 - 公元1949年</div>
+                <ul class=events>
+                    <li>亚洲第一个民主共和国</li>
+                    <li>五四运动，新文化运动</li>
+                    <li>抗日战争</li>
+                    <li>国共内战</li>
+                </ul>
+            </div>
+            
+            <div class=era left>
+                <div class=symbol>🇨🇳</div>
+                <h2>中华人民共和国</h2>
+                <div class=period>公元1949年 - 至今</div>
+                <ul class=events>
+                    <li>1949年10月1日成立</li>
+                    <li>改革开放政策（1978年）</li>
+                    <li>经济快速发展，成为世界第二大经济体</li>
+                    <li>中国特色社会主义新时代</li>
                 </ul>
             </div>
         </div>
-        
-        <footer>
-            <p>三体介绍网页 | 基于网络检索信息制作</p>
-        </footer>
+        <div class=footer>
+            <p>中国五千年文明史 · 朝代更迭时间轴</p>
+        </div>
     </div>
 </body>
 </html>
