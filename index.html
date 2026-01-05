@@ -1,328 +1,40 @@
 <!DOCTYPE html>
-<html lang=zh>
+<html lang=zh-CN>
 <head>
     <meta charset=UTF-8>
     <meta name=viewport content=width=device-width, initial-scale=1.0>
-    <title>中国朝代时间轴</title>
+    <title>欢迎页面</title>
     <style>
         body {
-            font-family: 'SimSun', serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             margin: 0;
-            padding: 20px;
-            color: #333;
         }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+        .welcome-container {
+            text-align: center;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         h1 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 40px;
-            font-size: 2.5em;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            color: #333;
+            margin-bottom: 1rem;
         }
-        .timeline {
-            position: relative;
-            padding: 20px 0;
-        }
-        .timeline::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: linear-gradient(to bottom, #e74c3c, #3498db);
-            left: 50%;
-            margin-left: -2px;
-            border-radius: 2px;
-        }
-        .era {
-            position: relative;
-            margin-bottom: 30px;
-            width: 50%;
-            padding: 20px;
-            box-sizing: border-box;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-        .era:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-        }
-        .era.left {
-            left: 0;
-            float: left;
-            clear: left;
-            margin-right: 50%;
-        }
-        .era.right {
-            left: 50%;
-            float: right;
-            clear: right;
-            margin-left: 50%;
-        }
-        .era h2 {
-            margin-top: 0;
-            color: #2980b9;
-            font-size: 1.5em;
-        }
-        .era .period {
-            font-style: italic;
-            color: #7f8c8d;
-            margin-bottom: 10px;
-        }
-        .era .events {
-            list-style-type: none;
-            padding: 0;
-        }
-        .era .events li {
-            margin-bottom: 8px;
-            padding-left: 20px;
-            position: relative;
-        }
-        .era .events li::before {
-            content: '•';
-            position: absolute;
-            left: 0;
-            color: #e74c3c;
-            font-weight: bold;
-        }
-        .symbol {
-            font-size: 2em;
-            text-align: center;
-            margin: 10px 0;
-            color: #e74c3c;
-        }
-        @media (max-width: 768px) {
-            .era {
-                width: 100%;
-                margin-left: 0 !important;
-                margin-right: 0 !important;
-                float: none;
-                padding-left: 40px;
-            }
-            .timeline::before {
-                left: 20px;
-            }
-        }
-        .footer {
-            text-align: center;
-            margin-top: 60px;
-            color: #7f8c8d;
-            font-size: 0.9em;
+        p {
+            color: #666;
+            font-size: 1.2rem;
         }
     </style>
 </head>
 <body>
-    <div class=container>
-        <h1>中国朝代时间轴</h1>
-        <div class=timeline>
-            <div class=era left>
-                <div class=symbol>☀️</div>
-                <h2>夏朝</h2>
-                <div class=period>约公元前2070年 - 公元前1600年</div>
-                <ul class=events>
-                    <li>中国历史上第一个世袭制朝代</li>
-                    <li>大禹治水，建立夏朝</li>
-                    <li>二里头文化可能与夏朝有关</li>
-                </ul>
-            </div>
-            
-            <div class=era right>
-                <div class=symbol>🌙</div>
-                <h2>商朝</h2>
-                <div class=period>约公元前1600年 - 公元前1046年</div>
-                <ul class=events>
-                    <li>甲骨文的出现，中国最早的文字系统</li>
-                    <li>青铜器制作达到高峰</li>
-                    <li>盘庚迁殷，商朝中期重要事件</li>
-                </ul>
-            </div>
-            
-            <div class=era left>
-                <div class=symbol>⚔️</div>
-                <h2>周朝</h2>
-                <div class=period>公元前1046年 - 公元前256年</div>
-                <ul class=events>
-                    <li>分为西周和东周两个时期</li>
-                    <li>东周又分为春秋和战国时期</li>
-                    <li>百家争鸣，思想文化繁荣</li>
-                    <li>分封制和宗法制的确立</li>
-                </ul>
-            </div>
-            
-            <div class=era right>
-                <div class=symbol>🐉</div>
-                <h2>秦朝</h2>
-                <div class=period>公元前221年 - 公元前206年</div>
-                <ul class=events>
-                    <li>中国历史上第一个统一的中央集权制国家</li>
-                    <li>秦始皇统一六国，建立皇帝制度</li>
-                    <li>统一文字、度量衡、货币</li>
-                    <li>修建万里长城和兵马俑</li>
-                </ul>
-            </div>
-            
-            <div class=era left>
-                <div class=symbol>🌾</div>
-                <h2>汉朝</h2>
-                <div class=period>公元前202年 - 公元220年</div>
-                <ul class=events>
-                    <li>分为西汉和东汉两个时期</li>
-                    <li>汉武帝时期达到鼎盛，开辟丝绸之路</li>
-                    <li>儒家思想成为官方意识形态</li>
-                    <li>造纸术的发明</li>
-                </ul>
-            </div>
-            
-            <div class=era right>
-                <div class=symbol>⚔️</div>
-                <h2>三国</h2>
-                <div class=period>公元220年 - 公元280年</div>
-                <ul class=events>
-                    <li>魏、蜀、吴三国鼎立</li>
-                    <li>赤壁之战奠定三国格局</li>
-                    <li>诸葛亮、曹操等历史人物活跃</li>
-                </ul>
-            </div>
-            
-            <div class=era left>
-                <div class=symbol>🏯</div>
-                <h2>晋朝</h2>
-                <div class=period>公元265年 - 公元420年</div>
-                <ul class=events>
-                    <li>分为西晋和东晋</li>
-                    <li>西晋短暂统一中国</li>
-                    <li>东晋南迁，北方进入五胡十六国时期</li>
-                </ul>
-            </div>
-            
-            <div class=era right>
-                <div class=symbol>🐎</div>
-                <h2>南北朝</h2>
-                <div class=period>公元420年 - 公元589年</div>
-                <ul class=events>
-                    <li>南朝包括宋、齐、梁、陈</li>
-                    <li>北朝包括北魏、东魏、西魏、北齐、北周</li>
-                    <li>佛教广泛传播</li>
-                    <li>民族大融合时期</li>
-                </ul>
-            </div>
-            
-            <div class=era left>
-                <div class=symbol>🏯</div>
-                <h2>隋朝</h2>
-                <div class=period>公元581年 - 公元618年</div>
-                <ul class=events>
-                    <li>隋文帝统一中国</li>
-                    <li>开凿大运河</li>
-                    <li>创立科举制度</li>
-                    <li>短暂但影响深远的朝代</li>
-                </ul>
-            </div>
-            
-            <div class=era right>
-                <div class=symbol>🌸</div>
-                <h2>唐朝</h2>
-                <div class=period>公元618年 - 公元907年</div>
-                <ul class=events>
-                    <li>中国封建社会的鼎盛时期</li>
-                    <li>贞观之治、开元盛世</li>
-                    <li>诗歌、艺术、科技高度发展</li>
-                    <li>长安成为国际大都市</li>
-                </ul>
-            </div>
-            
-            <div class=era left>
-                <div class=symbol>⚔️</div>
-                <h2>五代十国</h2>
-                <div class=period>公元907年 - 公元960年</div>
-                <ul class=events>
-                    <li>中原地区先后出现五个朝代</li>
-                    <li>南方和山西出现十个割据政权</li>
-                    <li>政治分裂，战乱频繁</li>
-                </ul>
-            </div>
-            
-            <div class=era right>
-                <div class=symbol>🏯</div>
-                <h2>宋朝</h2>
-                <div class=period>公元960年 - 公元1279年</div>
-                <ul class=events>
-                    <li>分为北宋和南宋</li>
-                    <li>经济、科技、文化高度发达</li>
-                    <li>活字印刷、指南针、火药广泛应用</li>
-                    <li>与辽、金、西夏、蒙古长期对峙</li>
-                </ul>
-            </div>
-            
-            <div class=era left>
-                <div class=symbol>🐎</div>
-                <h2>元朝</h2>
-                <div class=period>公元1271年 - 公元1368年</div>
-                <ul class=events>
-                    <li>蒙古族建立的统一王朝</li>
-                    <li>成吉思汗的孙子忽必烈建立</li>
-                    <li>疆域空前辽阔</li>
-                    <li>行省制度的确立</li>
-                </ul>
-            </div>
-            
-            <div class=era right>
-                <div class=symbol>🏯</div>
-                <h2>明朝</h2>
-                <div class=period>公元1368年 - 公元1644年</div>
-                <ul class=events>
-                    <li>朱元璋建立，推翻元朝统治</li>
-                    <li>郑和下西洋</li>
-                    <li>修筑明长城</li>
-                    <li>资本主义萌芽出现</li>
-                </ul>
-            </div>
-            
-            <div class=era left>
-                <div class=symbol>🐉</div>
-                <h2>清朝</h2>
-                <div class=period>公元1644年 - 公元1912年</div>
-                <ul class=events>
-                    <li>满族建立的最后一个封建王朝</li>
-                    <li>康乾盛世</li>
-                    <li>鸦片战争后逐渐沦为半殖民地半封建社会</li>
-                    <li>辛亥革命推翻清朝统治</li>
-                </ul>
-            </div>
-            
-            <div class=era right>
-                <div class=symbol>🇨🇳</div>
-                <h2>中华民国</h2>
-                <div class=period>公元1912年 - 公元1949年</div>
-                <ul class=events>
-                    <li>亚洲第一个民主共和国</li>
-                    <li>五四运动，新文化运动</li>
-                    <li>抗日战争</li>
-                    <li>国共内战</li>
-                </ul>
-            </div>
-            
-            <div class=era left>
-                <div class=symbol>🇨🇳</div>
-                <h2>中华人民共和国</h2>
-                <div class=period>公元1949年 - 至今</div>
-                <ul class=events>
-                    <li>1949年10月1日成立</li>
-                    <li>改革开放政策（1978年）</li>
-                    <li>经济快速发展，成为世界第二大经济体</li>
-                    <li>中国特色社会主义新时代</li>
-                </ul>
-            </div>
-        </div>
-        <div class=footer>
-            <p>中国五千年文明史 · 朝代更迭时间轴</p>
-        </div>
+    <div class=welcome-container>
+        <h1>欢迎访问！</h1>
+        <p>这是一个简单的欢迎网页</p>
     </div>
 </body>
 </html>
