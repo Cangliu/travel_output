@@ -15,11 +15,31 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           persist-credentials: false
 
-      - name: Write HTML and CSS to files
+      # 👇 关键：先保存原始事件用于调试
+      - name: Save event for debugging
         run: |
-          printf '%s' "${{ github.event.client_payload.html }}" > index.html
-          if [ -n "${{ github.event.client_payload.css }}" ]; then
-            printf '%s' "${{ github.event.client.payload.css }}" > style.css
+          cp $GITHUB_EVENT_PATH ./event.json
+          cat ./event.json
+
+      # 👇 安全写入：只有非空才写
+      - name: Write HTML and CSS
+        run: |
+          HTML_CONTENT="${{ github.event.client_payload.html }}"
+          CSS_CONTENT="${{ github.event.client_payload.css }}"
+
+          if [ -n "$HTML_CONTENT" ]; then
+            printf '%s' "$HTML_CONTENT" > index.html
+            echo "✅ Wrote index.html ($(wc -c < index.html) bytes)"
+          else
+            echo "❌ ERROR: html field is empty or missing!"
+            exit 1
+          fi
+
+          if [ -n "$CSS_CONTENT" ]; then
+            printf '%s' "$CSS_CONTENT" > style.css
+            echo "✅ Wrote style.css ($(wc -c < style.css) bytes)"
+          else
+            echo "⚠️ css field is empty (optional, skipping)"
           fi
 
       - name: Commit and push
