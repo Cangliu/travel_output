@@ -15,15 +15,12 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           persist-credentials: false
 
-      - name: Write HTML to file
+      - name: Write HTML and CSS to files
         run: |
-          echo "${{ github.event.client_payload.html }}" > index.html
-
-      # 👇 新增：写入 CSS（可选）
-      - name: Write CSS to file
-        if: ${{ github.event.client_payload.css != '' }}
-        run: |
-          echo "${{ github.event.client_payload.css }}" > style.css
+          printf '%s' "${{ github.event.client_payload.html }}" > index.html
+          if [ -n "${{ github.event.client_payload.css }}" ]; then
+            printf '%s' "${{ github.event.client.payload.css }}" > style.css
+          fi
 
       - name: Commit and push
         env:
