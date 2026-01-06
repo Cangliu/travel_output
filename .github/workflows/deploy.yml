@@ -15,32 +15,23 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           persist-credentials: false
 
-      # 👇 关键：先保存原始事件用于调试
-      - name: Save event for debugging
+      # ✅ 关键：通过 env 安全注入多行内容
+      - name: Write HTML and CSS safely
+        env:
+          HTML_CONTENT: ${{ github.event.client_payload.html }}
+          CSS_CONTENT: ${{ github.event.client_payload.css }}
         run: |
-          cp $GITHUB_EVENT_PATH ./event.json
-          cat ./event.json
-
-      # 👇 安全写入：只有非空才写
-      - name: Write HTML and CSS
-        run: |
-          HTML_CONTENT="${{ github.event.client_payload.html }}"
-          CSS_CONTENT="${{ github.event.client_payload.css }}"
-
-          if [ -n "$HTML_CONTENT" ]; then
-            printf '%s' "$HTML_CONTENT" > index.html
-            echo "✅ Wrote index.html ($(wc -c < index.html) bytes)"
-          else
+          if [ -z "$HTML_CONTENT" ]; then
             echo "❌ ERROR: html field is empty or missing!"
             exit 1
           fi
 
-          if [ -n "$CSS_CONTENT" ]; then
-            printf '%s' "$CSS_CONTENT" > style.css
-            echo "✅ Wrote style.css ($(wc -c < style.css) bytes)"
-          else
-            echo "⚠️ css field is empty (optional, skipping)"
-          fi
+          # 使用 here-string 写入（最安全）
+          cat <<< "$HTML_CONTENT" > index.html
+          cat <<< "$CSS_CONTENT" > style.css
+
+          echo "✅ Wrote index.html ($(wc -c < index.html) bytes)"
+          echo "✅ Wrote style.css ($(wc -c < style.css) bytes)"
 
       - name: Commit and push
         env:
@@ -48,7 +39,7 @@ jobs:
         run: |
           git config user.name "AgentOne Bot"
           git config user.email "agentone@users.noreply.github.com"
-          git add index.html style.css 2>/dev/null || true
-          git commit -m "Deploy by AgentOne" || echo "No changes to commit."
+          git add index.html style.css
+          git commit -m "Deploy by AgentOne"
           git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/Cangliu/travel_output.git
           git push
