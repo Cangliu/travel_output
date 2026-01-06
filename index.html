@@ -4,50 +4,398 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>云南大理-丽江5日深度游</title>
+    <style>
+        :root {
+            --bg-light: radial-gradient(circle, #e0f7fa, #80deea);
+            --bg-dark: radial-gradient(circle, #1a1a2e, #16213e);
+            --text-light: #333333;
+            --text-dark: #e0e0e0;
+            --card-bg-light: #ffffff;
+            --card-bg-dark: #1e1e1e;
+            --border-light: #e0e0e0;
+            --border-dark: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 960px;
+            margin: 0 auto;
+            background: var(--bg-light);
+            color: var(--text-light);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: var(--bg-dark);
+                color: var(--text-dark);
+            }
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 2.2em;
+            margin: 16px 0;
+            font-weight: 700;
+            color: #1a73e8;
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+
+        .cover {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            gap: 16px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #1a73e8;
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid #1a73e8;
+        }
+
+        nav a:hover {
+            background-color: #1a73e8;
+            color: white;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section:target {
+            display: block;
+        }
+
+        #itinerary:target ~ #tips,
+        #itinerary:target ~ #budget {
+            display: none;
+        }
+
+        #tips:target ~ #itinerary,
+        #tips:target ~ #budget {
+            display: none;
+        }
+
+        #budget:target ~ #itinerary,
+        #budget:target ~ #tips {
+            display: none;
+        }
+
+        .day-card {
+            perspective: 1000px;
+            margin: 20px 0;
+            height: 300px;
+        }
+
+        .day-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+
+        .day-card:hover .day-inner {
+            transform: rotateY(180deg);
+        }
+
+        .day-front, .day-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .day-front {
+            background: var(--card-bg-light);
+            border: 1px solid var(--border-light);
+            color: var(--text-light);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .day-front {
+                background: var(--card-bg-dark);
+                border: 1px solid var(--border-dark);
+                color: var(--text-dark);
+            }
+        }
+
+        .day-back {
+            background: var(--card-bg-light);
+            border: 1px solid var(--border-light);
+            color: var(--text-light);
+            transform: rotateY(180deg);
+            overflow-y: auto;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .day-back {
+                background: var(--card-bg-dark);
+                border: 1px solid var(--border-dark);
+                color: var(--text-dark);
+            }
+        }
+
+        .day-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        .day-title {
+            font-size: 1.4em;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .day-back ul {
+            list-style-type: none;
+            padding: 0;
+            width: 100%;
+        }
+
+        .day-back li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .day-back li {
+                border-bottom: 1px solid var(--border-dark);
+            }
+        }
+
+        .budget-container {
+            margin: 24px 0;
+        }
+
+        .budget-item {
+            margin: 12px 0;
+        }
+
+        .budget-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+
+        .budget-bar {
+            height: 24px;
+            border-radius: 12px;
+            background: linear-gradient(to right, #4db6ac, #80deea);
+        }
+
+        .budget-bar:nth-child(2n) {
+            background: linear-gradient(to right, #ff8a65, #ffcc80);
+        }
+
+        .budget-bar:nth-child(3n) {
+            background: linear-gradient(to right, #9575cd, #b39ddb);
+        }
+
+        .budget-bar:nth-child(4n) {
+            background: linear-gradient(to right, #4dd0e1, #81d4fa);
+        }
+
+        .weather-advice {
+            background: var(--card-bg-light);
+            padding: 16px;
+            border-radius: 12px;
+            margin: 24px 0;
+            border-left: 4px solid #ffc107;
+            border: 1px solid var(--border-light);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .weather-advice {
+                background: var(--card-bg-dark);
+                border: 1px solid var(--border-dark);
+            }
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-light);
+            opacity: 0.7;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            footer {
+                border-top: 1px solid var(--border-dark);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .day-card {
+                height: 250px;
+            }
+
+            .day-front, .day-back {
+                padding: 15px;
+            }
+
+            .day-image {
+                height: 120px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
         <h1>云南大理-丽江5日深度游</h1>
-        <p class="subtitle">苍山洱海 · 古城慢生活 · 玉龙雪山</p>
+        <div class="subtitle">苍山洱海 · 古城慢生活 · 玉龙雪山</div>
         <img src="https://example.com/cover-image.jpg" alt="云南大理-丽江风景" class="cover">
     </header>
-    
+
+    <nav>
+        <a href="#itinerary">行程</a>
+        <a href="#tips">贴士</a>
+        <a href="#budget">预算</a>
+    </nav>
+
     <main>
-        <section class="day">
-            <h2>第1天：抵达大理·洱海西岸骑行</h2>
-            <img src="https://example.com/day1.jpg" alt="洱海西岸骑行" class="day-image">
-            <ul>
-                <li>下午：入住洱海民宿</li>
-                <li>傍晚：环海西路骑行，打卡S弯</li>
-            </ul>
-            <div class="tips">洱海边风大，注意保暖</div>
+        <section id="itinerary" class="section">
+            <div class="day-card">
+                <div class="day-inner">
+                    <div class="day-front">
+                        <div class="day-title">第1天：抵达大理·洱海西岸骑行</div>
+                        <img src="https://example.com/day1.jpg" alt="洱海西岸" class="day-image">
+                    </div>
+                    <div class="day-back">
+                        <ul>
+                            <li>下午：入住洱海民宿</li>
+                            <li>傍晚：环海西路骑行，打卡S弯</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="day-card">
+                <div class="day-inner">
+                    <div class="day-front">
+                        <div class="day-title">第2天：苍山徒步 & 大理古城夜游</div>
+                        <img src="https://example.com/day2.jpg" alt="苍山与大理古城" class="day-image">
+                    </div>
+                    <div class="day-back">
+                        <ul>
+                            <li>上午：感通索道上苍山</li>
+                            <li>晚上：人民路逛手作店，听民谣</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </section>
-        
-        <section class="day">
-            <h2>第2天：苍山徒步 & 大理古城夜游</h2>
-            <img src="https://example.com/day2.jpg" alt="苍山徒步" class="day-image">
-            <ul>
-                <li>上午：感通索道上苍山</li>
-                <li>晚上：人民路逛手作店，听民谣</li>
-            </ul>
-            <div class="tips">苍山海拔较高，做好高原反应预防</div>
+
+        <section id="tips" class="section">
+            <div class="weather-advice">
+                <h3>天气建议</h3>
+                <p>冬季出行，请关注当地天气预报，带好保暖衣物。</p>
+            </div>
+            <div class="tips-section">
+                <h3>实用贴士</h3>
+                <div class="tip-item">
+                    <h4>第1天贴士</h4>
+                    <p>洱海边风大，注意保暖</p>
+                </div>
+                <div class="tip-item">
+                    <h4>第2天贴士</h4>
+                    <p>苍山海拔较高，做好高原反应预防</p>
+                </div>
+            </div>
         </section>
-        
-        <section class="budget">
+
+        <section id="budget" class="section">
             <h2>预算明细</h2>
-            <ul>
-                <li>住宿: 2000 CNY</li>
-                <li>交通: 800 CNY</li>
-                <li>餐饮: 1000 CNY</li>
-                <li>门票: 400 CNY</li>
-                <li>其他: 200 CNY</li>
-            </ul>
+            <div class="budget-container">
+                <div class="budget-item">
+                    <div class="budget-label">
+                        <span>住宿</span>
+                        <span>2000 CNY</span>
+                    </div>
+                    <div class="budget-bar" style="width: 100%;"></div>
+                </div>
+                <div class="budget-item">
+                    <div class="budget-label">
+                        <span>交通</span>
+                        <span>800 CNY</span>
+                    </div>
+                    <div class="budget-bar" style="width: 40%;"></div>
+                </div>
+                <div class="budget-item">
+                    <div class="budget-label">
+                        <span>餐饮</span>
+                        <span>1000 CNY</span>
+                    </div>
+                    <div class="budget-bar" style="width: 50%;"></div>
+                </div>
+                <div class="budget-item">
+                    <div class="budget-label">
+                        <span>门票</span>
+                        <span>400 CNY</span>
+                    </div>
+                    <div class="budget-bar" style="width: 20%;"></div>
+                </div>
+                <div class="budget-item">
+                    <div class="budget-label">
+                        <span>其他</span>
+                        <span>200 CNY</span>
+                    </div>
+                    <div class="budget-bar" style="width: 10%;"></div>
+                </div>
+            </div>
         </section>
-        
-        <div class="weather-advice">
-            <h3>天气建议</h3>
-            <p>冬季出行，请关注当地天气预报，带好保暖衣物。</p>
-        </div>
     </main>
+
+    <footer>
+        <p>© 2026 云南大理-丽江5日深度游攻略</p>
+    </footer>
+
+    <script>
+        // 默认显示行程
+        document.getElementById('itinerary').classList.add('section');
+        document.getElementById('itinerary').style.display = 'block';
+    </script>
 </body>
 </html>
