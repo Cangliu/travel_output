@@ -1,885 +1,1530 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>春日亚布力·情侣森林秘境五日漫游</title>
   <style>
-    :root {
-      --primary-h: 140;
-      --primary-color: hsl(var(--primary-h), 60%, 45%);
-      --primary-light: hsl(var(--primary-h), 70%, 90%);
-      --primary-dark: hsl(var(--primary-h), 50%, 25%);
-      --bg-gradient: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
-      --card-bg: rgba(255,255,255,0.15);
-      --glass-blur: blur(20px);
-    }
+:root {
+  --primary-h: 140; /* 春:140绿 夏:200蓝 秋:30橙 冬:210冰蓝 */
+  --primary-color: hsl(var(--primary-h), 60%, 45%);
+  --primary-light: hsl(var(--primary-h), 70%, 90%);
+  --primary-dark: hsl(var(--primary-h), 50%, 25%);
+  --bg-gradient: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+  --card-bg: rgba(255,255,255,0.15);
+  --glass-blur: blur(20px);
+}
 
-    body {
-      background: var(--bg-gradient);
-      background-attachment: fixed;
-      min-height: 100vh;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      color: #fff;
-    }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* 季节粒子容器 */
-    #particles-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
-      overflow: hidden;
-    }
+body {
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  min-height: 100vh;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: #fff;
+  line-height: 1.6;
+}
 
-    /* 粒子基础样式 */
-    .particle {
-      position: absolute;
-      pointer-events: none;
-      animation: fall linear infinite;
-    }
+#particles-container {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
 
-    /* 樱花 */
-    .season-spring .particle { background: #ffb7c5; border-radius: 50% 0; }
+.particle {
+  position: absolute;
+  pointer-events: none;
+  animation: fall linear infinite;
+}
 
-    @keyframes fall {
-      0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(110vh) rotate(360deg); opacity: 0.3; }
-    }
+.season-spring .particle { background: #ffb7c5; border-radius: 50% 0; width: 10px; height: 10px; }
+.season-summer .particle { background: gold; border-radius: 50%; box-shadow: 0 0 10px gold; }
+.season-autumn .particle { background: #d4740f; border-radius: 30% 70%; }
+.season-winter .particle { background: #fff; border-radius: 50%; }
 
-    /* 毛玻璃卡片 */
-    .card {
-      background: var(--card-bg);
-      backdrop-filter: var(--glass-blur);
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 16px;
-      padding: 1.5rem;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
+@keyframes fall {
+  0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(360deg); opacity: 0.3; }
+}
 
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    }
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  position: relative;
+  z-index: 2;
+}
 
-    /* 卡片详情层 */
-    .card-detail {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: linear-gradient(transparent, rgba(0,0,0,0.8));
-      padding: 2rem 1.5rem 1.5rem;
-      transform: translateY(100%);
-      transition: transform 0.3s ease;
-    }
+.card {
+  background: var(--card-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+}
 
-    .card:hover .card-detail {
-      transform: translateY(0);
-    }
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
 
-    /* 图片悬停效果 */
-    .card img {
-      transition: transform 0.3s ease;
-      max-width: 100%;
-      border-radius: 12px;
-    }
+.card img {
+  max-width: 100%;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
 
-    .card:hover img {
-      transform: scale(1.05);
-    }
+.card:hover img { transform: scale(1.02); }
 
-    /* 渐入动画 */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.6s ease;
-    }
+.hero {
+  position: relative;
+  height: 80vh;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+  border-radius: 24px;
+  overflow: hidden;
+  margin-bottom: 3rem;
+}
 
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6));
+}
 
-    /* 标题动画 */
-    .animate-title {
-      animation: slideIn 0.8s ease forwards;
-    }
+.hero h1 {
+  position: relative;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 15px rgba(0,0,0,0.5);
+  animation: slideIn 0.8s ease forwards;
+}
 
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateX(-30px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
+.hero .subtitle {
+  position: relative;
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  max-width: 800px;
+  opacity: 0.9;
+  animation: slideIn 0.8s ease 0.2s forwards;
+}
 
-    /* 深色模式 */
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --card-bg: rgba(30,30,30,0.4);
-      }
-    }
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-    /* 布局 */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem;
-      position: relative;
-      z-index: 2;
-    }
+.scroll-indicator {
+  position: absolute;
+  bottom: 30px;
+  width: 30px; height: 50px;
+  border: 2px solid rgba(255,255,255,0.7);
+  border-radius: 25px;
+}
 
-    header.hero {
-      position: relative;
-      height: 80vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      background: url('http://s2.zimgs.cn/ims?at=ori&kt=url&key=aHR0cHM6Ly9xMi5pdGMuY24vcV83MC9pbWFnZXMwMy8yMDI1MTIxMC9mZmI2M2JmNjA1MmU0OGEwOTEzNTg3ZTlkN2RjNzk1Zi5wbmc=&sign=yx:niUN5Xsv_0hSBb_lVkd6Xggwu-8=&tv=0_0&p=') center/cover no-repeat;
-      border-radius: 24px;
-      overflow: hidden;
-      margin-bottom: 3rem;
-    }
+.scroll-indicator::before {
+  content: '';
+  position: absolute;
+  top: 10px; left: 50%;
+  transform: translateX(-50%);
+  width: 6px; height: 6px;
+  background: #fff;
+  border-radius: 50%;
+  animation: scroll 2s infinite;
+}
 
-    header.hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
-      z-index: -1;
-    }
+@keyframes scroll {
+  0% { top: 10px; opacity: 0; }
+  50% { top: 20px; opacity: 1; }
+  100% { top: 30px; opacity: 0; }
+}
 
-    header.hero h1 {
-      font-size: 3.5rem;
-      margin: 0 0 1rem;
-      color: white;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-    }
+section { margin-bottom: 3rem; }
 
-    header.hero p.subtitle {
-      font-size: 1.5rem;
-      max-width: 800px;
-      margin: 0 auto;
-      color: rgba(255,255,255,0.9);
-    }
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin-bottom: 1.5rem;
+  position: relative;
+  display: inline-block;
+}
 
-    .scroll-indicator {
-      position: absolute;
-      bottom: 30px;
-      display: block;
-      width: 30px;
-      height: 50px;
-      border: 2px solid rgba(255,255,255,0.7);
-      border-radius: 25px;
-      animation: breathe 2s infinite;
-    }
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px; left: 0;
+  width: 60px; height: 4px;
+  background: var(--primary-color);
+  border-radius: 2px;
+}
 
-    .scroll-indicator::before {
-      content: '';
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 6px;
-      height: 6px;
-      background: white;
-      border-radius: 50%;
-      animation: scroll 2s infinite;
-    }
+.summary p:first-letter {
+  font-size: 3rem;
+  float: left;
+  margin: 0 0.5rem 0 0;
+  line-height: 1;
+  color: var(--primary-color);
+}
 
-    @keyframes breathe {
-      0%, 100% { opacity: 0.7; }
-      50% { opacity: 1; }
-    }
+.grid { display: grid; gap: 1.5rem; }
+.grid-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.grid-3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.grid-4 { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
 
-    @keyframes scroll {
-      0% { top: 10px; opacity: 0; }
-      50% { top: 20px; opacity: 1; }
-      100% { top: 30px; opacity: 0; }
-    }
+.highlight-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
 
-    section {
-      margin-bottom: 3rem;
-    }
+.highlight-item .emoji { font-size: 2rem; }
 
-    h2 {
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
-      position: relative;
-      display: inline-block;
-    }
+.info-card { text-align: center; }
+.info-card .icon { font-size: 2rem; margin-bottom: 0.5rem; }
+.info-card .label { font-size: 0.9rem; opacity: 0.8; }
+.info-card .value { font-size: 1.1rem; font-weight: 600; }
 
-    h2::after {
-      content: '';
-      position: absolute;
-      bottom: -8px;
-      left: 0;
-      width: 60px;
-      height: 4px;
-      background: var(--primary-color);
-      border-radius: 2px;
-    }
+.destination-overview .tagline {
+  font-size: 1.2rem;
+  font-style: italic;
+  opacity: 0.9;
+  margin-bottom: 1rem;
+}
 
-    .summary p {
-      font-size: 1.1rem;
-      line-height: 1.8;
-    }
+.unique-experiences {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
 
-    .summary p:first-letter {
-      font-size: 3rem;
-      float: left;
-      margin: 0 0.3rem 0 0;
-      line-height: 1;
-      color: var(--primary-color);
-    }
+.experience-tag {
+  background: rgba(255,255,255,0.2);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
 
-    .highlights {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-    }
+.weather-main {
+  text-align: center;
+  padding: 2rem;
+}
 
-    .highlight-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-    }
+.weather-icon { font-size: 4rem; }
+.temperature { font-size: 3rem; font-weight: bold; }
 
-    .highlight-item .emoji {
-      font-size: 2rem;
-    }
+.clothing-guide, .packing-list { margin-top: 1.5rem; }
 
-    .travel-info {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem;
-    }
+.packing-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed rgba(255,255,255,0.2);
+}
 
-    .info-card {
-      text-align: center;
-    }
+.daily-plan { position: relative; }
 
-    .info-card .icon {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-    }
+.daily-plan::before {
+  content: '';
+  position: absolute;
+  left: 32px; top: 0; bottom: 0;
+  width: 4px;
+  background: var(--primary-light);
+  border-radius: 2px;
+}
 
-    .weather {
-      text-align: center;
-    }
+.day-card {
+  position: relative;
+  margin-bottom: 2rem;
+  padding-left: 70px;
+}
 
-    .weather-icon {
-      font-size: 4rem;
-      margin-bottom: 1rem;
-    }
+.day-card::before {
+  content: attr(data-day);
+  position: absolute;
+  left: 16px; top: 20px;
+  width: 32px; height: 32px;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
 
-    .temperature {
-      font-size: 3rem;
-      font-weight: bold;
-      margin-bottom: 1rem;
-    }
+.day-header { margin-bottom: 1rem; }
+.day-date { font-size: 1.3rem; font-weight: bold; }
+.day-theme { font-size: 1.1rem; color: var(--primary-light); }
 
-    .daily-plan {
-      position: relative;
-    }
+.weather-badge {
+  display: inline-block;
+  background: rgba(0,0,0,0.3);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
 
-    .daily-plan::before {
-      content: '';
-      position: absolute;
-      left: 32px;
-      top: 0;
-      bottom: 0;
-      width: 4px;
-      background: var(--primary-light);
-      border-radius: 2px;
-    }
+.time-section { margin: 1.5rem 0; }
+.time-section h4 { color: var(--primary-light); margin-bottom: 0.8rem; }
 
-    .day-card {
-      position: relative;
-      margin-bottom: 2rem;
-      padding-left: 60px;
-    }
+.activity {
+  background: rgba(255,255,255,0.05);
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
 
-    .day-card::before {
-      content: attr(data-day);
-      position: absolute;
-      left: 16px;
-      top: 16px;
-      width: 32px;
-      height: 32px;
-      background: var(--primary-color);
-      color: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-    }
+.activity-time { font-weight: bold; color: var(--primary-light); font-size: 0.9rem; }
+.activity-name { font-weight: bold; font-size: 1.1rem; margin: 0.3rem 0; }
+.activity-location { font-style: italic; opacity: 0.8; font-size: 0.9rem; }
+.activity-desc { margin-top: 0.5rem; font-size: 0.95rem; }
+.activity-tips { font-size: 0.85rem; opacity: 0.8; margin-top: 0.5rem; }
 
-    .day-header {
-      margin-bottom: 1rem;
-    }
+.activity img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 0.8rem;
+}
 
-    .day-date {
-      font-size: 1.5rem;
-      font-weight: bold;
-    }
+.meals-section { margin-top: 1.5rem; }
+.meal-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed rgba(255,255,255,0.15);
+}
 
-    .day-theme {
-      font-size: 1.2rem;
-      color: var(--primary-light);
-    }
+.meal-item:last-child { border-bottom: none; }
 
-    .weather-badge {
-      display: inline-block;
-      background: rgba(0,0,0,0.3);
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      margin-top: 0.5rem;
-    }
+.daily-tips {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px dashed rgba(255,255,255,0.2);
+}
 
-    .meals {
-      margin-top: 1rem;
-    }
+.daily-tips ul { padding-left: 1.2rem; }
+.daily-tips li { margin-bottom: 0.3rem; font-size: 0.9rem; }
 
-    .meal-item {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 0.5rem;
-    }
+.photo-spots { margin-top: 1rem; }
+.photo-spot {
+  display: inline-block;
+  background: rgba(255,255,255,0.1);
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  margin: 0.2rem;
+}
 
-    .activities {
-      margin-top: 1rem;
-    }
+.attraction-card { overflow: hidden; }
+.attraction-card img { height: 200px; width: 100%; object-fit: cover; }
+.attraction-info { padding: 1rem 0; }
+.attraction-highlights { display: flex; flex-wrap: wrap; gap: 0.3rem; margin: 0.5rem 0; }
+.attraction-tag { background: rgba(255,255,255,0.15); padding: 0.2rem 0.5rem; border-radius: 10px; font-size: 0.8rem; }
+.attraction-meta { font-size: 0.85rem; opacity: 0.8; }
 
-    .activity {
-      margin-bottom: 1rem;
-    }
+.food-card { overflow: hidden; }
+.food-card img { height: 180px; width: 100%; object-fit: cover; }
+.food-emoji { font-size: 4rem; text-align: center; padding: 2rem; background: rgba(255,255,255,0.1); }
+.food-info { padding: 1rem 0; }
+.food-price { color: var(--primary-light); font-weight: bold; }
 
-    .activity-time {
-      font-weight: bold;
-      color: var(--primary-light);
-    }
+.restaurant-card img { height: 150px; width: 100%; object-fit: cover; border-radius: 12px; }
+.signature-dishes { display: flex; flex-wrap: wrap; gap: 0.3rem; margin: 0.5rem 0; }
+.dish-tag { background: var(--primary-color); padding: 0.2rem 0.5rem; border-radius: 10px; font-size: 0.8rem; }
 
-    .activity-name {
-      font-weight: bold;
-    }
+.area-card img { height: 180px; width: 100%; object-fit: cover; border-radius: 12px; }
+.pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+.pros li::before { content: '✓ '; color: #4CAF50; }
+.cons li::before { content: '✗ '; color: #f44336; }
 
-    .activity-location {
-      font-style: italic;
-      color: rgba(255,255,255,0.8);
-    }
+.transport-method {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
 
-    .activity-desc {
-      margin-top: 0.25rem;
-    }
+.transport-icon { font-size: 2rem; }
 
-    .daily-tips {
-      margin-top: 1rem;
-      padding-top: 1rem;
-      border-top: 1px dashed rgba(255,255,255,0.2);
-    }
+.budget-total {
+  text-align: center;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+}
 
-    .daily-tips ul {
-      padding-left: 1.2rem;
-    }
+.budget-amount {
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--primary-light);
+}
 
-    .daily-tips li {
-      margin-bottom: 0.3rem;
-    }
+.budget-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.budget-bar-container {
+  height: 8px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.budget-bar {
+  height: 100%;
+  background: var(--primary-color);
+  border-radius: 4px;
+  transition: width 1s ease;
+}
+
+.saving-tips { margin-top: 1.5rem; }
+.saving-tips li { margin-bottom: 0.5rem; }
+
+.tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+.tip-card h4 { margin-bottom: 0.5rem; }
+
+.shopping-item {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.shopping-item img {
+  width: 80px; height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.emergency-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.emergency-icon { font-size: 2rem; }
+.emergency-phone { font-size: 1.2rem; font-weight: bold; color: var(--primary-light); }
+
+footer {
+  text-align: center;
+  padding: 2rem;
+  opacity: 0.8;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  margin-top: 3rem;
+}
+
+.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.6s ease;
+}
+
+@media (max-width: 768px) {
+  .hero { height: 60vh; min-height: 400px; }
+  .day-card { padding-left: 50px; }
+  .daily-plan::before { left: 20px; }
+  .day-card::before { left: 4px; width: 28px; height: 28px; }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root { --card-bg: rgba(30,30,30,0.5); }
+}
   </style>
 </head>
 <body class="season-spring">
   <div id="particles-container"></div>
   <main class="container">
-    <header class="hero">
-      <h1 class="animate-title">春日亚布力·情侣森林秘境五日漫游</h1>
-      <p class="subtitle animate-title">在五花山初绿间邂逅国宝，于滑道之巅共赏春色</p>
-      <span class="scroll-indicator"></span>
-    </header>
+    <div class="hero" style="background-image: url('http://s2.zimgs.cn/ims?at=ori&amp;kt=url&amp;key=aHR0cHM6Ly9xMi5pdGMuY24vcV83MC9pbWFnZXMwMy8yMDI1MTIxMC9mZmI2M2JmNjA1MmU0OGEwOTEzNTg3ZTlkN2RjNzk1Zi5wbmc=&amp;sign=yx:niUN5Xsv_0hSBb_lVkd6Xggwu-8=&amp;tv=0_0&amp;p=')">
+      <h1>春日亚布力·情侣森林秘境五日漫游</h1>
+      <p class="subtitle">在五花山初绿间邂逅国宝，于滑道之巅共赏春色</p>
+      <div class="scroll-indicator"></div>
+    </div>
 
-    <section class="summary fade-in">
-      <div class="card">
-        <p>当江南春意渐浓，北国的亚布力正悄然披上新绿。这片曾以雪闻名的森林秘境，在五月化身为情侣私享的天然画卷。漫步于96%森林覆盖率的锅盔山步道，山花烂漫、松涛低语；探访中国最北熊猫馆，看“思嘉”与“佑佑”在葱郁林间嬉戏；乘缆车登顶，滑行2680米世界第一滑道，俯瞰连绵五花山春色如染。夜幕降临，泡一池富硒森林温泉，仰望无光污染的璀璨星河。更有亲手包制东北饺子、品味铁锅炖与杀猪菜的烟火温情。五日行程轻松惬意，融自然、文化、美食于一体，让你们在春日的亚布力，沉浸于一场远离喧嚣的浪漫邂逅。</p>
-      </div>
+    <section class="summary card">
+      <h2>行程摘要</h2>
+      <p>当江南春意渐浓，北国的亚布力正悄然披上新绿。这片曾以雪闻名的森林秘境，在五月化身为情侣私享的天然画卷。漫步于96%森林覆盖率的锅盔山步道，山花烂漫、松涛低语；探访中国最北熊猫馆，看“思嘉”与“佑佑”在葱郁林间嬉戏；乘缆车登顶，滑行2680米世界第一滑道，俯瞰连绵五花山春色如染。夜幕降临，泡一池富硒森林温泉，仰望无光污染的璀璨星河。更有亲手包制东北饺子、品味铁锅炖与杀猪菜的烟火温情。五日行程轻松惬意，融自然、文化、美食于一体，让你们在春日的亚布力，沉浸于一场远离喧嚣的浪漫邂逅。</p>
     </section>
 
-    <section class="highlights fade-in">
+    <section class="trip-highlights card">
       <h2>行程亮点</h2>
-      <div class="highlights-grid">
-        <div class="card highlight-item">
+      <div class="grid grid-2">
+        <div class="highlight-item">
           <span class="emoji">🌿</span>
           <div>春季五花山徒步，避开人潮享受私密自然</div>
         </div>
-        <div class="card highlight-item">
+        <div class="highlight-item">
           <span class="emoji">🐼</span>
           <div>探访中国最北熊猫馆，与国宝亲密接触</div>
         </div>
-        <div class="card highlight-item">
+        <div class="highlight-item">
           <span class="emoji">🎢</span>
           <div>体验2680米世界第一滑道，感受山林速度</div>
         </div>
-        <div class="card highlight-item">
+        <div class="highlight-item">
           <span class="emoji">♨️</span>
           <div>森林温泉放松，春夜星空下浪漫升级</div>
         </div>
-        <div class="card highlight-item">
+        <div class="highlight-item">
           <span class="emoji">🥟</span>
           <div>东北美食DIY，亲手制作地道饺子</div>
         </div>
       </div>
     </section>
 
-    <section class="travel-info fade-in">
+    <section class="travel-info card">
       <h2>旅行信息</h2>
-      <div class="info-cards">
-        <div class="card info-card">
+      <div class="grid grid-2">
+        <div class="info-card">
           <div class="icon">📍</div>
-          <div>黑龙江省哈尔滨市亚布力滑雪旅游度假区</div>
+          <div class="label">目的地</div>
+          <div class="value">黑龙江省哈尔滨市亚布力滑雪旅游度假区</div>
         </div>
-        <div class="card info-card">
+        <div class="info-card">
+          <div class="icon">📅</div>
+          <div class="label">行程时长</div>
+          <div class="value">5天4晚</div>
+        </div>
+        <div class="info-card">
           <div class="icon">🗓️</div>
-          <div>5天4晚</div>
+          <div class="label">出行日期</div>
+          <div class="value">2026-05-01 至 2026-05-05</div>
         </div>
-        <div class="card info-card">
+        <div class="info-card">
           <div class="icon">👫</div>
-          <div>情侣</div>
+          <div class="label">适合人群</div>
+          <div class="value">情侣</div>
         </div>
-        <div class="card info-card">
+        <div class="info-card">
+          <div class="icon">🎨</div>
+          <div class="label">主题</div>
+          <div class="value">自然风光, 文化古迹</div>
+        </div>
+        <div class="info-card">
           <div class="icon">🌸</div>
-          <div>5月春季适合森林观光与文化体验</div>
+          <div class="label">最佳季节</div>
+          <div class="value">5月春季适合森林观光与文化体验</div>
         </div>
-        <div class="card info-card">
+        <div class="info-card">
           <div class="icon">💰</div>
-          <div>中高（3000-8000元）</div>
+          <div class="label">预算水平</div>
+          <div class="value">中高（3000-8000元）</div>
         </div>
-        <div class="card info-card">
-          <div class="icon">🎒</div>
-          <div>自然生态游、轻度户外、文化休闲、美食体验</div>
+        <div class="info-card">
+          <div class="icon">🚶</div>
+          <div class="label">旅行风格</div>
+          <div class="value">自然生态游、轻度户外、文化休闲、美食体验</div>
         </div>
       </div>
     </section>
 
-    <section class="weather fade-in">
+    <section class="destination-overview card">
+      <h2>目的地概述</h2>
+      <h3>黑龙江省哈尔滨市亚布力滑雪旅游度假区</h3>
+      <p class="tagline">中国滑雪圣地，四季皆景的森林秘境</p>
+      <p>亚布力滑雪旅游度假区位于黑龙江省哈尔滨市尚志市，距哈尔滨市区约193公里，是中国最早、规模最大的综合性滑雪度假区。这里由大锅盔山、二锅盔山和三锅盔山三座山峰组成，森林覆盖率高达96%，负氧离子含量极高。虽然以冬季滑雪闻名，但春季（5月）正值五花山初绿、山花烂漫时节，可体验森林徒步、熊猫馆探访、世界第一滑道等非雪季项目，是情侣轻松度假、亲近自然的理想之地。</p>
+      <div class="unique-experiences">
+        <span class="experience-tag">乘坐2680米世界第一滑道，俯瞰原始森林</span>
+        <span class="experience-tag">探访中国最北熊猫馆</span>
+        <span class="experience-tag">森林温泉放松身心</span>
+        <span class="experience-tag">五花山春季徒步赏花</span>
+        <span class="experience-tag">品尝地道东北菜与山野风味</span>
+      </div>
+    </section>
+
+    <section class="weather-info card">
       <h2>天气信息</h2>
-      <div class="card">
+      <div class="weather-main">
         <div class="weather-icon">❓</div>
-        <div class="temperature">数据不可用</div>
-        <p>无法提供准确天气建议，请在出行前一周查询最新天气预报</p>
+        <p class="temperature">数据不可用</p>
+        <p>无法获取亚布力2026年5月春季准确天气数据，当前仅有冬季预报信息，与用户出行时间不符。</p>
+      </div>
+      
+      <div class="clothing-guide">
+        <h3>穿衣指南</h3>
+        <p>数据不可用</p>
+      </div>
+      
+      <div class="packing-list">
+        <h3>打包清单</h3>
+        <div class="packing-item">
+          <span>数据不可用</span>
+          <span>缺乏准确天气信息</span>
+        </div>
+      </div>
+      
+      <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 8px;">
+        <strong>重要提示：</strong>无法提供准确天气建议，请在出行前一周查询最新天气预报
       </div>
     </section>
+<!-- PART_A_END -->
+<section class="daily-plan fade-in">
+  <h2>📅 每日行程</h2>
+  
+  <div class="day-card card" data-day="1">
+    <div class="day-header">
+      <div class="day-date">Day 1 · 2026年5月1日</div>
+      <div class="day-theme">🌸 抵达与森林初探</div>
+      <p style="font-size:0.95rem;opacity:0.9;margin-top:0.5rem">抵达亚布力，入住度假村，傍晚漫步森林步道，感受春日山林的静谧与清新。</p>
+      <span class="weather-badge">❓ 数据不可用</span>
+    </div>
+    
+    <div class="time-section">
+      <h4>🌅 上午 08:00-12:00</h4>
+      <div class="activity">
+        <div class="activity-time">⏰ 08:00-10:00</div>
+        <div class="activity-name">杭州东站乘高铁至哈尔滨</div>
+        <div class="activity-location">📍 杭州东站</div>
+        <p class="activity-desc">乘坐G字头高铁前往哈尔滨，沿途欣赏华北至东北的春日风光，预计10小时左右抵达。</p>
+        <p class="activity-tips">💡 提前预订靠窗座位，备好零食和充电宝</p>
+      </div>
+    </div>
+    
+    <div class="time-section">
+      <h4>☀️ 下午 14:00-18:00</h4>
+      <div class="activity">
+        <div class="activity-time">⏰ 14:00-15:00</div>
+        <div class="activity-name">哈尔滨站转乘亚布力专列</div>
+        <div class="activity-location">📍 哈尔滨站</div>
+        <p class="activity-desc">乘坐高铁前往亚布力西站，1小时车程，沿途可欣赏松嫩平原春景。</p>
+        <p class="activity-tips">💡 提前30分钟到站，避免误车</p>
+      </div>
+      <div class="activity">
+        <div class="activity-time">⏰ 15:30-16:30</div>
+        <div class="activity-name">抵达度假区并入住</div>
+        <div class="activity-location">📍 亚布力阳光度假村</div>
+        <p class="activity-desc">打车前往度假村，办理入住，稍作休息。</p>
+        <p class="activity-tips">💡 推荐沐云楼山顶酒店，可享山景</p>
+      </div>
+    </div>
+    
+    <div class="time-section">
+      <h4>🌙 晚间 18:00-21:00</h4>
+      <div class="activity">
+        <div class="activity-time">⏰ 18:30-20:00</div>
+        <div class="activity-name">东北特色晚餐</div>
+        <div class="activity-location">📍 度假村内餐厅</div>
+        <p class="activity-desc">品尝地道东北菜，如小鸡炖蘑菇、锅包肉、山野菜等，体验东北饮食文化。</p>
+        <p class="activity-tips">💡 可尝试当地山野菜，春季时令</p>
+      </div>
+      <div class="activity">
+        <div class="activity-time">⏰ 20:00-21:00</div>
+        <div class="activity-name">森林步道夜游</div>
+        <div class="activity-location">📍 度假村周边步道</div>
+        <p class="activity-desc">饭后漫步森林步道，呼吸高负氧离子空气，仰望星空，享受二人世界。</p>
+        <p class="activity-tips">💡 带薄外套，春夜微凉</p>
+      </div>
+    </div>
+    
+    <div class="meals-section">
+      <h4>🍽️ 今日美食</h4>
+      <div class="meal-item">
+        <span>🍳</span>
+        <div>
+          <strong>早餐</strong>：酒店自助早餐 - 中式热粥、面点
+          <div style="font-size:0.85rem;opacity:0.8">💰 50元/人 | 📍 住宿酒店</div>
+        </div>
+      </div>
+      <div class="meal-item">
+        <span>🍜</span>
+        <div>
+          <strong>午餐</strong>：东北杀猪菜小馆 - 杀猪菜
+          <div style="font-size:0.85rem;opacity:0.8">💰 80元/人 | 📍 亚布力滑雪旅游度假区</div>
+        </div>
+      </div>
+      <div class="meal-item">
+        <span>🍲</span>
+        <div>
+          <strong>晚餐</strong>：尔滨私房菜 - 锅包肉+东北乱炖
+          <div style="font-size:0.85rem;opacity:0.8">💰 70元/人 | 📍 亚布力阳光度假村亚布洛尼酒店一层</div>
+        </div>
+      </div>
+    </div>
+    
+    <div style="margin-top:1rem;padding:1rem;background:rgba(255,255,255,0.05);border-radius:12px">
+      <p>🚗 <strong>交通</strong>：高铁+打车 - 杭州东→哈尔滨站→亚布力西站→度假村，全程约12小时</p>
+      <p style="margin-top:0.5rem">🏨 <strong>住宿</strong>：亚布力阳光度假村 · 高端度假酒店 · 💰 800元</p>
+      <p style="font-size:0.9rem;opacity:0.8;margin-top:0.3rem">方便滑雪和用餐，设施齐全，适合第一天抵达后轻松休息</p>
+    </div>
+    
+    <div class="photo-spots">
+      <h4>📸 推荐拍照点</h4>
+      <span class="photo-spot">度假村观景台 @日落时分</span>
+    </div>
+    
+    <div class="daily-tips">
+      <strong>💡 今日小贴士</strong>
+      <ul>
+        <li>5月亚布力日均温10-20℃，早晚温差大</li>
+        <li>非滑雪季，度假村人流较少，体验更私密</li>
+      </ul>
+    </div>
+    
+    <img src="http://s2.zimgs.cn/ims?at=ori&amp;kt=url&amp;key=aHR0cHM6Ly9xMi5pdGMuY24vcV83MC9pbWFnZXMwMy8yMDI1MTIxMC9jMDI2OGU3OTA1MGM0Njg3YmQ0ZDFhMTVmZDE5ODhkNC5wbmc=&amp;sign=yx:lUMhDPC1PuvdUHyRJCmlze7AMvA=&amp;tv=0_0&amp;p=" alt="Day 1" style="width:100%;border-radius:12px;margin-top:1rem" onerror="this.style.display='none'" loading="lazy">
+  </div>
+  
+  <div class="day-card card" data-day="2">
+    <div class="day-header">
+      <div class="day-date">Day 2 · 2026年5月2日</div>
+      <div class="day-theme">🐼 熊猫与滑道奇遇</div>
+      <p style="font-size:0.95rem;opacity:0.9;margin-top:0.5rem">探访中国最北熊猫馆，体验世界第一滑道，感受速度与萌趣的奇妙结合。</p>
+      <span class="weather-badge">❓ 数据不可用</span>
+    </div>
+    
+    <div class="time-section">
+      <h4>🌅 上午 08:00-12:00</h4>
+      <div class="activity">
+        <div class="activity-time">⏰ 08:30-10:30</div>
+        <div class="activity-name">亚布力熊猫馆</div>
+        <div class="activity-location">📍 度假区内</div>
+        <p class="activity-desc">观看大熊猫“思嘉”和“佑佑”在户外活动区进食、嬉戏，了解熊猫保育知识。</p>
+        <p class="activity-tips">💡 9点前到，熊猫最活跃</p>
+      </div>
+    </div>
+    
+    <div class="time-section">
+      <h4>☀️ 下午 14:00-18:00</h4>
+      <div class="activity">
+        <div class="activity-time">⏰ 14:00-16:00</div>
+        <div class="activity-name">滑道体验</div>
+        <div class="activity-location">📍 亚布力阳光度假村</div>
+        <p class="activity-desc">乘坐缆车上山，体验2680米滑道，俯瞰五花山春色，感受山林穿梭的快感。</p>
+        <p class="activity-tips">💡 滑行速度可自行控制，安全无忧</p>
+      </div>
+    </div>
+    
+    <div class="time-section">
+      <h4>🌙 晚间 18:00-21:00</h4>
+      <div class="activity">
+        <div class="activity-time">⏰ 19:00-21:00</div>
+        <div class="activity-name">亚布力森林温泉</div>
+        <div class="activity-location">📍 度假区内</div>
+        <p class="activity-desc">在露天富硒温泉中放松身心，享受春夜山林的静谧，缓解一日游玩的疲劳。</p>
+        <p class="activity-tips">💡 温泉含硫，敏感肌肤慎入</p>
+      </div>
+    </div>
+    
+    <div class="meals-section">
+      <h4>🍽️ 今日美食</h4>
+      <div class="meal-item">
+        <span>🍳</span>
+        <div>
+          <strong>早餐</strong>：酒店自助早餐 - 中式热粥、面点
+          <div style="font-size:0.85rem;opacity:0.8">💰 50元/人 | 📍 住宿酒店</div>
+        </div>
+      </div>
+      <div class="meal-item">
+        <span>🍜</span>
+        <div>
+          <strong>午餐</strong>：印象·亚布力 - 手工饺子
+          <div style="font-size:0.85rem;opacity:0.8">💰 50元/人 | 📍 亚布力阳光度假村阳光假日酒店二层</div>
+        </div>
+      </div>
+      <div class="meal-item">
+        <span>🍲</span>
+        <div>
+          <strong>晚餐</strong>：度假村内餐厅 - 山野菜拼盘+小鸡炖蘑菇
+          <div style="font-size:0.85rem;opacity:0.8">💰 75元/人 | 📍 度假村内</div>
+        </div>
+      </div>
+    </div>
+    
+    <div style="margin-top:1rem;padding:1rem;background:rgba(255,255,255,0.05);border-radius:12px">
+      <p>🚗 <strong>交通</strong>：步行+度假村接驳车 - 景点间距离近，步行或接驳车即可</p>
+      <p style="margin-top:0.5rem">🏨 <strong>住宿</strong>：亚布力阳光度假村 · 高端度假酒店 · 💰 800元</p>
+      <p style="font-size:0.9rem;opacity:0.8;margin-top:0.3rem">延续首日住宿，便利且舒适</p>
+    </div>
+    
+    <div class="photo-spots">
+      <h4>📸 推荐拍照点</h4>
+      <span class="photo-spot">滑道山顶观景台 @下午3点</span>
+    </div>
+    
+    <div class="daily-tips">
+      <strong>💡 今日小贴士</strong>
+      <ul>
+        <li>滑道体验需提前预约</li>
+        <li>温泉后及时补水</li>
+      </ul>
+    </div>
+    
+    <img src="http://s2.zimgs.cn/ims?at=ori&amp;kt=url&amp;key=aHR0cHM6Ly9xMS5pdGMuY24vcV83MC9pbWFnZXMwMy8yMDI1MTIxMC9mMDczMDY2NmVhZjM0NjMxOTMyZmE1NjllYzE0MDJhMC5wbmc=&amp;sign=yx:5jynMnBgS2rEnpTFJKnGffNWPbM=&amp;tv=0_0&amp;p=" alt="Day 2" style="width:100%;border-radius:12px;margin-top:1rem" onerror="this.style.display='none'" loading="lazy">
+  </div>
+  
+  <div class="day-card card" data-day="3">
+    <div class="day-header">
+      <div class="day-date">Day 3 · 2026年5月3日</div>
+      <div class="day-theme">🌲 五花山徒步与文化</div>
+      <p style="font-size:0.95rem;opacity:0.9;margin-top:0.5rem">深入锅盔山原始森林徒步，探访亚布力冰雪文化展馆，感受自然与人文的交融。</p>
+      <span class="weather-badge">❓ 数据不可用</span>
+    </div>
+    
+    <div class="time-section">
+      <h4>🌅 上午 08:00-12:00</h4>
+      <div class="activity">
+        <div class="activity-time">⏰ 08:30-11:30</div>
+        <div class="activity-name">锅盔山徒步</div>
+        <div class="activity-location">📍 锅盔山景区</div>
+        <p class="activity-desc">沿森林步道徒步，观赏春季山花、新绿，呼吸高负氧离子空气，偶遇松鼠等小动物。</p>
+        <p class="activity-tips">💡 穿防滑徒步鞋，带水和零食</p>
+      </div>
+    </div>
+    
+    <div class="time-section">
+      <h4>☀️ 下午 14:00-18:00</h4>
+      <div class="activity">
+        <div class="activity-time">⏰ 14:30-16:30</div>
+        <div class="activity-name">冰雪文化展馆</div>
+        <div class="activity-location">📍 度假区内</div>
+        <p class="activity-desc">参观2024年底新建的冰雪文化展馆，了解亚布力滑雪历史、冬奥故事及冰雪艺术。</p>
+        <p class="activity-tips">💡 展馆有互动体验区，适合拍照</p>
+      </div>
+    </div>
+    
+    <div class="time-section">
+      <h4>🌙 晚间 18:00-21:00</h4>
+      <div class="activity">
+        <div class="activity-time">⏰ 18:30-20:30</div>
+        <div class="activity-name">青云小镇晚餐</div>
+        <div class="activity-location">📍 青云小镇</div>
+        <p class="activity-desc">前往青云小镇，品尝地道东北菜，如铁锅炖、杀猪菜等，体验当地生活氛围。</p>
+        <p class="activity-tips">💡 可尝试当地自酿果酒</p>
+      </div>
+    </div>
+    
+    <div class="meals-section">
+      <h4>🍽️ 今日美食</h4>
+      <div class="meal-item">
+        <span>🍳</span>
+        <div>
+          <strong>早餐</strong>：酒店自助早餐 - 中式热粥、面点
+          <div style="font-size:0.85rem;opacity:0.8">💰 50元/人 | 📍 住宿酒店</div>
+        </div>
+      </div>
+      <div class="meal-item">
+        <span>🍜</span>
+        <div>
+          <strong>午餐</strong>：度假村简餐 - 牛肉面+时蔬
+          <div style="font-size:0.85rem;opacity:0.8">💰 45元/人 | 📍 度假村内</div>
+        </div>
+      </div>
+      <div class="meal-item">
+        <span>🍲</span>
+        <div>
+          <strong>晚餐</strong>：二民铁锅炖 - 铁锅炖大鹅
+          <div style="font-size:0.85rem;opacity:0.8">💰 72元/人 | 📍 亚布力滑雪旅游度假区</div>
+        </div>
+      </div>
+    </div>
+    
+    <div style="margin-top:1rem;padding:1rem;background:rgba(255,255,255,0.05);border-radius:12px">
+      <p>🚗 <strong>交通</strong>：包车 - 酒店→锅盔山→冰雪展馆→青云小镇→酒店，包车更灵活</p>
+      <p style="margin-top:0.5rem">🏨 <strong>住宿</strong>：青云小镇 · 特色民宿 · 💰 500元</p>
+      <p style="font-size:0.9rem;opacity:0.8;margin-top:0.3rem">环境优美，特色民宿多，价格适中，适合追求安静的情侣</p>
+    </div>
+    
+    <div class="photo-spots">
+      <h4>📸 推荐拍照点</h4>
+      <span class="photo-spot">锅盔山顶 @上午10点</span>
+    </div>
+    
+    <div class="daily-tips">
+      <strong>💡 今日小贴士</strong>
+      <ul>
+        <li>徒步路线有多个难度选择，量力而行</li>
+        <li>展馆周一可能闭馆，提前确认</li>
+      </ul>
+    </div>
+    
+    <img src="http://s2.zimgs.cn/ims?at=ori&amp;kt=url&amp;key=aHR0cHM6Ly9xOC5pdGMuY24vcV83MC9pbWFnZXMwMy8yMDI1MTIxMC81Y2EyYzdkOWE4YzY0M2IxOTZmNDM2MGQ4ZmZhYzQxNC5wbmc=&amp;sign=yx:NZ1aQEX3fEqRsRDBow7-w3nFcvc=&amp;tv=0_0&amp;p=" alt="Day 3" style="width:100%;border-radius:12px;margin-top:1rem" onerror="this.style.display='none'" loading="lazy">
+  </div>
+  
+  <div class="day-card card" data-day="4">
+    <div class="day-header">
+      <div class="day-date">Day 4 · 2026年5月4日</div>
+      <div class="day-theme">🍃 休闲与美食日</div>
+      <p style="font-size:0.95rem;opacity:0.9;margin-top:0.5rem">轻松享受度假村设施，体验东北特色美食制作，为返程做准备。</p>
+      <span class="weather-badge">❓ 数据不可用</span>
+    </div>
+    
+    <div class="time-section">
+      <h4>🌅 上午 08:00-12:00</h4>
+      <div class="activity">
+        <div class="activity-time">⏰ 09:00-11:00</div>
+        <div class="activity-name">森林瑜伽/晨练</div>
+        <div class="activity-location">📍 度假村草坪</div>
+        <p class="activity-desc">在森林环绕的草坪上进行晨练或瑜伽，享受清新空气与宁静时光。</p>
+        <p class="activity-tips">💡 度假村提供免费瑜伽垫</p>
+      </div>
+    </div>
+    
+    <div class="time-section">
+      <h4>☀️ 下午 14:00-18:00</h4>
+      <div class="activity">
+        <div class="activity-time">⏰ 15:00-17:00</div>
+        <div class="activity-name">饺子制作体验</div>
+        <div class="activity-location">📍 度假村厨房</div>
+        <p class="activity-desc">在厨师指导下学习包东北饺子，了解饺子文化，品尝自己制作的美食。</p>
+        <p class="activity-tips">💡 可打包未煮的饺子作为伴手礼</p>
+      </div>
+    </div>
+    
+    <div class="time-section">
+      <h4>🌙 晚间 18:00-21:00</h4>
+      <div class="activity">
+        <div class="activity-time">⏰ 18:30-20:30</div>
+        <div class="activity-name">山顶酒店晚餐</div>
+        <div class="activity-location">📍 沐云楼山顶酒店</div>
+        <p class="activity-desc">在山顶酒店享用告别晚餐，欣赏日落余晖，回顾旅程点滴。</p>
+        <p class="activity-tips">💡 提前预订靠窗座位</p>
+      </div>
+    </div>
+    
+    <div class="meals-section">
+      <h4>🍽️ 今日美食</h4>
+      <div class="meal-item">
+        <span>🍳</span>
+        <div>
+          <strong>早餐</strong>：民宿早餐 - 小米粥、煎饼
+          <div style="font-size:0.85rem;opacity:0.8">💰 40元/人 | 📍 青云小镇民宿</div>
+        </div>
+      </div>
+      <div class="meal-item">
+        <span>🍜</span>
+        <div>
+          <strong>午餐</strong>：青云小镇农家菜 - 笨鸡炖蘑菇
+          <div style="font-size:0.85rem;opacity:0.8">💰 65元/人 | 📍 青云小镇</div>
+        </div>
+      </div>
+      <div class="meal-item">
+        <span>🍲</span>
+        <div>
+          <strong>晚餐</strong>：沐云楼山顶酒店 - 山珍拼盘+锅包肉
+          <div style="font-size:0.85rem;opacity:0.8">💰 90元/人 | 📍 亚布力阳光度假村</div>
+        </div>
+      </div>
+    </div>
+    
+    <div style="margin-top:1rem;padding:1rem;background:rgba(255,255,255,0.05);border-radius:12px">
+      <p>🚗 <strong>交通</strong>：步行 - 全天轻松安排，无需外部交通</p>
+      <p style="margin-top:0.5rem">🏨 <strong>住宿</strong>：亚布力阳光度假村 · 高端度假酒店 · 💰 800元</p>
+      <p style="font-size:0.9rem;opacity:0.8;margin-top:0.3rem">返回度假村住宿，方便次日返程</p>
+    </div>
+    
+    <div class="photo-spots">
+      <h4>📸 推荐拍照点</h4>
+      <span class="photo-spot">山顶酒店观景台 @日落时分</span>
+    </div>
+    
+    <div class="daily-tips">
+      <strong>💡 今日小贴士</strong>
+      <ul>
+        <li>可购买当地特产如山野菜、木耳</li>
+        <li>检查行李，准备次日返程</li>
+      </ul>
+    </div>
+    
+    <img src="http://s2.zimgs.cn/ims?at=ori&amp;kt=url&amp;key=aHR0cHM6Ly9xMS5pdGMuY24vcV83MC9pbWFnZXMwMy8yMDI1MTIxMC9kNjMwZTEyYzY0ZjQ0NTBhOTg2NGUzNDIwOGUyZDNkNS5wbmc=&amp;sign=yx:8-BPNxPWyigbm_dusIzMbRDArRQ=&amp;tv=0_0&amp;p=" alt="Day 4" style="width:100%;border-radius:12px;margin-top:1rem" onerror="this.style.display='none'" loading="lazy">
+  </div>
+  
+  <div class="day-card card" data-day="5">
+    <div class="day-header">
+      <div class="day-date">Day 5 · 2026年5月5日</div>
+      <div class="day-theme">🎒 返程与回忆</div>
+      <p style="font-size:0.95rem;opacity:0.9;margin-top:0.5rem">悠闲早餐后返程，带着亚布力的春日记忆返回杭州。</p>
+      <span class="weather-badge">❓ 数据不可用</span>
+    </div>
+    
+    <div class="time-section">
+      <h4>🌅 上午 08:00-12:00</h4>
+      <div class="activity">
+        <div class="activity-time">⏰ 08:00-09:00</div>
+        <div class="activity-name">酒店早餐</div>
+        <div class="activity-location">📍 酒店餐厅</div>
+        <p class="activity-desc">享用丰盛早餐，整理行李，办理退房。</p>
+        <p class="activity-tips">💡 可打包早餐三明治路上食用</p>
+      </div>
+      <div class="activity">
+        <div class="activity-time">⏰ 09:30-10:30</div>
+        <div class="activity-name">前往亚布力西站</div>
+        <div class="activity-location">📍 度假村→亚布力西站</div>
+        <p class="activity-desc">打车前往亚布力西站，准备返程。</p>
+        <p class="activity-tips">💡 提前1小时出发，避免误车</p>
+      </div>
+    </div>
+    
+    <div class="time-section">
+      <h4>☀️ 下午 14:00-18:00</h4>
+      <div class="activity">
+        <div class="activity-time">⏰ 12:00-13:00</div>
+        <div class="activity-name">亚布力→哈尔滨</div>
+        <div class="activity-location">📍 亚布力西站→哈尔滨站</div>
+        <p class="activity-desc">乘坐高铁返回哈尔滨，中转等待返杭列车。</p>
+        <p class="activity-tips">💡 可在哈尔滨站购买红肠等特产</p>
+      </div>
+    </div>
+    
+    <div class="time-section">
+      <h4>🌙 晚间 18:00-21:00</h4>
+      <div class="activity">
+        <div class="activity-time">⏰ 18:00-次日早</div>
+        <div class="activity-name">哈尔滨→杭州</div>
+        <div class="activity-location">📍 哈尔滨站→杭州东站</div>
+        <p class="activity-desc">乘坐高铁返回杭州，结束愉快旅程。</p>
+        <p class="activity-tips">💡 备好颈枕，舒适返程</p>
+      </div>
+    </div>
+    
+    <div class="meals-section">
+      <h4>🍽️ 今日美食</h4>
+      <div class="meal-item">
+        <span>🍳</span>
+        <div>
+          <strong>早餐</strong>：酒店自助早餐 - 中式热粥、面点
+          <div style="font-size:0.85rem;opacity:0.8">💰 50元/人 | 📍 住宿酒店</div>
+        </div>
+      </div>
+      <div class="meal-item">
+        <span>🍜</span>
+        <div>
+          <strong>午餐</strong>：哈尔滨站快餐 - 红肠三明治
+          <div style="font-size:0.85rem;opacity:0.8">💰 35元/人 | 📍 哈尔滨站内</div>
+        </div>
+      </div>
+      <div class="meal-item">
+        <span>🍲</span>
+        <div>
+          <strong>晚餐</strong>：高铁餐食 - 盒饭
+          <div style="font-size:0.85rem;opacity:0.8">💰 50元/人 | 📍 高铁上</div>
+        </div>
+      </div>
+    </div>
+    
+    <div style="margin-top:1rem;padding:1rem;background:rgba(255,255,255,0.05);border-radius:12px">
+      <p>🚗 <strong>交通</strong>：高铁+打车 - 度假村→亚布力西站→哈尔滨站→杭州东站，全程约12小时</p>
+      <p style="margin-top:0.5rem">🏨 <strong>住宿</strong>：无 · 无 · 💰 0元</p>
+      <p style="font-size:0.9rem;opacity:0.8;margin-top:0.3rem">当日返程，无需住宿</p>
+    </div>
+    
+    <div class="photo-spots">
+      <h4>📸 推荐拍照点</h4>
+      <span class="photo-spot">亚布力西站 @上午10点</span>
+    </div>
+    
+    <div class="daily-tips">
+      <strong>💡 今日小贴士</strong>
+      <ul>
+        <li>返程车票提前预订</li>
+        <li>检查随身物品，勿遗漏</li>
+      </ul>
+    </div>
+    
+    <img src="http://s2.zimgs.cn/ims?at=ori&amp;kt=url&amp;key=aHR0cHM6Ly9xNy5pdGMuY24vcV83MC9pbWFnZXMwMy8yMDI1MTIxMC84MmU4ZjEyNmRkMGQ0MDZjOGJjMzc5ZjdjOGQ5YjYyNC5wbmc=&amp;sign=yx:yYvSOjMVy76OuMks3dGCyytKKiQ=&amp;tv=0_0&amp;p=" alt="Day 5" style="width:100%;border-radius:12px;margin-top:1rem" onerror="this.style.display='none'" loading="lazy">
+  </div>
+</section>
+<!-- PART_B_END -->
+<section class="top-attractions fade-in">
+  <h2>🏞️ 热门景点</h2>
+  <div class="grid grid-2">
+    <div class="card attraction-card">
+      <img src="http://s2.zimgs.cn/ims?at=ori&amp;kt=url&amp;key=aHR0cHM6Ly9xMS5pdGMuY24vcV83MC9pbWFnZXMwMy8yMDI1MTIxMC84ZDc5ZjY1YmMxOTA0NGM3YmNjNzE1YTQ5N2YzZWMxZS5wbmc=&amp;sign=yx:XWtYR4FuW54RXzuSdtfb6L5BkGQ=&amp;tv=0_0&amp;p=" alt="亚布力熊猫馆" onerror="this.outerHTML='<div class=\"food-emoji\">🏔️</div>'">
+      <div class="attraction-info">
+        <h3>亚布力熊猫馆</h3>
+        <p>中国纬度最高、温度最低的熊猫馆，位于原始森林环抱之中。馆内生活着大熊猫“思嘉”和“佑佑”，春季可观赏熊猫在户外活动区嬉戏，背景是葱郁山林，极具生态趣味。</p>
+        <div class="attraction-highlights">
+          <span class="attraction-tag">中国最北熊猫馆</span>
+          <span class="attraction-tag">森林生态背景</span>
+        </div>
+        <div class="attraction-meta">
+          <p>⏱️ 游览时长(1-1.5小时) | 🕐 开放时间(08:30-16:30)</p>
+          <p>🎫 门票(成人票58元，儿童票44元)</p>
+          <p>⭐ 最佳时间(上午9:00-11:00（熊猫活跃）)</p>
+          <p>💡 提示(建议上午前往，熊猫更活跃；馆内禁止闪光灯拍照)</p>
+        </div>
+      </div>
+    </div>
+    <div class="card attraction-card">
+      <img src="http://s2.zimgs.cn/ims?at=ori&amp;kt=url&amp;key=aHR0cHM6Ly9xNS5pdGMuY24vcV83MC9pbWFnZXMwMy8yMDI1MTIxMC83YjA0MzlkMzE2Njg0N2YyOWMxZjNhZGUyNDVmNTViZi5wbmc=&amp;sign=yx:7deOBrn4wXUh5xDGJp5iuDOTSAA=&amp;tv=0_0&amp;p=" alt="世界第一滑道" onerror="this.outerHTML='<div class=\"food-emoji\">🏔️</div>'">
+      <div class="attraction-info">
+        <h3>世界第一滑道</h3>
+        <p>全长2680米的篷式滑道，从海拔999.8米的山顶蜿蜒而下，落差570米，48个弯道带来速度与激情。5月虽无雪，但滑道照常开放，可体验山林穿梭的快感，俯瞰五花山春色。</p>
+        <div class="attraction-highlights">
+          <span class="attraction-tag">吉尼斯世界纪录</span>
+          <span class="attraction-tag">森林全景视野</span>
+        </div>
+        <div class="attraction-meta">
+          <p>⏱️ 游览时长(约30分钟（含上山缆车）) | 🕐 开放时间(08:00-16:30)</p>
+          <p>🎫 门票(包含在部分滑雪场套票中，单独体验约100-150元)</p>
+          <p>⭐ 最佳时间(上午（光线好，人少）)</p>
+          <p>💡 提示(需提前预约；滑行速度可自行控制，新手无需担心)</p>
+        </div>
+      </div>
+    </div>
+    <div class="card attraction-card">
+      <img src="http://s2.zimgs.cn/ims?at=ori&amp;kt=url&amp;key=aHR0cHM6Ly9xMS5pdGMuY24vcV83MC9pbWFnZXMwMy8yMDI1MTIxMC81Y2JmNmEwOGQ3Mjk0NjBmYjIzZTViNzczYzE4ZWEzNC5wbmc=&amp;sign=yx:Kih8ZnrOssS5VvbHCdWBvoiLWy4=&amp;tv=0_0&amp;p=" alt="锅盔山原始森林" onerror="this.outerHTML='<div class=\"food-emoji\">🏔️</div>'">
+      <div class="attraction-info">
+        <h3>锅盔山原始森林</h3>
+        <p>亚布力核心自然景观，森林覆盖率96%，5月正值山花烂漫、新绿初绽。可徒步或乘坐缆车登顶，俯瞰三锅盔山全景，呼吸高负氧离子空气，是情侣轻徒步、摄影的理想地。</p>
+        <div class="attraction-highlights">
+          <span class="attraction-tag">原始森林生态</span>
+          <span class="attraction-tag">五花山春景</span>
+        </div>
+        <div class="attraction-meta">
+          <p>⏱️ 游览时长(2-3小时) | 🕐 开放时间(全天开放（缆车08:00-16:30）)</p>
+          <p>🎫 门票(包含在度假区门票内（10元）)</p>
+          <p>⭐ 最佳时间(清晨或傍晚（光线柔和，人少）)</p>
+          <p>💡 提示(穿舒适徒步鞋；春季早晚温差大，备薄外套)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <section class="daily-plan fade-in">
-      <h2>每日行程</h2>
-    </section>
-     
-    <section class="attractions fade-in">
-      <h2 class="section-title">🏞️ 热门景点</h2>
-      
-      <div class="card" style="position: relative; overflow: hidden;">
-        <img src="http://s2.zimgs.cn/ims?at=ori&amp;kt=url&amp;key=aHR0cHM6Ly9xMS5pdGMuY24vcV83MC9pbWFnZXMwMy8yMDI1MTIxMC84ZDc5ZjY1YmMxOTA0NGM3YmNjNzE1YTQ5N2YzZWMxZS5wbmc=&amp;sign=yx:XWtYR4FuW54RXzuSdtfb6L5BkGQ=&amp;tv=0_0&amp;p=" alt="亚布力熊猫馆 美食" onerror="this.style.display='none';">
-        <div style="padding: 1rem 0;">
-          <h3>亚布力熊猫馆</h3>
-          <div class="highlights" style="margin: 0.5rem 0; color: var(--primary-color);">
-            <span>中国最北熊猫馆</span> • <span>森林生态背景</span>
-          </div>
-          <p>中国纬度最高、温度最低的熊猫馆，位于原始森林环抱之中。馆内生活着大熊猫“思嘉”和“佑佑”，春季可观赏熊猫在户外活动区嬉戏，背景是葱郁山林，极具生态趣味。</p>
-        </div>
-        <div class="card-hover-detail" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); color: white; padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; opacity: 0; transition: opacity 0.3s; border-radius: 12px;">
-          <p><strong>🎫 门票：</strong>成人票58元，儿童票44元</p>
-          <p><strong>🕒 开放时间：</strong>08:30-16:30</p>
-          <p><strong>⏱️ 游玩建议：</strong>建议上午9:00-11:00前往，熊猫更活跃；馆内禁止闪光灯拍照</p>
-        </div>
+<section class="food-guide fade-in">
+  <h2>🍽️ 美食指南</h2>
+  
+  <div class="card">
+    <p>亚布力以东北菜为主，融合满、朝、蒙等多民族饮食特色，口味醇厚香浓，以炖、烧、烤为主要烹饪方式，食材多选用当地山珍野味。</p>
+  </div>
+  
+  <h3 style="margin-top:2rem">🌟 必吃美食</h3>
+  <div class="grid grid-3">
+    <div class="card food-card">
+      <img src="http://s2.zimgs.cn/ims?at=ori&amp;kt=url&amp;key=aHR0cHM6Ly9hbS56ZG1pbWcuY29tLzIwMjUxMi8xNS82OTNmOWIzYThkMDkzNTU2NC5qcGdfZTEwODAuanBn&amp;sign=yx:j6J-LJeiW51mg9IaGQwYvmtWyng=&amp;tv=0_0&amp;p=" alt="杀猪菜" onerror="this.outerHTML='<div class=\"food-emoji\">🍜</div>'">
+      <div class="food-info">
+        <h4>杀猪菜</h4>
+        <p>东北传统菜肴，包含五花肉、血肠、酸菜炖煮，肥而不腻，酸香解腻。</p>
+        <p class="food-price">💰 价格(60-100元/份)</p>
+        <p>📍 推荐餐厅(东北杀猪菜小馆)</p>
       </div>
-      
-      <div class="card" style="position: relative; overflow: hidden;">
-        <img src="http://s2.zimgs.cn/ims?at=ori&amp;kt=url&amp;key=aHR0cHM6Ly9xNS5pdGMuY24vcV83MC9pbWFnZXMwMy8yMDI1MTIxMC83YjA0MzlkMzE2Njg0N2YyOWMxZjNhZGUyNDVmNTViZi5wbmc=&amp;sign=yx:7deOBrn4wXUh5xDGJp5iuDOTSAA=&amp;tv=0_0&amp;p=" alt="世界第一滑道 美食" onerror="this.style.display='none';">
-        <div style="padding: 1rem 0;">
-          <h3>世界第一滑道</h3>
-          <div class="highlights" style="margin: 0.5rem 0; color: var(--primary-color);">
-            <span>吉尼斯世界纪录</span> • <span>森林全景视野</span>
-          </div>
-          <p>全长2680米的篷式滑道，从海拔999.8米的山顶蜿蜒而下，落差570米，48个弯道带来速度与激情。5月虽无雪，但滑道照常开放，可体验山林穿梭的快感，俯瞰五花山春色。</p>
-        </div>
-        <div class="card-hover-detail" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); color: white; padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; opacity: 0; transition: opacity 0.3s; border-radius: 12px;">
-          <p><strong>🎫 门票：</strong>包含在部分滑雪场套票中，单独体验约100-150元</p>
-          <p><strong>🕒 开放时间：</strong>08:00-16:30</p>
-          <p><strong>⏱️ 游玩建议：</strong>需提前预约；滑行速度可自行控制，新手无需担心；建议上午前往，光线好且人少</p>
-        </div>
+    </div>
+    <div class="card food-card">
+      <img src="http://s2.zimgs.cn/ims?at=ori&amp;kt=url&amp;key=aHR0cHM6Ly9vc3MubXkzOTkuY29tL2EvMTAwMDEvMjAyNDExLzJlM2M2ZTRjMTU1Yjg0ZWJjNzdhNTA0YzNiZTFiODUyLmpwZWc=&amp;sign=yx:zBCCm-eThp_hOErDYrV7FvUtfYU=&amp;tv=0_0&amp;p=" alt="铁锅炖" onerror="this.outerHTML='<div class=\"food-emoji\">🍜</div>'">
+      <div class="food-info">
+        <h4>铁锅炖</h4>
+        <p>东北特色炖菜，可选择大鹅、笨鸡或鱼，配菜丰富，汤汁浓郁，适合多人分享。</p>
+        <p class="food-price">💰 价格(80-150元/锅)</p>
+        <p>📍 推荐餐厅(二民铁锅炖)</p>
       </div>
-      
-      <div class="card" style="position: relative; overflow: hidden;">
-        <img src="http://s2.zimgs.cn/ims?at=ori&amp;kt=url&amp;key=aHR0cHM6Ly9xMS5pdGMuY24vcV83MC9pbWFnZXMwMy8yMDI1MTIxMC81Y2JmNmEwOGQ3Mjk0NjBmYjIzZTViNzczYzE4ZWEzNC5wbmc=&amp;sign=yx:Kih8ZnrOssS5VvbHCdWBvoiLWy4=&amp;tv=0_0&amp;p=" alt="锅盔山原始森林 美食" onerror="this.style.display='none';">
-        <div style="padding: 1rem 0;">
-          <h3>锅盔山原始森林</h3>
-          <div class="highlights" style="margin: 0.5rem 0; color: var(--primary-color);">
-            <span>原始森林生态</span> • <span>五花山春景</span>
-          </div>
-          <p>亚布力核心自然景观，森林覆盖率96%，5月正值山花烂漫、新绿初绽。可徒步或乘坐缆车登顶，俯瞰三锅盔山全景，呼吸高负氧离子空气，是情侣轻徒步、摄影的理想地。</p>
-        </div>
-        <div class="card-hover-detail" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); color: white; padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; opacity: 0; transition: opacity 0.3s; border-radius: 12px;">
-          <p><strong>🎫 门票：</strong>包含在度假区门票内（10元）</p>
-          <p><strong>🕒 开放时间：</strong>全天开放（缆车08:00-16:30）</p>
-          <p><strong>⏱️ 游玩建议：</strong>穿舒适徒步鞋；春季早晚温差大，备薄外套；清晨或傍晚光线柔和，人少适合拍照</p>
-        </div>
+    </div>
+    <div class="card food-card">
+      <img src="http://s2.zimgs.cn/ims?at=ori&amp;kt=url&amp;key=aHR0cHM6Ly9hbS56ZG1pbWcuY29tLzIwMjUxMi8xNy82OTQyYzY5MmE0MGVhNDU2MS5qcGdfZTEwODAuanBn&amp;sign=yx:Bq0Il1zU8iHfAsKx1Hyl_2euN6o=&amp;tv=0_0&amp;p=" alt="锅包肉" onerror="this.outerHTML='<div class=\"food-emoji\">🍜</div>'">
+      <div class="food-info">
+        <h4>锅包肉</h4>
+        <p>东北经典名菜，外酥里嫩，酸甜可口，是滑雪后最受欢迎的解腻美食。</p>
+        <p class="food-price">💰 价格(40-60元/份)</p>
+        <p>📍 推荐餐厅(尔滨私房菜)</p>
       </div>
-    </section>
+    </div>
+  </div>
+  
+  <h3 style="margin-top:2rem">🏪 推荐餐厅</h3>
+  <div class="grid grid-2">
+    <div class="card restaurant-card">
+      <img src="http://s2.zimgs.cn/ims?at=ori&amp;kt=url&amp;key=aHR0cHM6Ly9xNy5pdGMuY24vcV83MC9pbWFnZXMwMy8yMDI1MTIyNS81MDQxYWVlOWYwYWE0MTFjODYyOTMzNjg3YTY5MTYzNi5qcGVn&amp;sign=yx:Gb2TmLdmO-BEfOYxQ9Q-Pk92A7Q=&amp;tv=0_0&amp;p=" alt="餐厅" onerror="this.style.display='none'">
+      <h4>尔滨私房菜</h4>
+      <p>东北菜</p>
+      <div class="signature-dishes">
+        <span class="dish-tag">锅包肉</span>
+        <span class="dish-tag">杀猪菜</span>
+        <span class="dish-tag">东北乱炖</span>
+      </div>
+      <p>💰 人均(60元) | 🕐 营业时间(早餐7:00-9:30，午餐11:30-13:50，晚餐16:20-20:20)</p>
+      <p>📍 地址(亚布力阳光度假村亚布洛尼酒店一层)</p>
+    </div>
+    <div class="card restaurant-card">
+      <img src="http://s2.zimgs.cn/ims?at=ori&amp;kt=url&amp;key=aHR0cHM6Ly9xNy5pdGMuY24vcV83MC9pbWFnZXMwMy8yMDI1MTIyNS83YWJkMGJlOTBmYzQ0NjNjOTI4OGZiMzE3MTIyZjVmMi5wbmc=&amp;sign=yx:w97Plig9rjdEjHXERpVw_6ujI5A=&amp;tv=0_0&amp;p=" alt="餐厅" onerror="this.style.display='none'">
+      <h4>印象·亚布力</h4>
+      <p>东北菜</p>
+      <div class="signature-dishes">
+        <span class="dish-tag">手工饺子</span>
+        <span class="dish-tag">酸菜猪肉饺子</span>
+        <span class="dish-tag">三鲜饺子</span>
+      </div>
+      <p>💰 人均(50元) | 🕐 营业时间(早餐7:00-9:30，午餐11:30-13:50，晚餐16:20-20:20)</p>
+      <p>📍 地址(亚布力阳光度假村阳光假日酒店二层)</p>
+    </div>
+    <div class="card restaurant-card">
+      <img src="" alt="餐厅" onerror="this.style.display='none'">
+      <h4>二民铁锅炖</h4>
+      <p>东北菜</p>
+      <div class="signature-dishes">
+        <span class="dish-tag">铁锅炖大鹅</span>
+        <span class="dish-tag">笨鸡炖蘑菇</span>
+        <span class="dish-tag">铁锅炖鱼</span>
+      </div>
+      <p>💰 人均(72元) | 🕐 营业时间(10:00-21:00)</p>
+      <p>📍 地址(亚布力滑雪旅游度假区)</p>
+    </div>
+  </div>
+  
+  <h3 style="margin-top:2rem">🛣️ 美食街区</h3>
+  <div class="grid grid-2">
+    <div class="card">
+      <h4>亚布力镇美食街</h4>
+      <p>集中了多家东北特色餐厅和农家院，以铁锅炖和杀猪菜为主打。</p>
+      <p>🍴 必吃：铁锅炖、杀猪菜、东北乱炖、冻梨</p>
+      <p>🕐 最佳时间(11:00-20:00)</p>
+    </div>
+  </div>
+</section>
 
-    <section class="food-guide fade-in">
-      <h2 class="section-title">🍜 必尝美食</h2>
-      <div class="card">
-        <p>亚布力以东北菜为主，融合满、朝、蒙等多民族饮食特色，口味醇厚香浓，以炖、烧、烤为主要烹饪方式，食材多选用当地山珍野味。</p>
-      </div>
-      
-      <div class="card" style="position: relative; overflow: hidden;">
-        <img src="http://s2.zimgs.cn/ims?at=ori&amp;kt=url&amp;key=aHR0cHM6Ly9hbS56ZG1pbWcuY29tLzIwMjUxMi8xNS82OTNmOWIzYThkMDkzNTU2NC5qcGdfZTEwODAuanBn&amp;sign=yx:j6J-LJeiW51mg9IaGQwYvmtWyng=&amp;tv=0_0&amp;p=" alt="杀猪菜 美食" onerror="this.style.display='none';">
-        <div style="padding: 1rem 0;">
-          <h3>杀猪菜</h3>
-          <p>东北传统菜肴，包含五花肉、血肠、酸菜炖煮，肥而不腻，酸香解腻。</p>
-          <p><strong>价格标签：</strong>60-100元/份</p>
+<section class="accommodation-guide fade-in">
+  <h2>🏨 住宿指南</h2>
+  
+  <div class="card">
+    <p>亚布力住宿选择丰富，从高端度假酒店到特色民宿应有尽有，建议选择滑雪度假区内住宿，方便出行且设施完善。</p>
+  </div>
+  
+  <h3 style="margin-top:2rem">📍 推荐区域</h3>
+  <div class="grid grid-2">
+    <div class="card area-card">
+      <img src="http://s2.zimgs.cn/ims?at=ori&amp;kt=url&amp;key=aHR0cHM6Ly9kaW1nMDQuYy1jdHJpcC5jb20vaW1hZ2VzLzFtYzBhMTIwMDBldzQxZDZnNzcwMl9DXzQwMF82MDBfUjVfUTcwLmpwZz9wcm9jPWNyb3Avd18yNzQ1LGhfNDE1MCx4XzEzNjgseV82LDY4MEM=&amp;sign=yx:JJOMlxdR57fukJGYRFsc6OVwu5Y=&amp;tv=0_0&amp;p=" alt="区域" onerror="this.style.display='none'">
+      <h4>亚布力阳光度假村</h4>
+      <p>核心度假区域，设施完善，滑进滑出设计，适合追求便利的游客。</p>
+      <p>👥 适合(情侣、家庭、滑雪爱好者) | 💰 价格(500-1500元/晚)</p>
+      <div class="pros-cons">
+        <div>
+          <strong>优点</strong>
+          <ul class="pros">
+            <li>滑进滑出便利</li>
+            <li>设施齐全</li>
+            <li>餐饮选择多</li>
+          </ul>
         </div>
-        <div class="card-hover-detail" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); color: white; padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; opacity: 0; transition: opacity 0.3s; border-radius: 12px;">
-          <p><strong>💰 价格：</strong>60-100元/份</p>
-          <p><strong>📍 推荐餐厅地址：</strong>东北杀猪菜小馆（亚布力滑雪旅游度假区）</p>
-        </div>
-      </div>
-      
-      <div class="card" style="position: relative; overflow: hidden;">
-        <img src="http://s2.zimgs.cn/ims?at=ori&amp;kt=url&amp;key=aHR0cHM6Ly9vc3MubXkzOTkuY29tL2EvMTAwMDEvMjAyNDExLzJlM2M2ZTRjMTU1Yjg0ZWJjNzdhNTA0YzNiZTFiODUyLmpwZWc=&amp;sign=yx:zBCCm-eThp_hOErDYrV7FvUtfYU=&amp;tv=0_0&amp;p=" alt="铁锅炖 美食" onerror="this.style.display='none';">
-        <div style="padding: 1rem 0;">
-          <h3>铁锅炖</h3>
-          <p>东北特色炖菜，可选择大鹅、笨鸡或鱼，配菜丰富，汤汁浓郁，适合多人分享。</p>
-          <p><strong>价格标签：</strong>80-150元/锅</p>
-        </div>
-        <div class="card-hover-detail" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); color: white; padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; opacity: 0; transition: opacity 0.3s; border-radius: 12px;">
-          <p><strong>💰 价格：</strong>80-150元/锅</p>
-          <p><strong>📍 推荐餐厅地址：</strong>二民铁锅炖（亚布力滑雪旅游度假区）</p>
-        </div>
-      </div>
-      
-      <div class="card" style="position: relative; overflow: hidden;">
-        <img src="http://s2.zimgs.cn/ims?at=ori&amp;kt=url&amp;key=aHR0cHM6Ly9hbS56ZG1pbWcuY29tLzIwMjUxMi8xNy82OTQyYzY5MmE0MGVhNDU2MS5qcGdfZTEwODAuanBn&amp;sign=yx:Bq0Il1zU8iHfAsKx1Hyl_2euN6o=&amp;tv=0_0&amp;p=" alt="锅包肉 美食" onerror="this.style.display='none';">
-        <div style="padding: 1rem 0;">
-          <h3>锅包肉</h3>
-          <p>东北经典名菜，外酥里嫩，酸甜可口，是滑雪后最受欢迎的解腻美食。</p>
-          <p><strong>价格标签：</strong>40-60元/份</p>
-        </div>
-        <div class="card-hover-detail" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); color: white; padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; opacity: 0; transition: opacity 0.3s; border-radius: 12px;">
-          <p><strong>💰 价格：</strong>40-60元/份</p>
-          <p><strong>📍 推荐餐厅地址：</strong>尔滨私房菜（亚布力阳光度假村亚布洛尼酒店一层）</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="budget fade-in">
-      <h2 class="section-title">💰 预算明细</h2>
-      <div class="card">
-        <p style="text-align: center; font-size: 2rem; margin: 1rem 0;"><span class="budget-number" data-amount="6000">¥6,000</span></p>
-        <p style="text-align: center; opacity: 0.8;">总预算（3000元/人）</p>
-        
-        <div class="budget-items" style="margin-top: 1.5rem;">
-          <div class="budget-item" style="margin: 1rem 0; display: flex; align-items: center;">
-            <span class="budget-icon" style="font-size: 1.5rem; margin-right: 1rem;">🏨</span>
-            <div style="flex: 1;">
-              <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
-                <strong>住宿</strong>
-                <span>¥2,400</span>
-              </div>
-              <div style="height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden;">
-                <div style="height: 100%; background: var(--primary-color); width: 40%;"></div>
-              </div>
-              <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.25rem;">4晚住宿，平均每晚600元 (40%)</p>
-            </div>
-          </div>
-          
-          <div class="budget-item" style="margin: 1rem 0; display: flex; align-items: center;">
-            <span class="budget-icon" style="font-size: 1.5rem; margin-right: 1rem;">🚗</span>
-            <div style="flex: 1;">
-              <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
-                <strong>交通</strong>
-                <span>¥1,200</span>
-              </div>
-              <div style="height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden;">
-                <div style="height: 100%; background: var(--primary-color); width: 20%;"></div>
-              </div>
-              <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.25rem;">杭州-哈尔滨高铁往返+当地交通</p>
-            </div>
-          </div>
-          
-          <div class="budget-item" style="margin: 1rem 0; display: flex; align-items: center;">
-            <span class="budget-icon" style="font-size: 1.5rem; margin-right: 1rem;">🍜</span>
-            <div style="flex: 1;">
-              <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
-                <strong>餐饮</strong>
-                <span>¥1,000</span>
-              </div>
-              <div style="height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden;">
-                <div style="height: 100%; background: var(--primary-color); width: 16.67%;"></div>
-              </div>
-              <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.25rem;">5天餐饮，日均200元</p>
-            </div>
-          </div>
-          
-          <div class="budget-item" style="margin: 1rem 0; display: flex; align-items: center;">
-            <span class="budget-icon" style="font-size: 1.5rem; margin-right: 1rem;">🎫</span>
-            <div style="flex: 1;">
-              <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
-                <strong>门票</strong>
-                <span>¥800</span>
-              </div>
-              <div style="height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden;">
-                <div style="height: 100%; background: var(--primary-color); width: 13.33%;"></div>
-              </div>
-              <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.25rem;">滑雪场门票、景点门票</p>
-            </div>
-          </div>
-          
-          <div class="budget-item" style="margin: 1rem 0; display: flex; align-items: center;">
-            <span class="budget-icon" style="font-size: 1.5rem; margin-right: 1rem;">🛍️</span>
-            <div style="flex: 1;">
-              <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
-                <strong>购物娱乐</strong>
-                <span>¥600</span>
-              </div>
-              <div style="height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden;">
-                <div style="height: 100%; background: var(--primary-color); width: 10%;"></div>
-              </div>
-              <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.25rem;">特产购买、娱乐项目</p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="saving-tips" style="margin-top: 1.5rem;">
-          <strong>省钱技巧：</strong>
-          <ul style="list-style: none; padding-left: 0; margin-top: 0.5rem;">
-            <li style="margin: 0.25rem 0; padding-left: 1.25rem; position: relative;">• 提前预订住宿可享受早鸟优惠</li>
-            <li style="margin: 0.25rem 0; padding-left: 1.25rem; position: relative;">• 选择含餐住宿套餐更划算</li>
-            <li style="margin: 0.25rem 0; padding-left: 1.25rem; position: relative;">• 当地农家院用餐比景区餐厅便宜30%</li>
+        <div>
+          <strong>缺点</strong>
+          <ul class="cons">
+            <li>价格较高</li>
+            <li>旺季需提前预订</li>
           </ul>
         </div>
       </div>
-    </section>
-
-    <section class="tips fade-in">
-      <h2 class="section-title">📝 实用贴士</h2>
-      
-      <div class="card">
-        <h3>✈️ 行前准备</h3>
-        <ul style="list-style: none; padding-left: 0; margin-top: 0.5rem;">
-          <li style="margin: 0.25rem 0; padding-left: 1.25rem; position: relative;">• 携带身份证，滑雪需提供身份信息</li>
-          <li style="margin: 0.25rem 0; padding-left: 1.25rem; position: relative;">• 可自带滑雪装备，也可在当地租赁</li>
-        </ul>
-      </div>
-      
-      <div class="card">
-        <h3>🎒 行程中</h3>
-        <ul style="list-style: none; padding-left: 0; margin-top: 0.5rem;">
-          <li style="margin: 0.25rem 0; padding-left: 1.25rem; position: relative;">• 初学者建议请教练，遵守雪场规则</li>
-          <li style="margin: 0.25rem 0; padding-left: 1.25rem; position: relative;">• 农家院性价比高，建议提前电话预约</li>
-        </ul>
-      </div>
-      
-      <div class="card">
-        <h3>🏮 当地风俗</h3>
-        <ul style="list-style: none; padding-left: 0; margin-top: 0.5rem;">
-          <li style="margin: 0.25rem 0; padding-left: 1.25rem; position: relative;">• 东北人热情好客，用餐时可能会劝酒，可礼貌拒绝</li>
-        </ul>
-      </div>
-      
-      <div class="card">
-        <h3>⚠️ 安全提醒</h3>
-        <ul style="list-style: none; padding-left: 0; margin-top: 0.5rem;">
-          <li style="margin: 0.25rem 0; padding-left: 1.25rem; position: relative;">• 即使春季仍需注意保暖，特别是早晚温差大</li>
-          <li style="margin: 0.25rem 0; padding-left: 1.25rem; position: relative;">• 佩戴护具，不在非开放区域滑雪</li>
-        </ul>
-      </div>
-      
-      <div class="card">
-        <h3>📱 实用APP</h3>
-        <p>📱携程 🗺️高德地图 ⭐大众点评</p>
-      </div>
-    </section>
-
-    <section class="shopping fade-in">
-      <h2 class="section-title">🛍️ 购物推荐</h2>
-      
-      <div class="card" style="position: relative; overflow: hidden;">
-        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
-          <div style="font-size: 2rem; margin-right: 1rem;">🌲</div>
-          <h3>东北特产</h3>
+    </div>
+    <div class="card area-card">
+      <img src="http://s2.zimgs.cn/ims?at=ori&amp;kt=url&amp;key=aHR0cHM6Ly9kaW1nMDQuYy1jdHJpcC5jb20vaW1hZ2VzLzFtYzZvMTIwMDBpMjMydzdnRTMwM19DXzQwMF82MDBfUjVfUTcwLmpwZz9wcm9jPWNyb3Avd18yMTE3LGhfMjk5Nyx4Xzk1Mix5XzI3LDZBOTU=&amp;sign=yx:vWZf85DWSoliNeazsyoDz5UXq0E=&amp;tv=0_0&amp;p=" alt="区域" onerror="this.style.display='none'">
+      <h4>青云小镇</h4>
+      <p>环境优美，有特色民宿和别墅，适合追求安静和特色的游客。</p>
+      <p>👥 适合(情侣、小团体) | 💰 价格(300-800元/晚)</p>
+      <div class="pros-cons">
+        <div>
+          <strong>优点</strong>
+          <ul class="pros">
+            <li>环境优美</li>
+            <li>特色民宿多</li>
+            <li>价格适中</li>
+          </ul>
         </div>
+        <div>
+          <strong>缺点</strong>
+          <ul class="cons">
+            <li>距离雪场稍远</li>
+            <li>餐饮选择较少</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <h3 style="margin-top:2rem">🛏️ 住宿类型</h3>
+  <div class="grid grid-2">
+    <div class="card">
+      <img src="http://s2.zimgs.cn/ims?at=ori&amp;kt=url&amp;key=aHR0cHM6Ly9kaW1nMDQuYy1jdHJpcC5jb20vaW1hZ2VzLzFtYzBmMTIwMDBuNm9zeWQwMDgzN19DXzQwMF82MDBfUjVfUTcwLmpwZz9wcm9jPWNyb3Avd18xNzc1LGhfMjIzNix4XzEwNzQseV8yMyw5MUJG&amp;sign=yx:1NUPtyHlNDg41j-uqLqVdN-hX-o=&amp;tv=0_0&amp;p=" alt="住宿" onerror="this.style.display='none'" style="width:100%;height:150px;object-fit:cover;border-radius:12px">
+      <h4>高端度假酒店</h4>
+      <p>滑进滑出设计，设施齐全，服务周到，适合追求高品质体验的游客。</p>
+      <p>💰 价格(800-1500元/晚)</p>
+      <p>✨ 亮点：滑进滑出、温泉、餐饮配套、滑雪装备租赁</p>
+      <p>💡 预订建议(旺季需提前1-2个月预订，建议选择含滑雪套餐)</p>
+    </div>
+    <div class="card">
+      <img src="http://s2.zimgs.cn/ims?at=ori&amp;kt=url&amp;key=aHR0cHM6Ly9kaW1nMDQuYy1jdHJpcC5jb20vaW1hZ2VzLzFtYzVvMTIwMDBndTd6ZDB5MEUyRV9DXzQwMF82MDBfUjVfUTcwLmpwZz9wcm9jPWNyb3Avd18yNDMxLGhfMzY0Nyx4XzE2MTAseV8xLDA3REM=&amp;sign=yx:DFQTX4yedqN7kboZl7L3A1QTczo=&amp;tv=0_0&amp;p=" alt="住宿" onerror="this.style.display='none'" style="width:100%;height:150px;object-fit:cover;border-radius:12px">
+      <h4>特色民宿</h4>
+      <p>北欧风格或东北传统风格，环境优美，服务个性化，适合情侣和小团体。</p>
+      <p>💰 价格(300-600元/晚)</p>
+      <p>✨ 亮点：特色装修、个性化服务、环境优美、性价比高</p>
+      <p>💡 预订建议(建议选择评分4.5以上的民宿，提前联系确认接送服务)</p>
+    </div>
+  </div>
+</section>
+
+<section class="transport-info fade-in">
+  <h2>🚗 交通信息</h2>
+  
+  <div class="card">
+    <h3>✈️ 到达方式</h3>
+    <div class="transport-method">
+      <span class="transport-icon">🚄</span>
+      <div>
+        <strong>方式(高铁+接驳)</strong>
+        <p>⏱️ 时长(约10-12小时（含中转）) | 💰 费用(约800-1200元/人)</p>
+        <p style="margin-top:0.5rem">💡 提示(杭州无直达亚布力高铁，需先乘高铁至哈尔滨（约10小时），再转乘“亚布力专列”（哈尔滨站/哈尔滨西站至亚布力西站，约1小时，票价76元）。建议提前预订联程票。)</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="card" style="margin-top:1rem">
+    <h3>🚌 当地交通</h3>
+    <p style="margin-bottom:1rem">推荐方式：打车/包车</p>
+    <div class="grid grid-3">
+      <div style="padding:1rem;background:rgba(255,255,255,0.05);border-radius:12px">
+        <strong>类型(公交)</strong>
+        <p>描述(亚布力西站至度假区约6元，班次有限)</p>
+        <p>💰 费用(6元)</p>
+      </div>
+      <div style="padding:1rem;background:rgba(255,255,255,0.05);border-radius:12px">
+        <strong>类型(打车)</strong>
+        <p>描述(亚布力西站至度假区约15分钟车程)</p>
+        <p>💰 费用(约60元)</p>
+      </div>
+      <div style="padding:1rem;background:rgba(255,255,255,0.05);border-radius:12px">
+        <strong>类型(包车)</strong>
+        <p>描述(适合情侣，可灵活安排景点间交通)</p>
+        <p>💰 费用(约200-300元/天)</p>
+      </div>
+    </div>
+    <p style="margin-top:1rem">💡 提示：度假区内景点分散，建议包车或使用度假村接驳车、5月非旺季，打车较方便，无需提前预约</p>
+  </div>
+</section>
+
+<section class="shopping-guide fade-in">
+  <h2>🛍️ 购物指南</h2>
+  <div class="grid grid-2">
+    <div class="card shopping-item">
+      <img src="" alt="商品" onerror="this.outerHTML='<span style=\"font-size:3rem\">🎁</span>'" style="width:80px;height:80px;object-fit:cover;border-radius:8px">
+      <div>
+        <h4>东北特产</h4>
         <p>包括黑木耳、榛子、林蛙油等当地特色产品</p>
-        <div class="card-hover-detail" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); color: white; padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; opacity: 0; transition: opacity 0.3s; border-radius: 12px;">
-          <p><strong>💰 价格范围：</strong>50-300元</p>
-          <p><strong>📍 购买地点：</strong>亚布力镇特产店或阳光度假村商店</p>
-        </div>
+        <p>📍 购买地点(亚布力镇特产店或阳光度假村商店)</p>
+        <p>💰 价格区间(50-300元)</p>
       </div>
-      
-      <div class="card" style="position: relative; overflow: hidden;">
-        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
-          <div style="font-size: 2rem; margin-right: 1rem;">🍫</div>
-          <h3>俄罗斯商品</h3>
-        </div>
+    </div>
+    <div class="card shopping-item">
+      <img src="" alt="商品" onerror="this.outerHTML='<span style=\"font-size:3rem\">🎁</span>'" style="width:80px;height:80px;object-fit:cover;border-radius:8px">
+      <div>
+        <h4>俄罗斯商品</h4>
         <p>巧克力、紫皮糖、威化饼等俄罗斯进口食品</p>
-        <div class="card-hover-detail" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); color: white; padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; opacity: 0; transition: opacity 0.3s; border-radius: 12px;">
-          <p><strong>💰 价格范围：</strong>20-100元</p>
-          <p><strong>📍 购买地点：</strong>亚布力创锦游客服务中心</p>
+        <p>📍 购买地点(亚布力创锦游客服务中心)</p>
+        <p>💰 价格区间(20-100元)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="budget fade-in">
+  <h2>💰 预算明细</h2>
+  <div class="card">
+    <div class="budget-total">
+      <div style="font-size:1rem;opacity:0.8">预计总费用</div>
+      <div class="budget-amount" data-target="6000">¥0</div>
+      <div style="font-size:0.9rem;opacity:0.8">人均：3000元/人</div>
+    </div>
+    
+    <div class="budget-items">
+      <div class="budget-item">
+        <span>🏨 住宿</span>
+        <div class="budget-bar-container">
+          <div class="budget-bar" style="width: 40%"></div>
         </div>
+        <span>¥2400</span>
       </div>
-    </section>
-
-    <section class="emergency fade-in">
-      <h2 class="section-title">📞 紧急联系</h2>
-      
-      <div class="card">
-        <ul style="list-style: none; padding-left: 0;">
-          <li style="margin: 0.5rem 0; display: flex; align-items: center;">
-            <span style="font-size: 1.25rem; margin-right: 0.5rem;">📞</span>
-            <strong>亚布力滑雪场救援：</strong>0451-5345XXXX
-          </li>
-          <li style="margin: 0.5rem 0; display: flex; align-items: center;">
-            <span style="font-size: 1.25rem; margin-right: 0.5rem;">🏥</span>
-            <strong>当地医院：</strong>0451-5332XXXX
-          </li>
-          <li style="margin: 0.5rem 0; display: flex; align-items: center;">
-            <span style="font-size: 1.25rem; margin-right: 0.5rem;">🚔</span>
-            <strong>旅游服务热线：</strong>12301
-          </li>
-        </ul>
+      <div style="font-size:0.85rem;opacity:0.7;padding-left:2rem">4晚住宿，平均每晚600元</div>
+      <div class="budget-item">
+        <span>🚗 交通</span>
+        <div class="budget-bar-container">
+          <div class="budget-bar" style="width: 20%"></div>
+        </div>
+        <span>¥1200</span>
       </div>
-    </section>
-
-    <footer>
-      <div class="container">
-        <p style="text-align: center; padding: 2rem 0; opacity: 0.7;">© 2026 亚布力旅行指南 | 为情侣打造的专属春日秘境</p>
-        <button id="back-to-top" style="position: fixed; bottom: 2rem; right: 2rem; width: 50px; height: 50px; border-radius: 50%; background: var(--primary-color); color: white; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; pointer-events: none;">↑</button>
+      <div style="font-size:0.85rem;opacity:0.7;padding-left:2rem">杭州-哈尔滨高铁往返+当地交通</div>
+      <div class="budget-item">
+        <span>🍜 餐饮</span>
+        <div class="budget-bar-container">
+          <div class="budget-bar" style="width: 16.67%"></div>
+        </div>
+        <span>¥1000</span>
       </div>
-    </footer>
+      <div style="font-size:0.85rem;opacity:0.7;padding-left:2rem">5天餐饮，日均200元</div>
+      <div class="budget-item">
+        <span>🎫 门票</span>
+        <div class="budget-bar-container">
+          <div class="budget-bar" style="width: 13.33%"></div>
+        </div>
+        <span>¥800</span>
+      </div>
+      <div style="font-size:0.85rem;opacity:0.7;padding-left:2rem">滑雪场门票、景点门票</div>
+      <div class="budget-item">
+        <span>🛍️ 购物娱乐</span>
+        <div class="budget-bar-container">
+          <div class="budget-bar" style="width: 10%"></div>
+        </div>
+        <span>¥600</span>
+      </div>
+      <div style="font-size:0.85rem;opacity:0.7;padding-left:2rem">特产购买、娱乐项目</div>
+    </div>
+    
+    <div class="saving-tips">
+      <h4>💡 省钱技巧</h4>
+      <ul>
+        <li>提前预订住宿可享受早鸟优惠</li>
+        <li>选择含餐住宿套餐更划算</li>
+        <li>当地农家院用餐比景区餐厅便宜30%</li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-    <script>
-document.addEventListener('DOMContentLoaded', function() {
+<section class="practical-tips fade-in">
+  <h2>📝 实用提示</h2>
+  <div class="tips-grid">
+    <div class="card tip-card">
+      <h4>✈️ 出发前准备</h4>
+      <ul>
+        <li><strong>证件准备</strong>：携带身份证，滑雪需提供身份信息</li>
+        <li><strong>装备准备</strong>：可自带滑雪装备，也可在当地租赁</li>
+      </ul>
+    </div>
+    <div class="card tip-card">
+      <h4>🗺️ 旅途中</h4>
+      <ul>
+        <li><strong>滑雪安全</strong>：初学者建议请教练，遵守雪场规则</li>
+        <li><strong>用餐建议</strong>：农家院性价比高，建议提前电话预约</li>
+      </ul>
+    </div>
+    <div class="card tip-card">
+      <h4>🎎 当地习俗</h4>
+      <ul>
+        <li><strong>东北待客</strong>：东北人热情好客，用餐时可能会劝酒，可礼貌拒绝</li>
+      </ul>
+    </div>
+    <div class="card tip-card">
+      <h4>⚠️ 安全提醒</h4>
+      <ul>
+        <li><strong>防寒保暖</strong>：即使春季仍需注意保暖，特别是早晚温差大</li>
+        <li><strong>滑雪安全</strong>：佩戴护具，不在非开放区域滑雪</li>
+      </ul>
+    </div>
+  </div>
   
-  // 滚动动画
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, index) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => {
-          entry.target.classList.add('visible');
-        }, index * 100);
-      }
-    });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  <div class="card" style="margin-top:1.5rem">
+    <h4>📱 实用APP推荐</h4>
+    <p>携程、高德地图、大众点评</p>
+  </div>
+</section>
+
+<section class="emergency fade-in">
+  <h2>🆘 紧急联系</h2>
+  <div class="grid grid-3">
+    <div class="card emergency-card">
+      <span class="emergency-icon">📞</span>
+      <div>
+        <div>亚布力滑雪场救援</div>
+        <div class="emergency-phone">0451-5345XXXX</div>
+      </div>
+    </div>
+    <div class="card emergency-card">
+      <span class="emergency-icon">📞</span>
+      <div>
+        <div>当地医院</div>
+        <div class="emergency-phone">0451-5332XXXX</div>
+      </div>
+    </div>
+    <div class="card emergency-card">
+      <span class="emergency-icon">📞</span>
+      <div>
+        <div>旅游服务热线</div>
+        <div class="emergency-phone">12301</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>🌟 祝您旅途愉快！</p>
+  <p style="font-size:0.85rem;opacity:0.7;margin-top:0.5rem">行程由AI智能生成，实际出行请以当地情况为准</p>
+</footer>
+
+<script>
+(function() {
+  var container = document.getElementById('particles-container');
+  if (!container) return;
+  var particleCount = 25;
   
-  // 季节粒子动画
-  const seasonMatch = document.body.className.match(/season-(\w+)/);
-  if (seasonMatch) {
-    const container = document.getElementById('particles-container');
-    if (container) {
-      for (let i = 0; i < 50; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.width = (Math.random() * 10 + 5) + 'px';
-        particle.style.height = particle.style.width;
-        particle.style.animationDuration = (Math.random() * 5 + 5) + 's';
-        particle.style.animationDelay = Math.random() * 5 + 's';
-        container.appendChild(particle);
-      }
-    }
+  for (var i = 0; i < particleCount; i++) {
+    var particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+    particle.style.animationDelay = Math.random() * 10 + 's';
+    var size = Math.random() * 8 + 4;
+    particle.style.width = size + 'px';
+    particle.style.height = size + 'px';
+    container.appendChild(particle);
   }
-  
-  // 数字滚动动画
-  function animateNumber(el, target) {
-    let start = 0;
-    const duration = 1500;
-    const startTime = performance.now();
-    function update(currentTime) {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const current = Math.floor(progress * target);
-      el.textContent = '¥' + current.toLocaleString();
-      if (progress < 1) requestAnimationFrame(update);
+})();
+
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry, index) {
+    if (entry.isIntersecting) {
+      setTimeout(function() {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }, index * 100);
     }
-    requestAnimationFrame(update);
-  }
-  
-  const budgetObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const amount = parseInt(entry.target.dataset.amount) || 0;
-        animateNumber(entry.target, amount);
-        budgetObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.5 });
-  document.querySelectorAll('.budget-number').forEach(el => budgetObserver.observe(el));
-  
-  // 图片错误处理
-  document.querySelectorAll('img').forEach(img => {
-    img.addEventListener('error', function() {
-      this.style.display = 'none';
-      const placeholder = document.createElement('div');
-      placeholder.className = 'image-placeholder';
-      const context = this.alt || '';
-      let emoji = '🏞️';
-      if (context.includes('美食') || context.includes('餐')) emoji = '🍜';
-      else if (context.includes('购物') || context.includes('特产')) emoji = '🛍️';
-      placeholder.innerHTML = emoji + ' ' + (this.alt || '图片');
-      this.parentNode.insertBefore(placeholder, this.nextSibling);
-    });
   });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-in').forEach(function(el) {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(30px)';
+  el.style.transition = 'all 0.6s ease';
+  observer.observe(el);
+});
+
+document.querySelectorAll('[data-target]').forEach(function(el) {
+  var target = parseInt(el.dataset.target) || 0;
+  if (target === 0) return;
   
-  // 回到顶部
-  const backToTop = document.getElementById('back-to-top');
-  if (backToTop) {
-    window.addEventListener('scroll', () => {
-      backToTop.style.opacity = window.scrollY > 500 ? '1' : '0';
-      backToTop.style.pointerEvents = window.scrollY > 500 ? 'auto' : 'none';
-    });
-    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-  }
-  
-  // 卡片悬停效果
-  document.querySelectorAll('.card').forEach(card => {
-    const hoverDetail = card.querySelector('.card-hover-detail');
-    if (hoverDetail) {
-      card.addEventListener('mouseenter', () => {
-        hoverDetail.style.opacity = '1';
-      });
-      card.addEventListener('mouseleave', () => {
-        hoverDetail.style.opacity = '0';
-      });
+  var current = 0;
+  var increment = target / 60;
+  var timer = setInterval(function() {
+    current += increment;
+    if (current >= target) {
+      current = target;
+      clearInterval(timer);
     }
+    el.textContent = '¥' + Math.floor(current).toLocaleString();
+  }, 25);
+});
+
+document.querySelectorAll('img').forEach(function(img) {
+  img.addEventListener('error', function() {
+    this.style.display = 'none';
   });
-  
-  // 移动端卡片点击展开
-  if (window.innerWidth <= 768) {
-    document.querySelectorAll('.card').forEach(card => {
-      const hoverDetail = card.querySelector('.card-hover-detail');
-      if (hoverDetail) {
-        card.addEventListener('click', function() { 
-          if (hoverDetail.style.opacity === '1') {
-            hoverDetail.style.opacity = '0';
-          } else {
-            hoverDetail.style.opacity = '1';
-          }
-        });
-      }
-    });
-  }
 });
 </script>
-  </main></body></html>
+</main>
+</body>
+</html>
