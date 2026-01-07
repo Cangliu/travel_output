@@ -4,92 +4,569 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>云南大理-丽江5日深度游</title>
+  <style>
+    /* Modern CSS Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --spacing-unit: 1rem;
+      --primary-hue: 160; /* Default for Yunnan:苍山绿 */
+      --primary-sat: 40%;
+      --primary-light: 30%;
+      --primary-color: hsl(var(--primary-hue), var(--primary-sat), var(--primary-light));
+      --text-color: #222;
+      --bg-color: #fdfdfd;
+      --card-bg: rgba(255, 255, 255, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.3);
+      --shadow: 0 10px 30px rgba(0,0,0,0.1);
+      --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text-color: #f0f0f0;
+        --bg-color: #121212;
+        --card-bg: rgba(30, 30, 30, 0.7);
+        --glass-border: rgba(255, 255, 255, 0.15);
+        --shadow: 0 10px 30px rgba(0,0,0,0.3);
+      }
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.8;
+      letter-spacing: 0.02em;
+      overflow-x: hidden;
+    }
+
+    /* Utility Classes */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--spacing-unit);
+    }
+
+    section {
+      padding: 4rem 0;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.6), transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .hero img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 2rem;
+      max-width: 900px;
+      margin-bottom: 4rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      opacity: 0;
+      animation: fadeInUp 1.2s ease-out forwards;
+    }
+
+    .hero p {
+      font-size: clamp(1.2rem, 4vw, 1.8rem);
+      font-weight: 300;
+      opacity: 0;
+      animation: fadeInUp 1.2s ease-out 0.3s forwards;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      opacity: 0;
+      animation: fadeIn 1s ease-in-out 1.5s forwards;
+    }
+
+    .scroll-indicator span {
+      display: block;
+      width: 24px;
+      height: 24px;
+      border-left: 2px solid var(--text-color);
+      border-bottom: 2px solid var(--text-color);
+      transform: rotate(-45deg);
+      margin-bottom: 0.5rem;
+      animation: bounce 2s infinite;
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding: 4rem 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 2px;
+      background: var(--primary-color);
+      transform: translateX(-50%);
+      z-index: 0;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 4rem;
+      z-index: 1;
+      opacity: 0;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-card {
+      margin-left: 0;
+      margin-right: calc(50% + 1rem);
+    }
+
+    .timeline-item:nth-child(even) .timeline-card {
+      margin-left: calc(50% + 1rem);
+      margin-right: 0;
+    }
+
+    .timeline-day {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--primary-color);
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      z-index: 2;
+    }
+
+    .timeline-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 2px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .timeline-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    }
+
+    .timeline-card:active {
+      transform: scale(0.98);
+    }
+
+    .timeline-theme {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .timeline-activities {
+      list-style: none;
+      margin: 1rem 0;
+    }
+
+    .timeline-activities li {
+      padding: 0.5rem 0;
+      position: relative;
+      padding-left: 1.5rem;
+    }
+
+    .timeline-activities li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+
+    .timeline-tips {
+      background: rgba(255, 255, 255, 0.1);
+      border-left: 4px solid var(--primary-color);
+      padding: 1rem;
+      margin-top: 1rem;
+      font-style: italic;
+    }
+
+    .image-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 300px;
+      background: var(--primary-color);
+      color: white;
+      border-radius: 12px;
+      font-size: 1.2rem;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .day-image {
+      width: 100%;
+      height: auto;
+      max-height: 60vh;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+      margin: 16px 0 24px;
+      border: 2px solid var(--glass-border);
+    }
+
+    /* Budget Section */
+    .budget {
+      text-align: center;
+    }
+
+    .budget h2 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .budget-chart {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .budget-item {
+      flex: 1;
+      min-width: 200px;
+      max-width: 250px;
+    }
+
+    .budget-bar {
+      height: 24px;
+      background: rgba(0,0,0,0.05);
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 0.5rem 0 1rem;
+    }
+
+    .budget-fill {
+      height: 100%;
+      background: var(--primary-color);
+      border-radius: 12px;
+      width: 0;
+      transition: width 1.5s ease-out;
+    }
+
+    .budget-label {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .budget-amount {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    /* Weather Advice */
+    .weather-advice {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 2px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-top: 2rem;
+      text-align: center;
+      font-style: italic;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0) translateX(-50%) rotate(-45deg);
+      }
+      40% {
+        transform: translateY(-10px) translateX(-50%) rotate(-45deg);
+      }
+      60% {
+        transform: translateY(-5px) translateX(-50%) rotate(-45deg);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .timeline::before {
+        left: 1rem;
+      }
+
+      .timeline-day {
+        left: 1rem;
+        transform: none;
+      }
+
+      .timeline-item:nth-child(odd) .timeline-card,
+      .timeline-item:nth-child(even) .timeline-card {
+        margin-left: 0;
+        margin-right: 0;
+        margin-top: 2rem;
+      }
+
+      .hero h1 {
+        font-size: clamp(2rem, 10vw, 3.5rem);
+      }
+
+      .hero p {
+        font-size: clamp(1rem, 4vw, 1.4rem);
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- 封面区 -->
-  <header style="position: relative; height: 100vh; overflow: hidden;">
-    <img src="https://img.alicdn.com/imgextra/i2/O1CN01hvvekr1X6LPPdLaFJ_!!6000000002874-0-tps-5120-2880.jpg" alt="封面图" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.parentElement.innerHTML='🌄';" />
-    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7)); display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 1rem;">
-      <h1 style="font-size: 2.5rem; margin: 0;">云南大理-丽江5日深度游</h1>
-      <p style="font-size: 1.2rem; margin-top: 0.5rem;">苍山洱海 · 古城慢生活 · 玉龙雪山</p>
+  <!-- Hero Section -->
+  <header class="hero">
+    <img src="https://img.alicdn.com/imgextra/i2/O1CN01hvvekr1X6LPPdLaFJ_!!6000000002874-0-tps-5120-2880.jpg" alt="云南大理-丽江5日深度游封面图" loading="lazy" />
+    <div class="hero-content">
+      <h1>云南大理-丽江5日深度游</h1>
+      <p>苍山洱海 · 古城慢生活 · 玉龙雪山</p>
+    </div>
+    <div class="scroll-indicator">
+      <span></span>
+      <small>Scroll to explore</small>
     </div>
   </header>
 
-  <!-- 行程时间线 -->
-  <section style="padding: 2rem 1rem; max-width: 1200px; margin: 0 auto;">
-    <h2 style="text-align: center; margin-bottom: 2rem;">行程安排</h2>
-    <div style="position: relative; padding-left: 2rem;">
-      <!-- 连接线 -->
-      <div style="position: absolute; left: 1rem; top: 0; bottom: 0; width: 2px; background: #ccc; z-index: 1;"></div>
-      <!-- 第1天 -->
-      <div style="position: relative; margin-bottom: 2rem; padding-left: 1.5rem;">
-        <div style="position: absolute; left: -0.75rem; top: 0.5rem; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: #4a90e2; z-index: 2;"></div>
-        <div style="background: #f9f9f9; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-          <h3 style="margin-top: 0;">第1天 · 2026-01-07</h3>
-          <p><strong>主题：</strong>抵达大理·洱海西岸骑行</p>
-          <ul style="padding-left: 1.2rem;">
+  <main class="container">
+    <!-- Timeline -->
+    <section class="timeline" id="timeline">
+      <div class="timeline-item">
+        <div class="timeline-day">01</div>
+        <div class="timeline-card">
+          <div class="timeline-theme">🌄 EXPLORE<br>抵达大理·洱海西岸骑行</div>
+          <img src="https://img.alicdn.com/imgextra/i2/O1CN012yQXOu1bXbOrgG1RC_!!6000000003475-2-tps-725-1024.png" alt="Day 1: 洱海西岸骑行" class="day-image" loading="lazy" onerror="this.style.display='none'; this.parentElement.querySelector('.image-placeholder').style.display='flex';" />
+          <div class="image-placeholder" style="display:none;">
+            🌄 Day 1: 洱海西岸骑行
+          </div>
+          <ul class="timeline-activities">
             <li>下午：入住洱海民宿</li>
             <li>傍晚：环海西路骑行，打卡S弯</li>
           </ul>
-          <p><em>提示：洱海边风大，注意保暖</em></p>
-          <img src="https://img.alicdn.com/imgextra/i2/O1CN012yQXOu1bXbOrgG1RC_!!6000000003475-2-tps-725-1024.png" alt="行程图片" style="width: 100%; max-width: 300px; height: auto; margin-top: 1rem; border-radius: 4px;" onerror="this.parentElement.innerHTML += '🚴‍♀️';" />
+          <div class="timeline-tips">洱海边风大，注意保暖</div>
         </div>
       </div>
-      <!-- 第2天 -->
-      <div style="position: relative; margin-bottom: 2rem; padding-left: 1.5rem;">
-        <div style="position: absolute; left: -0.75rem; top: 0.5rem; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: #4a90e2; z-index: 2;"></div>
-        <div style="background: #f9f9f9; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-          <h3 style="margin-top: 0;">第2天 · 2026-01-08</h3>
-          <p><strong>主题：</strong>苍山徒步 & 大理古城夜游</p>
-          <ul style="padding-left: 1.2rem;">
+      <div class="timeline-item">
+        <div class="timeline-day">02</div>
+        <div class="timeline-card">
+          <div class="timeline-theme">🏔️ HIKE<br>苍山徒步 & 大理古城夜游</div>
+          <img src="https://img.alicdn.com/imgextra/i2/O1CN012yQXOu1bXbOrgG1RC_!!6000000003475-2-tps-725-1024.png" alt="Day 2: 苍山徒步 & 大理古城夜游" class="day-image" loading="lazy" onerror="this.style.display='none'; this.parentElement.querySelector('.image-placeholder').style.display='flex';" />
+          <div class="image-placeholder" style="display:none;">
+            🏔️ Day 2: 苍山徒步 & 大理古城夜游
+          </div>
+          <ul class="timeline-activities">
             <li>上午：感通索道上苍山</li>
             <li>晚上：人民路逛手作店，听民谣</li>
           </ul>
-          <p><em>提示：苍山海拔较高，做好高原反应预防</em></p>
-          <img src="https://img.alicdn.com/imgextra/i2/O1CN012yQXOu1bXbOrgG1RC_!!6000000003475-2-tps-725-1024.png" alt="行程图片" style="width: 100%; max-width: 300px; height: auto; margin-top: 1rem; border-radius: 4px;" onerror="this.parentElement.innerHTML += '⛰️';" />
+          <div class="timeline-tips">苍山海拔较高，做好高原反应预防</div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- 预算明细 -->
-  <section style="padding: 2rem 1rem; background: #f5f5f5;">
-    <h2 style="text-align: center; margin-bottom: 2rem;">预算明细</h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; max-width: 1200px; margin: 0 auto;">
-      <div style="background: white; padding: 1.5rem; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-        <h3>住宿</h3>
-        <p style="font-size: 1.5rem; margin: 0;">2000 CNY</p>
+    <!-- Budget Section -->
+    <section class="budget">
+      <h2>预算概览</h2>
+      <div class="budget-chart" id="budgetChart">
+        <!-- Filled by JS -->
       </div>
-      <div style="background: white; padding: 1.5rem; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-        <h3>交通</h3>
-        <p style="font-size: 1.5rem; margin: 0;">800 CNY</p>
-      </div>
-      <div style="background: white; padding: 1.5rem; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-        <h3>餐饮</h3>
-        <p style="font-size: 1.5rem; margin: 0;">1000 CNY</p>
-      </div>
-      <div style="background: white; padding: 1.5rem; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-        <h3>门票</h3>
-        <p style="font-size: 1.5rem; margin: 0;">400 CNY</p>
-      </div>
-      <div style="background: white; padding: 1.5rem; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-        <h3>其他</h3>
-        <p style="font-size: 1.5rem; margin: 0;">200 CNY</p>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- 出行贴士 -->
-  <section style="padding: 2rem 1rem; max-width: 1200px; margin: 0 auto;">
-    <h2 style="text-align: center; margin-bottom: 2rem;">出行贴士</h2>
-    <ul style="padding-left: 1.5rem; max-width: 800px; margin: 0 auto;">
-      <li>冬季出行，请关注当地天气预报，带好保暖衣物。</li>
-    </ul>
-  </section>
+    <!-- Weather Advice -->
+    <section>
+      <div class="weather-advice">
+        冬季出行，请关注当地天气预报，带好保暖衣物。
+      </div>
+    </section>
+  </main>
 
-  <!-- 主题切换按钮（仅占位，无JS） -->
-  <div style="position: fixed; bottom: 1rem; right: 1rem;">
-    <button style="padding: 0.5rem 1rem; border: none; background: #4a90e2; color: white; border-radius: 4px; cursor: pointer;">切换主题</button>
-  </div>
+  <script>
+    // Theme color inference based on title/summary
+    const title = "云南大理-丽江5日深度游";
+    const summary = "苍山洱海 · 古城慢生活 · 玉龙雪山";
+    const combinedText = (title + ' ' + summary).toLowerCase();
+
+    let hue = 160; // Default Yunnan green
+    if (combinedText.includes('冰岛') || combinedText.includes('极光')) {
+      hue = 180; // Aurora green
+    } else if (combinedText.includes('沙漠') || combinedText.includes('敦煌')) {
+      hue = 30; // Desert ochre
+    } else if (combinedText.includes('京都') || combinedText.includes('古都')) {
+      hue = 350; // Kyoto red
+    } else if (combinedText.includes('云南') || combinedText.includes('大理') || combinedText.includes('丽江') || combinedText.includes('苍山') || combinedText.includes('洱海')) {
+      hue = 160; // Yunnan green
+    }
+
+    document.documentElement.style.setProperty('--primary-hue', hue);
+
+    // Budget Visualization
+    const budgetData = [
+      { category: "住宿", amount: 2000, unit: "CNY" },
+      { category: "交通", amount: 800, unit: "CNY" },
+      { category: "餐饮", amount: 1000, unit: "CNY" },
+      { category: "门票", amount: 400, unit: "CNY" },
+      { category: "其他", amount: 200, unit: "CNY" }
+    ];
+
+    const total = budgetData.reduce((sum, item) => sum + item.amount, 0);
+    const chartContainer = document.getElementById('budgetChart');
+
+    budgetData.forEach(item => {
+      const percent = (item.amount / total) * 100;
+      const formattedAmount = `¥${item.amount}`;
+
+      const itemEl = document.createElement('div');
+      itemEl.className = 'budget-item';
+      itemEl.innerHTML = `
+        <div class="budget-label">${item.category}</div>
+        <div class="budget-bar">
+          <div class="budget-fill" data-percent="${percent}"></div>
+        </div>
+        <div class="budget-amount">${formattedAmount}</div>
+      `;
+      chartContainer.appendChild(itemEl);
+    });
+
+    // Animate budget bars on scroll into view
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const budgetObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const fills = entry.target.querySelectorAll('.budget-fill');
+          fills.forEach(fill => {
+            const percent = fill.getAttribute('data-percent');
+            fill.style.width = `${percent}%`;
+          });
+          budgetObserver.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    budgetObserver.observe(document.querySelector('.budget'));
+
+    // Scroll-triggered animations for timeline
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    const timelineObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.animation = `fadeInUp 0.8s ease-out ${index * 0.2}s forwards`;
+          timelineObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    timelineItems.forEach(item => timelineObserver.observe(item));
+
+    // Image error handling
+    document.querySelectorAll('img').forEach(img => {
+      img.addEventListener('error', function() {
+        this.style.display = 'none';
+        const placeholder = this.parentElement.querySelector('.image-placeholder');
+        if (placeholder) placeholder.style.display = 'flex';
+      });
+    });
+
+    // Parallax effect for hero image
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const heroImg = document.querySelector('.hero img');
+      if (heroImg) {
+        heroImg.style.transform = `translateY(${scrollY * 0.5}px)`;
+      }
+    });
+  </script>
 </body>
 </html>
