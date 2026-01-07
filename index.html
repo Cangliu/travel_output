@@ -1,1 +1,617 @@
-f25e9cb699524ba08588b4927b1f44f8
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>春日雪域余韵：情侣漫游亚布力的林海与慢时光</title>
+  <style>
+    :root {
+      --spacing-unit: 1rem;
+      --primary-h: 120;
+      --primary-s: 30%;
+      --primary-l: 35%;
+      --primary-color: hsl(var(--primary-h), var(--primary-s), var(--primary-l));
+      --glass-bg: rgba(255, 255, 255, 0.15);
+      --glass-border: rgba(255, 255, 255, 0.3);
+      --text-primary: #1a1a1a;
+      --text-secondary: #555;
+      --bg-primary: #f9f7f2;
+      --bg-secondary: #e8e4d9;
+      --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      --transition-fast: 0.2s ease;
+      --transition-slow: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text-primary: #f0f0f0;
+        --text-secondary: #bbb;
+        --bg-primary: #121212;
+        --bg-secondary: #1e1e1e;
+        --glass-bg: rgba(30, 30, 30, 0.6);
+        --glass-border: rgba(255, 255, 255, 0.15);
+        --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.8;
+      letter-spacing: 0.02em;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 60vh;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 var(--spacing-unit);
+      margin-bottom: 4rem;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent 70%);
+      border-radius: 12px;
+      pointer-events: none;
+    }
+
+    .hero img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      border-radius: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      padding-bottom: 4rem;
+      color: white;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeInUp 1.2s ease-out forwards;
+    }
+
+    .hero p {
+      font-size: clamp(1.125rem, 3.5vw, 1.5rem);
+      font-weight: 300;
+      opacity: 0;
+      animation: fadeInUp 1.2s ease-out 0.3s forwards;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      opacity: 0;
+      animation: fadeIn 1.2s ease-out 0.6s forwards;
+    }
+
+    .scroll-indicator span {
+      font-size: 0.875rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.1em;
+    }
+
+    .scroll-indicator .arrow {
+      width: 24px;
+      height: 24px;
+      border-right: 2px solid white;
+      border-bottom: 2px solid white;
+      transform: rotate(45deg);
+      animation: bounce 2s infinite;
+    }
+
+    /* Main Content */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 var(--spacing-unit);
+    }
+
+    section {
+      margin-bottom: 5rem;
+    }
+
+    h2 {
+      font-size: clamp(1.75rem, 5vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 2rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: var(--primary-color);
+      border-radius: 2px;
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0.5rem;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--primary-color);
+      border-radius: 2px;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3rem;
+      opacity: 0;
+    }
+
+    .timeline-item.visible {
+      opacity: 1;
+      animation: staggerFadeIn 0.8s ease-out forwards;
+    }
+
+    .timeline-day {
+      position: absolute;
+      left: -2rem;
+      top: 0;
+      width: 3rem;
+      height: 3rem;
+      background: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1rem;
+      z-index: 2;
+    }
+
+    .timeline-content {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: var(--card-shadow);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .timeline-content:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .timeline-content:active {
+      transform: scale(0.98);
+    }
+
+    .timeline-theme {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+
+    .timeline-activities,
+    .timeline-tips {
+      margin-top: 1rem;
+    }
+
+    .timeline-activities li,
+    .timeline-tips li {
+      margin-bottom: 0.5rem;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+
+    .timeline-activities li::before,
+    .timeline-tips li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--primary-color);
+      font-weight: bold;
+    }
+
+    .image-placeholder {
+      background: var(--primary-color);
+      color: white;
+      border-radius: 12px;
+      padding: 2rem 1rem;
+      text-align: center;
+      font-size: 1.125rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 200px;
+    }
+
+    .image-placeholder::before {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    /* Budget Chart */
+    .budget-chart {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .budget-item {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: var(--card-shadow);
+    }
+
+    .budget-amount {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin: 0.5rem 0;
+      color: var(--primary-color);
+    }
+
+    .budget-category {
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      z-index: 100;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--card-shadow);
+    }
+
+    .theme-toggle svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--text-primary);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes staggerFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0) rotate(45deg);
+      }
+      40% {
+        transform: translateY(-10px) rotate(45deg);
+      }
+      60% {
+        transform: translateY(-5px) rotate(45deg);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero {
+        min-height: 500px;
+      }
+
+      .timeline {
+        padding-left: 0;
+      }
+
+      .timeline::before {
+        left: 1.5rem;
+      }
+
+      .timeline-day {
+        left: 0;
+      }
+
+      .timeline-content {
+        margin-top: 3.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <img src="https://images.unsplash.com/photo-1544870075-7a28e51a4a1c?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="亚布力春日林海" loading="lazy" onerror="this.style.display='none';">
+    <div class="hero-content">
+      <h1>春日雪域余韵：情侣漫游亚布力的林海与慢时光</h1>
+      <p>五天四晚的春日之旅，避开滑雪旺季的人潮，在亚布力的融雪林海间牵手漫步，探访中东铁路遗迹，品味地道东北风味，享受轻松惬意的二人世界。</p>
+    </div>
+    <div class="scroll-indicator">
+      <span>SCROLL</span>
+      <div class="arrow"></div>
+    </div>
+  </header>
+
+  <div class="theme-toggle" id="themeToggle" aria-label="切换深色/浅色模式">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+      <path d="M20 12a8 8 0 1 1-16 0 8 8 0 0 1 16 0z" fill="none" stroke="currentColor" stroke-width="2" />
+    </svg>
+  </div>
+
+  <main class="container">
+    <section class="timeline" id="timeline">
+      <h2>每日行程</h2>
+      <!-- Timeline items will be inserted by JS -->
+    </section>
+
+    <section class="budget" id="budget">
+      <h2>预算概览</h2>
+      <div class="budget-chart" id="budgetChart">
+        <!-- Budget items will be inserted by JS -->
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Theme color generation based on keywords
+    const title = "春日雪域余韵：情侣漫游亚布力的林海与慢时光";
+    let hue = 120; // default green for forest
+    if (title.includes('雪') || title.includes('冰') || title.includes('极光')) {
+      hue = 180; // cyan for snow/ice
+    } else if (title.includes('沙漠') || title.includes('戈壁')) {
+      hue = 30; // warm orange for desert
+    } else if (title.includes('古镇') || title.includes('京都')) {
+      hue = 0; // red for traditional
+    }
+    document.documentElement.style.setProperty('--primary-h', hue);
+
+    // Theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    let currentTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+    
+    function setTheme(theme) {
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+        themeToggle.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="currentColor"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m12.73 12.73l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m12.73-12.73l1.41-1.41" stroke="currentColor" stroke-width="2" fill="none"/></svg>';
+      } else {
+        document.documentElement.classList.remove('dark');
+        themeToggle.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M20 12a8 8 0 1 1-16 0 8 8 0 0 1 16 0z" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
+      }
+      localStorage.setItem('theme', theme);
+    }
+    
+    setTheme(currentTheme);
+    
+    themeToggle.addEventListener('click', () => {
+      currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      setTheme(currentTheme);
+    });
+
+    // Daily plan data
+    const dailyPlan = [{"day": 1, "date": "2026-05-01", "theme": "抵达林海，初遇春日亚布力", "activities": ["乘坐高铁抵达哈尔滨站，转乘旅游专线或包车前往亚布力（约2.5小时）", "入住度假区内特色木屋或温泉酒店，稍作休整后在度假区森林步道轻徒步"], "transport": "高铁 + 包车/旅游专线", "meals": ["高铁简餐或哈尔滨站内快餐", "亚布力当地农家菜（推荐锅包肉、小鸡炖蘑菇）", "酒店内晚餐或度假区特色铁锅炖"], "tips": "春季早晚温差大，建议携带防风外套；提前预订包车服务更省心。", "image_url": "https://images.unsplash.com/photo-1504283520939-2e7e3a5e8b8a?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=1200&amp;q=80"}, {"day": 2, "date": "2026-05-02", "theme": "林海踏青与铁路记忆", "activities": ["清晨漫步亚布力国家森林公园，欣赏融雪后的新绿与溪流", "探访中东铁路亚布力站旧址，了解百年铁路文化"], "transport": "步行 + 度假区内接驳车", "meals": ["酒店自助早餐", "森林公园附近农家乐（推荐山野菜、笨鸡蛋）", "返回度假区享用东北烧烤或饺子宴"], "tips": "森林公园部分区域可能因融雪湿滑，建议穿防滑徒步鞋；铁路旧址无明确开放时间，建议白天前往。", "image_url": "https://images.unsplash.com/photo-1511497584788-876760111969?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=1200&amp;q=80"}, {"day": 3, "date": "2026-05-03", "theme": "温泉疗愈与慢食时光", "activities": ["上午体验亚布力森林温泉，享受春日暖阳下的私密泡汤时光", "下午在度假区咖啡馆或书吧阅读、拍照，享受二人静谧时光"], "transport": "步行", "meals": ["酒店早餐", "温泉酒店简餐或轻食", "尝试当地特色杀猪菜（可选清淡版）或锅烙"], "tips": "温泉建议选择带私汤的房型，更私密浪漫；杀猪菜口味较重，可提前说明少油少盐。", "image_url": "https://images.unsplash.com/photo-1544870075-7a28e51a4a1c?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=1200&amp;q=80"}, {"day": 4, "date": "2026-05-04", "theme": "周边文化探访与山野风味", "activities": ["包车前往尚志市，参观赵尚志纪念馆，感受东北抗联历史", "返程途中采摘春季山野菜（如蒲公英、柳蒿芽），体验林区生活"], "transport": "包车", "meals": ["酒店早餐", "尚志市区东北菜馆（推荐地三鲜、酸菜白肉）", "回程途中农家晚餐，品尝自采野菜炒制菜肴"], "tips": "纪念馆周一可能闭馆，建议提前确认；采摘野菜请在向导带领下进行，避免误采。", "image_url": "https://images.unsplash.com/photo-1506260408121-e353d10b87c7?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=1200&amp;q=80"}, {"day": 5, "date": "2026-05-05", "theme": "告别林海，返程归途", "activities": ["晨起在度假区湖边散步，拍摄春日晨光中的林影", "退房后乘车返回哈尔滨，可选择在哈尔滨站附近品尝俄式西餐后返程"], "transport": "包车 + 高铁", "meals": ["酒店早餐", "哈尔滨站附近华梅西餐厅或塔道斯西餐厅", "高铁途中简餐"], "tips": "返程高铁票建议提前购买；俄式餐厅节假日可能排队，可提前预约。", "image_url": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=1200&amp;q=80"}];
+
+    // Budget data
+    const budgetBreakdown = [{"category": "住宿", "amount": 2400, "unit": "CNY"}, {"category": "交通", "amount": 1200, "unit": "CNY"}, {"category": "餐饮", "amount": 1000, "unit": "CNY"}, {"category": "门票", "amount": 200, "unit": "CNY"}, {"category": "其他", "amount": 600, "unit": "CNY"}];
+
+    // Render timeline
+    const timelineEl = document.getElementById('timeline');
+    dailyPlan.forEach((day, index) => {
+      const itemEl = document.createElement('div');
+      itemEl.className = 'timeline-item';
+      itemEl.style.animationDelay = `${index * 0.15}s`;
+      
+      let imageHtml = '';
+      if (day.image_url) {
+        imageHtml = `<img src="${day.image_url}" alt="${day.theme}" loading="lazy" onerror="this.parentElement.querySelector('.image-placeholder').style.display='flex'; this.style.display='none';">`;
+      }
+      
+      let tipsHtml = '';
+      if (day.tips) {
+        tipsHtml = `
+          <div class="timeline-tips">
+            <h3>实用贴士</h3>
+            <ul>
+              <li>${day.tips}</li>
+            </ul>
+          </div>
+        `;
+      }
+      
+      itemEl.innerHTML = `
+        <div class="timeline-day">DAY ${day.day}</div>
+        <div class="timeline-content">
+          ${imageHtml}
+          <div class="image-placeholder" style="display: ${day.image_url ? 'none' : 'flex'};">
+            <span>🌄</span>
+            <span>Day ${day.day}: ${day.theme}</span>
+          </div>
+          <h3 class="timeline-theme">${day.theme}</h3>
+          <div class="timeline-activities">
+            <h3>今日行程</h3>
+            <ul>
+              ${day.activities.map(activity => `<li>${activity}</li>`).join('')}
+            </ul>
+          </div>
+          ${tipsHtml}
+        </div>
+      `;
+      
+      timelineEl.appendChild(itemEl);
+    });
+
+    // Render budget
+    const budgetChartEl = document.getElementById('budgetChart');
+    const totalAmount = budgetBreakdown.reduce((sum, item) => sum + item.amount, 0);
+    
+    budgetBreakdown.forEach(item => {
+      const budgetItemEl = document.createElement('div');
+      budgetItemEl.className = 'budget-item';
+      
+      // Count-up animation
+      const amountEl = document.createElement('div');
+      amountEl.className = 'budget-amount';
+      amountEl.textContent = '0';
+      
+      budgetItemEl.innerHTML = `
+        <div class="budget-category">${item.category}</div>
+      `;
+      budgetItemEl.appendChild(amountEl);
+      
+      budgetChartEl.appendChild(budgetItemEl);
+      
+      // Start count-up animation when in view
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            let start = 0;
+            const end = item.amount;
+            const duration = 1500;
+            const increment = end / (duration / 16);
+            
+            const timer = setInterval(() => {
+              start += increment;
+              if (start >= end) {
+                amountEl.textContent = `${item.unit}${end}`;
+                clearInterval(timer);
+              } else {
+                amountEl.textContent = `${item.unit}${Math.ceil(start)}`;
+              }
+            }, 16);
+            
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      observer.observe(amountEl);
+    });
+
+    // Scroll-triggered animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.timeline-item').forEach(item => {
+      observer.observe(item);
+    });
+
+    // Smooth scroll for arrow
+    document.querySelector('.scroll-indicator').addEventListener('click', () => {
+      window.scrollTo({
+        top: document.querySelector('.container').offsetTop - 20,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+</body>
+</html>
