@@ -1,393 +1,95 @@
-
-
-
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>云南大理-丽江5日深度游</title>
-  <style>
-    :root {
-      --bg-color: #ffffff;
-      --text-color: #333333;
-      --card-bg: rgba(255, 255, 255, 0.85);
-      --border-color: #e0e0e0;
-      --accent-color: #4a90e2;
-      --shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-      --glass-blur: blur(10px);
-    }
+</head>
+<body>
+  <!-- 封面区 -->
+  <header style="position: relative; height: 100vh; overflow: hidden;">
+    <img src="https://img.alicdn.com/imgextra/i2/O1CN01hvvekr1X6LPPdLaFJ_!!6000000002874-0-tps-5120-2880.jpg" alt="封面图" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.parentElement.innerHTML='🌄';" />
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7)); display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 1rem;">
+      <h1 style="font-size: 2.5rem; margin: 0;">云南大理-丽江5日深度游</h1>
+      <p style="font-size: 1.2rem; margin-top: 0.5rem;">苍山洱海 · 古城慢生活 · 玉龙雪山</p>
+    </div>
+  </header>
 
-    .dark-theme {
-      --bg-color: #121212;
-      --text-color: #f0f0f0;
-      --card-bg: rgba(30, 30, 30, 0.85);
-      --border-color: #333333;
-      --accent-color: #64b5f6;
-      --shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background: var(--bg-color);
-      color: var(--text-color);
-      line-height: 1.6;
-      transition: background-color 0.3s, color 0.3s;
-    }
-
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 0 16px;
-    }
-
-    header {
-      position: relative;
-      height: 60vh;
-      min-height: 300px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 0 16px 32px;
-      margin-bottom: 24px;
-    }
-
-    .cover-image {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -1;
-    }
-
-    .cover-image::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-      z-index: -1;
-    }
-
-    .cover-content {
-      color: white;
-      z-index: 1;
-    }
-
-    h1 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .summary {
-      font-size: 1.2rem;
-      opacity: 0.9;
-    }
-
-    .theme-toggle {
-      position: absolute;
-      top: 24px;
-      right: 24px;
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 50%;
-      width: 44px;
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      backdrop-filter: var(--glass-blur);
-      -webkit-backdrop-filter: var(--glass-blur);
-      box-shadow: var(--shadow);
-    }
-
-    .section {
-      margin-bottom: 40px;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    }
-
-    .section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    h2 {
-      font-size: 1.6rem;
-      margin-bottom: 20px;
-      position: relative;
-      padding-bottom: 8px;
-    }
-
-    h2::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 50px;
-      height: 3px;
-      background: var(--accent-color);
-      border-radius: 2px;
-    }
-
-    .timeline {
-      position: relative;
-      padding-left: 24px;
-    }
-
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 6px;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: var(--accent-color);
-    }
-
-    .timeline-item {
-      position: relative;
-      margin-bottom: 32px;
-      padding-left: 24px;
-    }
-
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -14px;
-      top: 8px;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: var(--accent-color);
-      border: 3px solid var(--bg-color);
-    }
-
-    .day-header {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 8px;
-    }
-
-    .day-number {
-      font-weight: 700;
-      font-size: 1.2rem;
-      color: var(--accent-color);
-    }
-
-    .day-theme {
-      font-weight: 600;
-      margin-bottom: 12px;
-    }
-
-    .day-image {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 8px;
-      margin: 12px 0;
-      display: block;
-    }
-
-    .activities {
-      list-style: none;
-      padding-left: 0;
-    }
-
-    .activities li {
-      padding: 6px 0;
-      position: relative;
-      padding-left: 16px;
-    }
-
-    .activities li::before {
-      content: '•';
-      position: absolute;
-      left: 0;
-      color: var(--accent-color);
-      font-weight: bold;
-    }
-
-    .day-tip {
-      margin-top: 12px;
-      font-style: italic;
-      color: var(--accent-color);
-    }
-
-    .budget-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 16px;
-    }
-
-    .budget-item {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 16px;
-      text-align: center;
-      backdrop-filter: var(--glass-blur);
-      -webkit-backdrop-filter: var(--glass-blur);
-      box-shadow: var(--shadow);
-    }
-
-    .budget-amount {
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin: 8px 0;
-      color: var(--accent-color);
-    }
-
-    .budget-category {
-      font-size: 0.95rem;
-    }
-
-    .tips-list {
-      list-style: none;
-    }
-
-    .tips-list li {
-      padding: 12px 0;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .tips-list li:last-child {
-      border-bottom: none;
-    }
-
-    .weather-advice {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 16px;
-      margin-top: 16px;
-      backdrop-filter: var(--glass-blur);
-      -webkit-backdrop-filter: var(--glass-blur);
-      box-shadow: var(--shadow);
-    }
-
-    .image-placeholder {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 180px;
-      background: var(--card-bg);
-      border-radius: 8px;
-      font-size: 3rem;
-    }
-
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 1.8rem;
-      }
-      .summary {
-        font-size: 1rem;
-      }
-      h2 {
-        font-size: 1.4rem;
-      }
-      .day-header {
-        flex-direction: column;
-        gap: 4px;
-      }
-    }
-  </style>
-
-
-  <div class="container">
-    <header>
-      <img class="cover-image" src="https://img.alicdn.com/imgextra/i2/O1CN01hvvekr1X6LPPdLaFJ_!!6000000002874-0-tps-5120-2880.jpg" alt="封面图" onerror="this.style.display='none'; this.parentElement.querySelector('.cover-placeholder').style.display='flex';">
-      <div class="cover-placeholder" style="display:none;position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);align-items:center;justify-content:center;color:white;font-size:4rem;">🌄</div>
-      <div class="cover-content">
-        <h1>云南大理-丽江5日深度游</h1>
-        <p class="summary">苍山洱海 · 古城慢生活 · 玉龙雪山</p>
-      </div>
-      <div class="theme-toggle" id="themeToggle">🌓</div>
-    </header>
-
-    <section class="section" id="dailyPlan">
-      <h2>每日行程</h2>
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="day-header">
-            <span class="day-number">第 1 天</span>
-            <span>2026-01-07</span>
-          </div>
-          <div class="day-theme">抵达大理·洱海西岸骑行</div>
-          <img class="day-image" src="https://img.alicdn.com/imgextra/i2/O1CN012yQXOu1bXbOrgG1RC_!!6000000003475-2-tps-725-1024.png" alt="第1天" onerror="this.style.display='none'; this.parentElement.querySelector('.image-placeholder').style.display='flex';">
-          <div class="image-placeholder" style="display:none;">🚴</div>
-          <ul class="activities">
+  <!-- 行程时间线 -->
+  <section style="padding: 2rem 1rem; max-width: 1200px; margin: 0 auto;">
+    <h2 style="text-align: center; margin-bottom: 2rem;">行程安排</h2>
+    <div style="position: relative; padding-left: 2rem;">
+      <!-- 连接线 -->
+      <div style="position: absolute; left: 1rem; top: 0; bottom: 0; width: 2px; background: #ccc; z-index: 1;"></div>
+      <!-- 第1天 -->
+      <div style="position: relative; margin-bottom: 2rem; padding-left: 1.5rem;">
+        <div style="position: absolute; left: -0.75rem; top: 0.5rem; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: #4a90e2; z-index: 2;"></div>
+        <div style="background: #f9f9f9; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+          <h3 style="margin-top: 0;">第1天 · 2026-01-07</h3>
+          <p><strong>主题：</strong>抵达大理·洱海西岸骑行</p>
+          <ul style="padding-left: 1.2rem;">
             <li>下午：入住洱海民宿</li>
             <li>傍晚：环海西路骑行，打卡S弯</li>
           </ul>
-          <div class="day-tip">洱海边风大，注意保暖</div>
+          <p><em>提示：洱海边风大，注意保暖</em></p>
+          <img src="https://img.alicdn.com/imgextra/i2/O1CN012yQXOu1bXbOrgG1RC_!!6000000003475-2-tps-725-1024.png" alt="行程图片" style="width: 100%; max-width: 300px; height: auto; margin-top: 1rem; border-radius: 4px;" onerror="this.parentElement.innerHTML += '🚴‍♀️';" />
         </div>
-        <div class="timeline-item">
-          <div class="day-header">
-            <span class="day-number">第 2 天</span>
-            <span>2026-01-08</span>
-          </div>
-          <div class="day-theme">苍山徒步 &amp; 大理古城夜游</div>
-          <img class="day-image" src="https://img.alicdn.com/imgextra/i2/O1CN012yQXOu1bXbOrgG1RC_!!6000000003475-2-tps-725-1024.png" alt="第2天" onerror="this.style.display='none'; this.parentElement.querySelector('.image-placeholder').style.display='flex';">
-          <div class="image-placeholder" style="display:none;">⛰️</div>
-          <ul class="activities">
+      </div>
+      <!-- 第2天 -->
+      <div style="position: relative; margin-bottom: 2rem; padding-left: 1.5rem;">
+        <div style="position: absolute; left: -0.75rem; top: 0.5rem; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: #4a90e2; z-index: 2;"></div>
+        <div style="background: #f9f9f9; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+          <h3 style="margin-top: 0;">第2天 · 2026-01-08</h3>
+          <p><strong>主题：</strong>苍山徒步 & 大理古城夜游</p>
+          <ul style="padding-left: 1.2rem;">
             <li>上午：感通索道上苍山</li>
             <li>晚上：人民路逛手作店，听民谣</li>
           </ul>
-          <div class="day-tip">苍山海拔较高，做好高原反应预防</div>
+          <p><em>提示：苍山海拔较高，做好高原反应预防</em></p>
+          <img src="https://img.alicdn.com/imgextra/i2/O1CN012yQXOu1bXbOrgG1RC_!!6000000003475-2-tps-725-1024.png" alt="行程图片" style="width: 100%; max-width: 300px; height: auto; margin-top: 1rem; border-radius: 4px;" onerror="this.parentElement.innerHTML += '⛰️';" />
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="section" id="budget">
-      <h2>预算明细</h2>
-      <div class="budget-grid">
-        <div class="budget-item">
-          <div class="budget-category">住宿</div>
-          <div class="budget-amount">2000 CNY</div>
-        </div>
-        <div class="budget-item">
-          <div class="budget-category">交通</div>
-          <div class="budget-amount">800 CNY</div>
-        </div>
-        <div class="budget-item">
-          <div class="budget-category">餐饮</div>
-          <div class="budget-amount">1000 CNY</div>
-        </div>
-        <div class="budget-item">
-          <div class="budget-category">门票</div>
-          <div class="budget-amount">400 CNY</div>
-        </div>
-        <div class="budget-item">
-          <div class="budget-category">其他</div>
-          <div class="budget-amount">200 CNY</div>
-        </div>
+  <!-- 预算明细 -->
+  <section style="padding: 2rem 1rem; background: #f5f5f5;">
+    <h2 style="text-align: center; margin-bottom: 2rem;">预算明细</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; max-width: 1200px; margin: 0 auto;">
+      <div style="background: white; padding: 1.5rem; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3>住宿</h3>
+        <p style="font-size: 1.5rem; margin: 0;">2000 CNY</p>
       </div>
-    </section>
+      <div style="background: white; padding: 1.5rem; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3>交通</h3>
+        <p style="font-size: 1.5rem; margin: 0;">800 CNY</p>
+      </div>
+      <div style="background: white; padding: 1.5rem; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3>餐饮</h3>
+        <p style="font-size: 1.5rem; margin: 0;">1000 CNY</p>
+      </div>
+      <div style="background: white; padding: 1.5rem; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3>门票</h3>
+        <p style="font-size: 1.5rem; margin: 0;">400 CNY</p>
+      </div>
+      <div style="background: white; padding: 1.5rem; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3>其他</h3>
+        <p style="font-size: 1.5rem; margin: 0;">200 CNY</p>
+      </div>
+    </div>
+  </section>
 
-    <section class="section" id="tips">
-      <h2>出行贴士</h2>
-      <ul class="tips-list">
-        <li>洱海边风大，注意保暖</li>
-        <li>苍山海拔较高，做好高原反应预防</li>
-      </ul>
-      <div class="weather-advice">
-        冬季出行，请关注当地天气预报，带好保暖衣物。
-      </div>
-    </section>
+  <!-- 出行贴士 -->
+  <section style="padding: 2rem 1rem; max-width: 1200px; margin: 0 auto;">
+    <h2 style="text-align: center; margin-bottom: 2rem;">出行贴士</h2>
+    <ul style="padding-left: 1.5rem; max-width: 800px; margin: 0 auto;">
+      <li>冬季出行，请关注当地天气预报，带好保暖衣物。</li>
+    </ul>
+  </section>
+
+  <!-- 主题切换按钮（仅占位，无JS） -->
+  <div style="position: fixed; bottom: 1rem; right: 1rem;">
+    <button style="padding: 0.5rem 1rem; border: none; background: #4a90e2; color: white; border-radius: 4px; cursor: pointer;">切换主题</button>
   </div>
-
-  
-
-
+</body>
+</html>
