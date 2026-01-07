@@ -1,78 +1,65 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>春日雪域余韵：情侣漫游亚布力的林海与慢时光</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>春日亚布力：森林秘境中的情侣漫游记</title>
   <style>
     :root {
-      --spacing-unit: 1rem;
       --primary-h: 120;
-      --primary-s: 30%;
+      --primary-s: 40%;
       --primary-l: 35%;
       --primary-color: hsl(var(--primary-h), var(--primary-s), var(--primary-l));
+      --primary-light: hsl(var(--primary-h), var(--primary-s), 50%);
+      --primary-dark: hsl(var(--primary-h), var(--primary-s), 20%);
+      --bg-light: #f9f9f7;
+      --bg-dark: #121212;
+      --text-light: #1a1a1a;
+      --text-dark: #f0f0f0;
       --glass-bg: rgba(255, 255, 255, 0.15);
-      --glass-border: rgba(255, 255, 255, 0.3);
-      --text-primary: #1a1a1a;
-      --text-secondary: #555;
-      --bg-primary: #f9f7f2;
-      --bg-secondary: #e8e4d9;
-      --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      --glass-border: rgba(255, 255, 255, 0.2);
+      --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      --spacing-unit: 1rem;
+      --border-radius: 16px;
       --transition-fast: 0.2s ease;
-      --transition-slow: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      --transition-normal: 0.4s ease;
+      --transition-slow: 0.6s ease;
     }
 
     @media (prefers-color-scheme: dark) {
       :root {
-        --text-primary: #f0f0f0;
-        --text-secondary: #bbb;
-        --bg-primary: #121212;
-        --bg-secondary: #1e1e1e;
-        --glass-bg: rgba(30, 30, 30, 0.6);
-        --glass-border: rgba(255, 255, 255, 0.15);
-        --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        --glass-bg: rgba(30, 30, 30, 0.3);
+        --glass-border: rgba(255, 255, 255, 0.1);
+        --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
       }
     }
 
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-      background-color: var(--bg-primary);
-      color: var(--text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
       line-height: 1.8;
       letter-spacing: 0.02em;
-      overflow-x: hidden;
+      color: var(--text-light);
+      background-color: var(--bg-light);
+      transition: background-color var(--transition-normal);
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
+    @media (prefers-color-scheme: dark) {
+      body {
+        color: var(--text-dark);
+        background-color: var(--bg-dark);
+      }
     }
 
-    img {
-      display: block;
-      width: 100%;
-      height: auto;
-      max-height: 60vh;
-      object-fit: cover;
-      border-radius: 12px;
-    }
-
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--spacing-unit);
     }
 
     /* Hero Section */
@@ -82,8 +69,9 @@
       min-height: 600px;
       display: flex;
       align-items: flex-end;
-      padding: 0 var(--spacing-unit);
       margin-bottom: 4rem;
+      overflow: hidden;
+      border-radius: var(--border-radius);
     }
 
     .hero::after {
@@ -93,9 +81,9 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent 70%);
-      border-radius: 12px;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent 70%);
       pointer-events: none;
+      z-index: 1;
     }
 
     .hero img {
@@ -105,32 +93,31 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      z-index: -1;
-      border-radius: 0;
+      z-index: 0;
     }
 
     .hero-content {
       position: relative;
       z-index: 2;
+      padding: 2rem;
       max-width: 800px;
-      padding-bottom: 4rem;
-      color: white;
+      margin-bottom: 2rem;
     }
 
     .hero h1 {
       font-size: clamp(2.5rem, 8vw, 4.5rem);
-      font-weight: 800;
+      font-weight: 700;
       line-height: 1.1;
       margin-bottom: 1rem;
       opacity: 0;
-      animation: fadeInUp 1.2s ease-out forwards;
+      animation: fadeInUp 1.2s ease-out 0.3s forwards;
     }
 
-    .hero p {
-      font-size: clamp(1.125rem, 3.5vw, 1.5rem);
+    .hero p.subtitle {
+      font-size: clamp(1.2rem, 4vw, 1.8rem);
       font-weight: 300;
       opacity: 0;
-      animation: fadeInUp 1.2s ease-out 0.3s forwards;
+      animation: fadeInUp 1.2s ease-out 0.6s forwards;
     }
 
     .scroll-indicator {
@@ -142,44 +129,52 @@
       flex-direction: column;
       align-items: center;
       opacity: 0;
-      animation: fadeIn 1.2s ease-out 0.6s forwards;
+      animation: fadeIn 1s ease-in 1s forwards;
     }
 
     .scroll-indicator span {
-      font-size: 0.875rem;
       margin-bottom: 0.5rem;
-      letter-spacing: 0.1em;
+      font-size: 0.875rem;
+      opacity: 0.8;
     }
 
     .scroll-indicator .arrow {
       width: 24px;
       height: 24px;
-      border-right: 2px solid white;
-      border-bottom: 2px solid white;
+      border-right: 2px solid var(--text-light);
+      border-bottom: 2px solid var(--text-light);
       transform: rotate(45deg);
       animation: bounce 2s infinite;
     }
 
-    /* Main Content */
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 0 var(--spacing-unit);
+    @media (prefers-color-scheme: dark) {
+      .scroll-indicator .arrow {
+        border-color: var(--text-dark);
+      }
     }
 
+    /* Section Styling */
     section {
-      margin-bottom: 5rem;
+      margin-bottom: 4rem;
     }
 
-    h2 {
-      font-size: clamp(1.75rem, 5vw, 2.5rem);
-      font-weight: 700;
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
       margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      font-weight: 600;
       position: relative;
       display: inline-block;
     }
 
-    h2::after {
+    .section-title::after {
       content: '';
       position: absolute;
       bottom: -8px;
@@ -188,6 +183,78 @@
       height: 4px;
       background: var(--primary-color);
       border-radius: 2px;
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      opacity: 0.8;
+    }
+
+    /* Glassmorphism Card */
+    .card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--glass-shadow);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity var(--transition-normal);
+      pointer-events: none;
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .card:hover {
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+      }
+    }
+
+    .card:active {
+      transform: scale(0.98);
+    }
+
+    /* Highlights */
+    .highlights {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .highlight-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .highlight-icon {
+      font-size: 1.5rem;
+      min-width: 2rem;
+      color: var(--primary-color);
     }
 
     /* Timeline */
@@ -199,7 +266,7 @@
     .timeline::before {
       content: '';
       position: absolute;
-      left: 0.5rem;
+      left: 0;
       top: 0;
       bottom: 0;
       width: 2px;
@@ -210,153 +277,360 @@
     .timeline-item {
       position: relative;
       margin-bottom: 3rem;
-      opacity: 0;
+      padding-left: 2rem;
     }
 
-    .timeline-item.visible {
-      opacity: 1;
-      animation: staggerFadeIn 0.8s ease-out forwards;
-    }
-
-    .timeline-day {
+    .timeline-item::before {
+      content: '';
       position: absolute;
-      left: -2rem;
-      top: 0;
-      width: 3rem;
-      height: 3rem;
-      background: var(--primary-color);
-      color: white;
+      left: -9px;
+      top: 10px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
+      background: var(--primary-color);
+      border: 3px solid var(--bg-light);
+      box-shadow: 0 0 0 2px var(--primary-color);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .timeline-item::before {
+        border-color: var(--bg-dark);
+      }
+    }
+
+    .day-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .day-number {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-transform: uppercase;
+    }
+
+    .day-date {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .day-theme {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin: 0.5rem 0;
+    }
+
+    .weather-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 50px;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    .time-block {
+      margin: 1.5rem 0;
+    }
+
+    .time-block-title {
       display: flex;
       align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 1rem;
-      z-index: 2;
-    }
-
-    .timeline-content {
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      padding: 1.5rem;
-      box-shadow: var(--card-shadow);
-      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-    }
-
-    .timeline-content:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-    }
-
-    .timeline-content:active {
-      transform: scale(0.98);
-    }
-
-    .timeline-theme {
-      font-size: 1.25rem;
-      font-weight: 600;
+      gap: 0.5rem;
       margin-bottom: 1rem;
+      font-weight: 600;
       color: var(--primary-color);
     }
 
-    .timeline-activities,
-    .timeline-tips {
-      margin-top: 1rem;
+    .activity {
+      margin-bottom: 1.5rem;
     }
 
-    .timeline-activities li,
-    .timeline-tips li {
+    .activity-time {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-bottom: 0.25rem;
+    }
+
+    .activity-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .activity-location {
+      font-size: 0.9rem;
+      opacity: 0.8;
       margin-bottom: 0.5rem;
-      padding-left: 1.25rem;
+    }
+
+    .meals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .meal-card {
+      padding: 1.25rem;
+    }
+
+    .meal-name {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .meal-recommend {
+      font-style: italic;
+      margin-bottom: 0.5rem;
+    }
+
+    .meal-price {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    /* Attractions */
+    .attractions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .attraction-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .attraction-image-container {
       position: relative;
-    }
-
-    .timeline-activities li::before,
-    .timeline-tips li::before {
-      content: '•';
-      position: absolute;
-      left: 0;
-      color: var(--primary-color);
-      font-weight: bold;
-    }
-
-    .image-placeholder {
-      background: var(--primary-color);
-      color: white;
+      margin-bottom: 1rem;
       border-radius: 12px;
-      padding: 2rem 1rem;
-      text-align: center;
-      font-size: 1.125rem;
+      overflow: hidden;
+      height: 200px;
+    }
+
+    .attraction-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .attraction-image-placeholder {
+      width: 100%;
+      height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 200px;
+      background: var(--primary-dark);
+      color: white;
+      text-align: center;
+      padding: 1rem;
     }
 
-    .image-placeholder::before {
-      font-size: 2.5rem;
-      margin-bottom: 0.75rem;
+    .attraction-name {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .attraction-highlights {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .highlight-tag {
+      background: var(--primary-light);
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
     }
 
     /* Budget Chart */
     .budget-chart {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: 1fr;
       gap: 1.5rem;
-      margin-top: 2rem;
     }
 
-    .budget-item {
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      padding: 1.5rem;
+    .budget-total {
       text-align: center;
-      box-shadow: var(--card-shadow);
-    }
-
-    .budget-amount {
-      font-size: 1.75rem;
+      font-size: 2rem;
       font-weight: 700;
-      margin: 0.5rem 0;
+      margin: 1.5rem 0;
       color: var(--primary-color);
     }
 
-    .budget-category {
-      font-size: 1rem;
-      color: var(--text-secondary);
-    }
-
-    /* Theme Toggle */
-    .theme-toggle {
-      position: fixed;
-      top: 1.5rem;
-      right: 1.5rem;
-      z-index: 100;
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      border-radius: 50%;
-      width: 48px;
-      height: 48px;
+    .budget-item {
       display: flex;
       align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: var(--card-shadow);
+      gap: 1rem;
     }
 
-    .theme-toggle svg {
-      width: 20px;
-      height: 20px;
-      fill: var(--text-primary);
+    .budget-icon {
+      font-size: 1.5rem;
+      min-width: 2rem;
+      color: var(--primary-color);
+    }
+
+    .budget-bar-container {
+      flex: 1;
+      height: 12px;
+      background: rgba(0,0,0,0.05);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .budget-bar-container {
+        background: rgba(255,255,255,0.1);
+      }
+    }
+
+    .budget-bar {
+      height: 100%;
+      background: var(--primary-color);
+      border-radius: 6px;
+      width: 0;
+      transition: width var(--transition-slow);
+    }
+
+    .budget-label {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.25rem;
+    }
+
+    .budget-category {
+      font-weight: 600;
+    }
+
+    .budget-amount {
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+
+    /* Food Guide */
+    .food-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .food-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .food-image-container {
+      position: relative;
+      margin-bottom: 1rem;
+      border-radius: 12px;
+      overflow: hidden;
+      height: 200px;
+    }
+
+    .food-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .food-image-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: var(--primary-dark);
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .food-name {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .food-price {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Practical Tips */
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .tip-category {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+
+    .tip-list {
+      list-style: none;
+    }
+
+    .tip-list li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .tip-list li {
+        border-color: rgba(255,255,255,0.1);
+      }
+    }
+
+    /* Image Styling */
+    .travel-image {
+      width: 100%;
+      height: auto;
+      max-height: 60vh;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+      margin: 1.5rem 0;
+    }
+
+    .image-placeholder {
+      width: 100%;
+      height: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: var(--primary-dark);
+      color: white;
+      border-radius: 12px;
+      margin: 1.5rem 0;
+      text-align: center;
+      padding: 1rem;
     }
 
     /* Animations */
@@ -366,17 +640,6 @@
     }
 
     @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes staggerFadeIn {
       from {
         opacity: 0;
         transform: translateY(20px);
@@ -399,219 +662,304 @@
       }
     }
 
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity var(--transition-normal), transform var(--transition-normal);
+    }
+
+    .fade-in.appear {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
       .hero {
+        height: 80vh;
         min-height: 500px;
       }
-
+      
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
       .timeline {
-        padding-left: 0;
+        padding-left: 1.5rem;
       }
-
+      
       .timeline::before {
-        left: 1.5rem;
+        left: 8px;
       }
-
-      .timeline-day {
-        left: 0;
+      
+      .timeline-item {
+        padding-left: 1.5rem;
       }
-
-      .timeline-content {
-        margin-top: 3.5rem;
+      
+      .timeline-item::before {
+        left: -5px;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Hero Section -->
   <header class="hero">
-    <img src="https://images.unsplash.com/photo-1544870075-7a28e51a4a1c?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="亚布力春日林海" loading="lazy" onerror="this.style.display='none';">
+    <img src="http://s2.zimgs.cn/ims?at=ori&amp;kt=url&amp;key=aHR0cHM6Ly9xMi5pdGMuY24vcV83MC9pbWFnZXMwMy8yMDI1MTIxMC9mZmI2M2JmNjA1MmU0OGEwOTEzNTg3ZTlkN2RjNzk1Zi5wbmc=&amp;sign=yx:niUN5Xsv_0hSBb_lVkd6Xggwu-8=&amp;tv=0_0&amp;p=" alt="春日亚布力森林秘境" onerror="this.style.display='none';">
     <div class="hero-content">
-      <h1>春日雪域余韵：情侣漫游亚布力的林海与慢时光</h1>
-      <p>五天四晚的春日之旅，避开滑雪旺季的人潮，在亚布力的融雪林海间牵手漫步，探访中东铁路遗迹，品味地道东北风味，享受轻松惬意的二人世界。</p>
+      <h1>春日亚布力：森林秘境中的情侣漫游记</h1>
+      <p class="subtitle">在五花山初绿时，邂逅最北熊猫与山林滑道</p>
     </div>
     <div class="scroll-indicator">
-      <span>SCROLL</span>
+      <span>Scroll to explore</span>
       <div class="arrow"></div>
     </div>
   </header>
 
-  <div class="theme-toggle" id="themeToggle" aria-label="切换深色/浅色模式">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
-      <path d="M20 12a8 8 0 1 1-16 0 8 8 0 0 1 16 0z" fill="none" stroke="currentColor" stroke-width="2" />
-    </svg>
-  </div>
-
-  <main class="container">
-    <section class="timeline" id="timeline">
-      <h2>每日行程</h2>
-      <!-- Timeline items will be inserted by JS -->
-    </section>
-
-    <section class="budget" id="budget">
-      <h2>预算概览</h2>
-      <div class="budget-chart" id="budgetChart">
-        <!-- Budget items will be inserted by JS -->
+  <div class="container">
+    <!-- Summary -->
+    <section class="fade-in">
+      <div class="card">
+        <p>当五月的春风轻抚亚布力的山峦，这片以滑雪闻名的秘境悄然换上新装——三锅盔山间新绿初绽，山花烂漫，森林覆盖率高达96%的原始林海化作天然氧吧。这趟专为情侣设计的五日轻旅行，将带您漫步于锅盔山的晨雾中，邂逅中国最北熊猫馆里的国宝萌态；在2680米的世界第一滑道上，俯瞰连绵五花山的春色画卷；夜幕降临时，于森林温泉中仰望星空，或在青云小镇的铁锅炖香气里品味地道东北风味。行程节奏舒缓，融合自然徒步、文化探访与美食DIY，让春日的亚布力成为你们二人世界的温柔注脚。</p>
       </div>
     </section>
-  </main>
 
-  <script>
-    // Theme color generation based on keywords
-    const title = "春日雪域余韵：情侣漫游亚布力的林海与慢时光";
-    let hue = 120; // default green for forest
-    if (title.includes('雪') || title.includes('冰') || title.includes('极光')) {
-      hue = 180; // cyan for snow/ice
-    } else if (title.includes('沙漠') || title.includes('戈壁')) {
-      hue = 30; // warm orange for desert
-    } else if (title.includes('古镇') || title.includes('京都')) {
-      hue = 0; // red for traditional
-    }
-    document.documentElement.style.setProperty('--primary-h', hue);
-
-    // Theme toggle
-    const themeToggle = document.getElementById('themeToggle');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    let currentTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
-    
-    function setTheme(theme) {
-      if (theme === 'dark') {
-        document.documentElement.classList.add('dark');
-        themeToggle.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="currentColor"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m12.73 12.73l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m12.73-12.73l1.41-1.41" stroke="currentColor" stroke-width="2" fill="none"/></svg>';
-      } else {
-        document.documentElement.classList.remove('dark');
-        themeToggle.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M20 12a8 8 0 1 1-16 0 8 8 0 0 1 16 0z" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
-      }
-      localStorage.setItem('theme', theme);
-    }
-    
-    setTheme(currentTheme);
-    
-    themeToggle.addEventListener('click', () => {
-      currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      setTheme(currentTheme);
-    });
-
-    // Daily plan data
-    const dailyPlan = [{"day": 1, "date": "2026-05-01", "theme": "抵达林海，初遇春日亚布力", "activities": ["乘坐高铁抵达哈尔滨站，转乘旅游专线或包车前往亚布力（约2.5小时）", "入住度假区内特色木屋或温泉酒店，稍作休整后在度假区森林步道轻徒步"], "transport": "高铁 + 包车/旅游专线", "meals": ["高铁简餐或哈尔滨站内快餐", "亚布力当地农家菜（推荐锅包肉、小鸡炖蘑菇）", "酒店内晚餐或度假区特色铁锅炖"], "tips": "春季早晚温差大，建议携带防风外套；提前预订包车服务更省心。", "image_url": "https://images.unsplash.com/photo-1504283520939-2e7e3a5e8b8a?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=1200&amp;q=80"}, {"day": 2, "date": "2026-05-02", "theme": "林海踏青与铁路记忆", "activities": ["清晨漫步亚布力国家森林公园，欣赏融雪后的新绿与溪流", "探访中东铁路亚布力站旧址，了解百年铁路文化"], "transport": "步行 + 度假区内接驳车", "meals": ["酒店自助早餐", "森林公园附近农家乐（推荐山野菜、笨鸡蛋）", "返回度假区享用东北烧烤或饺子宴"], "tips": "森林公园部分区域可能因融雪湿滑，建议穿防滑徒步鞋；铁路旧址无明确开放时间，建议白天前往。", "image_url": "https://images.unsplash.com/photo-1511497584788-876760111969?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=1200&amp;q=80"}, {"day": 3, "date": "2026-05-03", "theme": "温泉疗愈与慢食时光", "activities": ["上午体验亚布力森林温泉，享受春日暖阳下的私密泡汤时光", "下午在度假区咖啡馆或书吧阅读、拍照，享受二人静谧时光"], "transport": "步行", "meals": ["酒店早餐", "温泉酒店简餐或轻食", "尝试当地特色杀猪菜（可选清淡版）或锅烙"], "tips": "温泉建议选择带私汤的房型，更私密浪漫；杀猪菜口味较重，可提前说明少油少盐。", "image_url": "https://images.unsplash.com/photo-1544870075-7a28e51a4a1c?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=1200&amp;q=80"}, {"day": 4, "date": "2026-05-04", "theme": "周边文化探访与山野风味", "activities": ["包车前往尚志市，参观赵尚志纪念馆，感受东北抗联历史", "返程途中采摘春季山野菜（如蒲公英、柳蒿芽），体验林区生活"], "transport": "包车", "meals": ["酒店早餐", "尚志市区东北菜馆（推荐地三鲜、酸菜白肉）", "回程途中农家晚餐，品尝自采野菜炒制菜肴"], "tips": "纪念馆周一可能闭馆，建议提前确认；采摘野菜请在向导带领下进行，避免误采。", "image_url": "https://images.unsplash.com/photo-1506260408121-e353d10b87c7?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=1200&amp;q=80"}, {"day": 5, "date": "2026-05-05", "theme": "告别林海，返程归途", "activities": ["晨起在度假区湖边散步，拍摄春日晨光中的林影", "退房后乘车返回哈尔滨，可选择在哈尔滨站附近品尝俄式西餐后返程"], "transport": "包车 + 高铁", "meals": ["酒店早餐", "哈尔滨站附近华梅西餐厅或塔道斯西餐厅", "高铁途中简餐"], "tips": "返程高铁票建议提前购买；俄式餐厅节假日可能排队，可提前预约。", "image_url": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=1200&amp;q=80"}];
-
-    // Budget data
-    const budgetBreakdown = [{"category": "住宿", "amount": 2400, "unit": "CNY"}, {"category": "交通", "amount": 1200, "unit": "CNY"}, {"category": "餐饮", "amount": 1000, "unit": "CNY"}, {"category": "门票", "amount": 200, "unit": "CNY"}, {"category": "其他", "amount": 600, "unit": "CNY"}];
-
-    // Render timeline
-    const timelineEl = document.getElementById('timeline');
-    dailyPlan.forEach((day, index) => {
-      const itemEl = document.createElement('div');
-      itemEl.className = 'timeline-item';
-      itemEl.style.animationDelay = `${index * 0.15}s`;
-      
-      let imageHtml = '';
-      if (day.image_url) {
-        imageHtml = `<img src="${day.image_url}" alt="${day.theme}" loading="lazy" onerror="this.parentElement.querySelector('.image-placeholder').style.display='flex'; this.style.display='none';">`;
-      }
-      
-      let tipsHtml = '';
-      if (day.tips) {
-        tipsHtml = `
-          <div class="timeline-tips">
-            <h3>实用贴士</h3>
-            <ul>
-              <li>${day.tips}</li>
-            </ul>
-          </div>
-        `;
-      }
-      
-      itemEl.innerHTML = `
-        <div class="timeline-day">DAY ${day.day}</div>
-        <div class="timeline-content">
-          ${imageHtml}
-          <div class="image-placeholder" style="display: ${day.image_url ? 'none' : 'flex'};">
-            <span>🌄</span>
-            <span>Day ${day.day}: ${day.theme}</span>
-          </div>
-          <h3 class="timeline-theme">${day.theme}</h3>
-          <div class="timeline-activities">
-            <h3>今日行程</h3>
-            <ul>
-              ${day.activities.map(activity => `<li>${activity}</li>`).join('')}
-            </ul>
-          </div>
-          ${tipsHtml}
+    <!-- Trip Highlights -->
+    <section class="fade-in">
+      <div class="section-header">
+        <h2 class="section-title">旅程亮点</h2>
+      </div>
+      <div class="highlights">
+        <div class="highlight-item">
+          <div class="highlight-icon">🌲</div>
+          <div>漫步五花山春林，呼吸高负氧离子空气，享受私密二人时光</div>
         </div>
-      `;
-      
-      timelineEl.appendChild(itemEl);
-    });
+        <div class="highlight-item">
+          <div class="highlight-icon">🐼</div>
+          <div>探访中国最北熊猫馆，与大熊猫‘思嘉’‘佑佑’共度春日晨光</div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-icon">🎢</div>
+          <div>体验2680米世界第一滑道，穿梭原始森林，俯瞰山花烂漫</div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-icon">♨️</div>
+          <div>森林温泉夜话，在春夜星空下放松身心，浪漫升级</div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-icon">🥟</div>
+          <div>亲手包制东北饺子，品味铁锅炖与杀猪菜的醇厚乡情</div>
+        </div>
+      </div>
+    </section>
 
-    // Render budget
-    const budgetChartEl = document.getElementById('budgetChart');
-    const totalAmount = budgetBreakdown.reduce((sum, item) => sum + item.amount, 0);
-    
-    budgetBreakdown.forEach(item => {
-      const budgetItemEl = document.createElement('div');
-      budgetItemEl.className = 'budget-item';
-      
-      // Count-up animation
-      const amountEl = document.createElement('div');
-      amountEl.className = 'budget-amount';
-      amountEl.textContent = '0';
-      
-      budgetItemEl.innerHTML = `
-        <div class="budget-category">${item.category}</div>
-      `;
-      budgetItemEl.appendChild(amountEl);
-      
-      budgetChartEl.appendChild(budgetItemEl);
-      
-      // Start count-up animation when in view
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            let start = 0;
-            const end = item.amount;
-            const duration = 1500;
-            const increment = end / (duration / 16);
-            
-            const timer = setInterval(() => {
-              start += increment;
-              if (start >= end) {
-                amountEl.textContent = `${item.unit}${end}`;
-                clearInterval(timer);
-              } else {
-                amountEl.textContent = `${item.unit}${Math.ceil(start)}`;
-              }
-            }, 16);
-            
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1 });
-      
-      observer.observe(amountEl);
-    });
+    <!-- Destination Overview -->
+    <section class="fade-in">
+      <div class="section-header">
+        <h2 class="section-title">目的地概览</h2>
+        <p class="section-subtitle">黑龙江省哈尔滨市亚布力滑雪旅游度假区</p>
+      </div>
+      <div class="card">
+        <p>亚布力滑雪旅游度假区位于黑龙江省哈尔滨市尚志市，距哈尔滨市区约193公里，是中国最早、规模最大的综合性滑雪度假区。这里由大锅盔山、二锅盔山和三锅盔山三座山峰组成，森林覆盖率高达96%，负氧离子含量极高。虽然以冬季滑雪闻名，但春季（5月）正值五花山初绿、山花烂漫时节，可体验森林徒步、熊猫馆探访、世界第一滑道等非雪季项目，是情侣轻松度假、亲近自然的理想之地。</p>
+      </div>
+      <div class="highlights" style="margin-top: 1.5rem;">
+        <div class="highlight-item">
+          <div class="highlight-icon">🎢</div>
+          <div>乘坐2680米世界第一滑道，俯瞰原始森林</div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-icon">🐼</div>
+          <div>探访中国最北熊猫馆</div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-icon">♨️</div>
+          <div>森林温泉放松身心</div>
+        </div>
+      </div>
+    </section>
 
-    // Scroll-triggered animations
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.timeline-item').forEach(item => {
-      observer.observe(item);
-    });
-
-    // Smooth scroll for arrow
-    document.querySelector('.scroll-indicator').addEventListener('click', () => {
-      window.scrollTo({
-        top: document.querySelector('.container').offsetTop - 20,
-        behavior: 'smooth'
-      });
-    });
-  </script>
-</body>
-</html>
+    <!-- Daily Plan Timeline -->
+    <section class="fade-in">
+      <div class="section-header">
+        <h2 class="section-title">每日行程</h2>
+        <p class="section-subtitle">5天4晚 · 2026-05-01 至 2026-05-05</p>
+      </div>
+      <div class="timeline">
+        <!-- Day 1 -->
+        <div class="timeline-item">
+          <div class="day-header">
+            <div class="day-number">Day 01</div>
+            <div class="day-date">2026-05-01</div>
+          </div>
+          <h3 class="day-theme">抵达与森林初探</h3>
+          <p>抵达亚布力，入住度假村，傍晚漫步森林步道，感受春日山林的静谧与清新。</p>
+          
+          <div class="weather-badge">
+            <span>⛅</span>
+            <span>8-18℃ · 早晚温差大，备薄外套</span>
+          </div>
+          
+          <div class="time-block">
+            <div class="time-block-title">🌅 上午 · 08:00-12:00</div>
+            <div class="activity">
+              <div class="activity-time">08:00-10:00</div>
+              <div class="activity-title">杭州东站乘高铁至哈尔滨</div>
+              <div class="activity-location">杭州东站</div>
+              <p>乘坐G字头高铁前往哈尔滨，沿途欣赏华北至东北的春日风光，预计10小时左右抵达。</p>
+            </div>
+          </div>
+          
+          <div class="time-block">
+            <div class="time-block-title">🌤 下午 · 14:00-18:00</div>
+            <div class="activity">
+              <div class="activity-time">14:00-15:00</div>
+              <div class="activity-title">哈尔滨站转乘亚布力专列</div>
+              <div class="activity-location">哈尔滨站</div>
+              <p>乘坐高铁前往亚布力西站，1小时车程，沿途可欣赏松嫩平原春景。</p>
+            </div>
+            <div class="activity">
+              <div class="activity-time">15:30-16:30</div>
+              <div class="activity-title">抵达度假区并入住</div>
+              <div class="activity-location">亚布力阳光度假村</div>
+              <p>打车前往度假村，办理入住，稍作休息。</p>
+            </div>
+          </div>
+          
+          <div class="time-block">
+            <div class="time-block-title">🌙 晚上 · 18:00-21:00</div>
+            <div class="activity">
+              <div class="activity-time">18:30-20:00</div>
+              <div class="activity-title">东北特色晚餐</div>
+              <div class="activity-location">尔滨私房菜</div>
+              <p>在度假村内餐厅品尝地道东北菜，如小鸡炖蘑菇、锅包肉、山野菜等，体验东北饮食文化。</p>
+            </div>
+            <div class="activity">
+              <div class="activity-time">20:00-21:00</div>
+              <div class="activity-title">森林步道夜游</div>
+              <div class="activity-location">度假村周边步道</div>
+              <p>饭后漫步森林步道，呼吸高负氧离子空气，仰望星空，享受二人世界。</p>
+            </div>
+          </div>
+          
+          <div class="meals-grid">
+            <div class="meal-card card">
+              <div class="meal-name">酒店自助早餐</div>
+              <div class="meal-recommend">中式热粥、煎蛋、面包</div>
+              <div class="meal-price">50元/人 · 住宿酒店</div>
+              <p>清晨在山景环绕中享用温暖早餐，开启旅程</p>
+            </div>
+            <div class="meal-card card">
+              <div class="meal-name">高铁简餐</div>
+              <div class="meal-recommend">盒饭</div>
+              <div class="meal-price">40元/人 · 杭州东站-哈尔滨站</div>
+              <p>高铁上简单用餐，欣赏沿途春色</p>
+            </div>
+            <div class="meal-card card">
+              <div class="meal-name">尔滨私房菜</div>
+              <div class="meal-recommend">锅包肉、东北乱炖</div>
+              <div class="meal-price">70元/人 · 亚布力阳光度假村亚布洛尼酒店一层</div>
+              <p>酸甜酥脆的锅包肉搭配浓郁乱炖，是初抵亚布力最温暖的味蕾慰藉</p>
+            </div>
+          </div>
+          
+          <div class="card" style="margin-top: 1.5rem;">
+            <div><strong>交通方式:</strong> 高铁+打车</div>
+            <div><strong>详细说明:</strong> 杭州东→哈尔滨站→亚布力西站→度假村，全程约12小时</div>
+          </div>
+          
+          <div class="card" style="margin-top: 1rem;">
+            <div><strong>住宿:</strong> 亚布力阳光度假村 · 高端度假酒店 · 800元/晚</div>
+            <p>沐云楼山顶酒店坐拥绝佳山景视野，设施齐全，适合情侣私密度假</p>
+          </div>
+          
+          <img src="http://s2.zimgs.cn/ims?at=ori&amp;kt=url&amp;key=aHR0cHM6Ly9xMi5pdGMuY24vcV83MC9pbWFnZXMwMy8yMDI1MTIxMC9jMDI2OGU3OTA1MGM0Njg3YmQ0ZDFhMTVmZDE5ODhkNC5wbmc=&amp;sign=yx:lUMhDPC1PuvdUHyRJCmlze7AMvA=&amp;tv=0_0&amp;p=" alt="Day 1: 抵达与森林初探" class="travel-image" onerror="this.outerHTML='<div class=\"image-placeholder\">🌄 Day 1: 抵达与森林初探</div>';">
+          
+          <div class="highlights" style="margin-top: 1rem;">
+            <div class="highlight-item">
+              <div class="highlight-icon">💡</div>
+              <div>5月亚布力日均温10-20℃，早晚温差大</div>
+            </div>
+            <div class="highlight-item">
+              <div class="highlight-icon">💡</div>
+              <div>非滑雪季，度假村人流较少，体验更私密</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Day 2 -->
+        <div class="timeline-item">
+          <div class="day-header">
+            <div class="day-number">Day 02</div>
+            <div class="day-date">2026-05-02</div>
+          </div>
+          <h3 class="day-theme">熊猫与滑道奇遇</h3>
+          <p>探访中国最北熊猫馆，体验世界第一滑道，感受速度与萌趣的奇妙结合。</p>
+          
+          <div class="weather-badge">
+            <span>☀️</span>
+            <span>10-20℃ · 阳光充足，注意防晒</span>
+          </div>
+          
+          <div class="time-block">
+            <div class="time-block-title">🌅 上午 · 08:00-12:00</div>
+            <div class="activity">
+              <div class="activity-time">08:30-10:30</div>
+              <div class="activity-title">亚布力熊猫馆</div>
+              <div class="activity-location">度假区内</div>
+              <p>观看大熊猫“思嘉”和“佑佑”在户外活动区进食、嬉戏，了解熊猫保育知识。</p>
+            </div>
+          </div>
+          
+          <div class="time-block">
+            <div class="time-block-title">🌤 下午 · 14:00-18:00</div>
+            <div class="activity">
+              <div class="activity-time">14:00-16:00</div>
+              <div class="activity-title">滑道体验</div>
+              <div class="activity-location">亚布力阳光度假村</div>
+              <p>乘坐缆车上山，体验2680米滑道，俯瞰五花山春色，感受山林穿梭的快感。</p>
+            </div>
+          </div>
+          
+          <div class="time-block">
+            <div class="time-block-title">🌙 晚上 · 18:00-21:00</div>
+            <div class="activity">
+              <div class="activity-time">19:00-21:00</div>
+              <div class="activity-title">亚布力森林温泉</div>
+              <div class="activity-location">度假区内</div>
+              <p>在露天富硒温泉中放松身心，享受春夜山林的静谧，缓解一日游玩的疲劳。</p>
+            </div>
+          </div>
+          
+          <div class="meals-grid">
+            <div class="meal-card card">
+              <div class="meal-name">酒店自助早餐</div>
+              <div class="meal-recommend">东北小米粥、煎饺</div>
+              <div class="meal-price">50元/人 · 住宿酒店</div>
+              <p>晨光中享用热腾腾的东北早餐，为熊猫探访储备能量</p>
+            </div>
+            <div class="meal-card card">
+              <div class="meal-name">印象·亚布力</div>
+              <div class="meal-recommend">手工饺子</div>
+              <div class="meal-price">50元/人 · 亚布力阳光度假村阳光假日酒店二层</div>
+              <p>鲜香多汁的饺子搭配清爽小菜，是滑道前的轻盈选择</p>
+            </div>
+            <div class="meal-card card">
+              <div class="meal-name">度假村简餐</div>
+              <div class="meal-recommend">温泉套餐</div>
+              <div class="meal-price">80元/人 · 森林温泉餐厅</div>
+              <p>温泉后的简餐以清淡为主，搭配当地山野菜，舒缓身心</p>
+            </div>
+          </div>
+          
+          <div class="card" style="margin-top: 1.5rem;">
+            <div><strong>交通方式:</strong> 步行+度假村接驳车</div>
+            <div><strong>详细说明:</strong> 景点间距离近，步行或接驳车即可</div>
+          </div>
+          
+          <div class="card" style="margin-top: 1rem;">
+            <div><strong>住宿:</strong> 亚布力阳光度假村 · 高端度假酒店 · 800元/晚</div>
+            <p>延续首日住宿，享受连贯的度假体验</p>
+          </div>
+          
+          <img src="http://s2.zimgs.cn/ims?at=ori&amp;kt=url&amp;key=aHR0cHM
