@@ -15,23 +15,36 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           persist-credentials: false
 
-      # ✅ 关键：通过 env 安全注入多行内容
+      # ✅ 根据 mode 参数决定追加还是覆盖
       - name: Write HTML and CSS safely
         env:
           HTML_CONTENT: ${{ github.event.client_payload.html }}
           CSS_CONTENT: ${{ github.event.client_payload.css }}
+          DEPLOY_MODE: ${{ github.event.client_payload.mode }}
         run: |
           if [ -z "$HTML_CONTENT" ]; then
             echo "❌ ERROR: html field is empty or missing!"
             exit 1
           fi
 
-          # 使用 here-string 写入（最安全）
-          cat <<< "$HTML_CONTENT" > index.html
-          cat <<< "$CSS_CONTENT" > style.css
+          # 默认为 overwrite 模式
+          DEPLOY_MODE="${DEPLOY_MODE:-overwrite}"
+          echo "📋 Deploy mode: $DEPLOY_MODE"
 
-          echo "✅ Wrote index.html ($(wc -c < index.html) bytes)"
-          echo "✅ Wrote style.css ($(wc -c < style.css) bytes)"
+          if [ "$DEPLOY_MODE" = "append" ]; then
+            # 追加模式：保留原有内容，追加新内容
+            cat <<< "$HTML_CONTENT" >> index.html
+            cat <<< "$CSS_CONTENT" >> style.css
+            echo "➕ Appended content to existing files"
+          else
+            # 覆盖模式：替换全部内容
+            cat <<< "$HTML_CONTENT" > index.html
+            cat <<< "$CSS_CONTENT" > style.css
+            echo "🔄 Replaced all content"
+          fi
+
+          echo "✅ index.html ($(wc -c < index.html) bytes)"
+          echo "✅ style.css ($(wc -c < style.css) bytes)"
 
       - name: Commit and push
         env:
@@ -40,6 +53,6 @@ jobs:
           git config user.name "AgentOne Bot"
           git config user.email "agentone@users.noreply.github.com"
           git add index.html style.css
-          git commit -m "Deploy by AgentOne"
+          git diff --staged --quiet || git commit -m "Deploy by AgentOne"
           git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/Cangliu/travel_output.git
           git push
